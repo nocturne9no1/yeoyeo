@@ -1,0 +1,9 @@
+{
+  "router": {
+    "main": "홈",
+    "intro": "인트로",
+    "service": "서비스",
+    "room": "방",
+    "reservation": "예약하기"
+  }
+}
