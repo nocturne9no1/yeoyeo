@@ -4,7 +4,7 @@ function Main() {
   const { t } = useTranslation("test");
 
   return (
-    <div>
+    <div className="main-wrap">
       Main
       <span>{t("test")}</span>
     </div>
