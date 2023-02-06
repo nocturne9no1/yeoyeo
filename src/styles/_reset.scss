@@ -90,6 +90,7 @@ video {
   font: inherit;
   font-size: 100%;
   vertical-align: baseline;
+  color: black;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -140,4 +141,19 @@ button {
   padding: 0;
   background-color: transparent;
   cursor: pointer;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+img {
+  display: block;
 }

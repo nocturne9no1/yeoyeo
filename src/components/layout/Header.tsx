@@ -3,9 +3,13 @@ import { NavLink } from "react-router-dom";
 import { ReactComponent as IcoHamburger } from "@icons/ico_hamburger.svg";
 import i18next, { changeLanguage } from "i18next";
 
+// components
+import SNB from "./SNB";
+
 function Header(): ReactElement {
   const [lang, setLang] = useState<string>(i18next.language);
   const [scroll, setScroll] = useState(false);
+  const [isSNB, setIsSNB] = useState<boolean>(false);
 
   const headerRef = useRef<HTMLDivElement>(null);
 
@@ -36,19 +40,22 @@ function Header(): ReactElement {
   }, []);
 
   return (
-    <div className={`header-wrap ${scroll ? "scroll" : "top"}`} ref={headerRef}>
-      <div className="header">
-        <button type="button" aria-label="SNB button">
-          <IcoHamburger />
-        </button>
-        <h1 className="logo">
-          <NavLink to="/">logo</NavLink>
-        </h1>
-        <button type="button" aria-label="language button" className="lang-btn" onClick={() => handleLang()}>
-          {lang}
-        </button>
+    <>
+      <div className={`header-wrap ${scroll ? "scroll" : "top"}`} ref={headerRef}>
+        <div className="header">
+          <button type="button" aria-label="SNB button" onClick={() => setIsSNB(!isSNB)}>
+            <IcoHamburger />
+          </button>
+          <h1 className="logo">
+            <NavLink to="/">logo</NavLink>
+          </h1>
+          <button type="button" aria-label="language button" className="lang-btn" onClick={() => handleLang()}>
+            {lang}
+          </button>
+        </div>
       </div>
-    </div>
+      <SNB open={isSNB} setOpen={setIsSNB} />
+    </>
   );
 }
 
