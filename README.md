@@ -15,14 +15,12 @@ yarn start
 ## 폴더구조
 
 ```
-project
+yeoyeo
 │   README.md
 │   ... 
-└───public
-│   └───subfolder1
-│       │   file11
+└───public 
 └───src
-    └───componentes
+    └───components
     └───pages
     └───styles
     └───utils

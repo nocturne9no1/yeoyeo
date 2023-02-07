@@ -2,5 +2,12 @@
 @import "./reset";
 @import "./variables";
 
+// layout
+@import "./layout/layout.scss";
+@import "./layout/header.scss";
+
+// pages
+@import "./pages/main.scss";
+
 // room 관련 scss
 @import "./room.scss";
