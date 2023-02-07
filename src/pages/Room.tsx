@@ -1,5 +1,13 @@
+// import { useState, useEffect } from "react";
+
 function Room() {
-  return <div>Room</div>;
+  // const [cnt, setCnt] = useState<number>(0);
+
+  return (
+    <div>
+      <span className="my-span">room</span>
+    </div>
+  );
 }
 
 export default Room;
