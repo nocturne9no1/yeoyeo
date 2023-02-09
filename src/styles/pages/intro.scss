@@ -1,16 +1,17 @@
 .intro-wrap {
-  height: 130vh;
+  height: 100vh;
   width: 100vw;
-  padding-top: 73px;
+  // padding-top: 73px;
   background-image: url("../../assets/images/intro/hanok.png");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: 50% 50%;
   display: flex;
   justify-content: center;
   overflow-x: hidden;
   .contents-section {
     max-width: 1280px;
-    margin: 0 auto;
+    margin: 73px auto 0;
     padding-left: 15px;
     padding-right: 15px;
     width: 100%;
@@ -30,6 +31,8 @@
         p {
           text-align: right;
           line-height: 1.625rem;
+          white-space: pre-line;
+          color: white;
         }
       }
     }
