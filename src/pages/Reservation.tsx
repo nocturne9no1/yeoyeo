@@ -1,5 +1,9 @@
+import cn from "classnames";
+
+
+
 function Reservation() {
-  return <div>Reservation</div>;
+  return <div className={cn("reservation-wrap")}>Reservation</div>;
 }
 
 export default Reservation;
