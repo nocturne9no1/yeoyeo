@@ -1,49 +1,17 @@
 // import { useTranslation } from "react-i18next";
 import { gsap } from "gsap";
-import { useEffect } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CSSPlugin } from "gsap/CSSPlugin";
+import { useLayoutEffect, useRef } from "react";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { CSSPlugin } from "gsap/CSSPlugin";
 
-gsap.registerPlugin(ScrollTrigger, CSSPlugin);
+// gsap.registerPlugin(ScrollTrigger, CSSPlugin);
 function Intro() {
+  const boxRef = useRef(null);
+
   // const { t } = useTranslation("common");
-  useEffect(() => {
-    // gsap.utils.toArray(".panel").forEach((panel, i) => {
-    //   ScrollTrigger.create({
-    //     trigger: panel,
-    //     start: "top top",
-    //     pin: true,
-    //     pinSpacing: false,
-    //   });
-    // });
-    gsap.registerPlugin(ScrollTrigger, CSSPlugin);
-    ScrollTrigger.defaults({
-      toggleActions: "restart pause resume pause",
-      scroller: ".container",
-    });
-
-    gsap.to(".orange", {
-      scrollTrigger: ".orange",
-      duration: 2,
-      rotation: 360,
-    });
-
-    gsap.to(".red", {
-      scrollTrigger: {
-        trigger: ".red",
-        toggleActions: "restart pause reverse pause",
-      },
-      duration: 1,
-      backgroundColor: "#FFA500",
-      ease: "none",
-    });
-
-    gsap.to(".yoyo p", {
-      scrollTrigger: ".yoyo",
-      scale: 2,
-      repeat: -1,
-      yoyo: true,
-      ease: "power2",
+  useLayoutEffect(() => {
+    gsap.to(boxRef.current, {
+      rotation: "+=180",
     });
   }, []);
   return (
@@ -77,21 +45,11 @@ function Intro() {
     //     </div> */}
     //   </div>
     // </div>
-    <>
-      <div className="description panel blue">
-        <div>
-          <h1>Layered pinning</h1>
-          <p>Use pinning to layer panels on top of each other as you scroll.</p>
-          {/* <div className="scroll-down">
-            Scroll down<div className="arrow"></div>
-          </div> */}
-        </div>
-      </div>
-      <section className="panel red">ONE</section>
-      <section className="panel orange">TWO</section>
-      <section className="panel purple">THREE</section>
-      <section className="panel green">FOUR</section>
-    </>
+    // <div className="App">
+    <div className="box" ref={boxRef}>
+      Hello
+    </div>
+    // </div>
   );
 }
 
