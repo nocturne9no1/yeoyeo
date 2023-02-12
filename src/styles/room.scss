@@ -1,15 +1,45 @@
-.banner-img-wrap {
-  height: 100vh;
-  overflow: hidden;
-  background-image: url(../assets/@temp/yeoyeo_outside.jpg);
-  // background-size: cover;
-}
-
 .room-wrap {
-  display: flex;
-  flex-direction: column;
-  width: 1280px;
-  background-color: pink;
-  margin-left: auto;
-  margin-right: auto;
+  background-color: #f5f4f0;
+  .banner-img-wrap {
+    height: 100vh;
+    overflow: hidden;
+    // background-image: url(../assets/@temp/yeoyeo_outside.jpg);
+    // background-size: cover;
+    img {
+      // height: 100vh;
+      width: 100%;
+      object-fit: fill;
+      width: auto;
+    }
+  }
+
+  .room-inner {
+    padding: 0 30px;
+    width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+
+    .room-padding {
+      height: 60px;
+    }
+
+    .divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30px;
+
+      .divider-line {
+        height: 1px;
+        width: 100%;
+        background-color: #e5e7eb;
+      }
+    }
+
+    .floor-plan {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
