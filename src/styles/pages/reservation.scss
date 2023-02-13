@@ -1,0 +1,79 @@
+.reservation-wrap {
+  margin-top: 73px;
+  padding-top: 40px;
+
+  .reservation-inner {
+    max-width: 1240px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.date-picker-wrap {
+  display: flex;
+  // justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .calendar-wrap {
+    width: 800px;
+    padding: 12px;
+
+    .calendar-header {
+      padding: 12px 0;
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        width: 120px;
+      }
+    }
+
+    .calendar {
+      width: 100%;
+      border: 1px solid black;
+
+      thead {
+        tr {
+          border-bottom: 1px solid black;
+          th {
+            width: calc(100% / 7);
+            padding: 8px 0;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            height: 40px;
+            padding: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            &:hover {
+              background-color: #d0d0d0;
+            }
+
+            &.selected {
+              background-color: #202020 !important;
+              color: #fff;
+            }
+
+            &.between-day {
+              background-color: antiquewhite;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .input-wrap {
+    margin-top: 24px;
+
+    input + input {
+      margin-left: 12px;
+    }
+  }
+}
