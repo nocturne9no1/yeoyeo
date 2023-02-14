@@ -1,20 +1,21 @@
 .intro-wrap {
-  height: 100vh;
+  height: 200vh;
   width: 100vw;
   // padding-top: 73px;
   background-image: url("../../assets/images/intro/hanok.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50% 50%;
-  display: flex;
-  justify-content: center;
+  // display: flex;
+  // justify-content: center;
   overflow-x: hidden;
   .contents-section {
+    width: 100%;
     max-width: 1280px;
+    height: calc(100vh - 73px);
     margin: 73px auto 0;
     padding-left: 15px;
     padding-right: 15px;
-    width: 100%;
     display: flex;
     flex-direction: column;
     .top {
@@ -72,5 +73,246 @@
         background-position: 99% 50%;
       }
     }
+  }
+  .routing-section {
+    width: 100%;
+    min-height: 100vh;
+    max-height: auto;
+    max-width: 1280px;
+    height: fit-content;
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: #181818;
+    .container {
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(150px, auto);
+      grid-gap: 0.5rem;
+      padding: 5rem;
+      // grid-template-areas:
+      //   "home image1 room image2"
+      //   "home service room reservation"
+      //   "image3 service image4 reservation";
+      img {
+        width: 100%;
+        height: 100%;
+        max-height: 300px;
+        object-fit: cover;
+      }
+      .grid-service {
+        grid-column: 1 / 4;
+        grid-row: 1 / 2;
+      }
+      .grid-image1 {
+        grid-column: 4 / 5;
+        grid-row: 1 / 2;
+      }
+      .grid-room {
+        grid-column: 2 / 5;
+        grid-row: 2 / 3;
+      }
+      .grid-image2 {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+      }
+
+      .grid-reservation {
+        grid-column: 1 / 4;
+        grid-row: 3 / 4;
+      }
+      .grid-image3 {
+        grid-column: 4 / 5;
+        grid-row: 3 / 4;
+      }
+      @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,700);
+      .snip1273 {
+        font-family: "Raleway", Arial, sans-serif;
+        position: relative;
+        // margin: 10px;
+        // min-width: 310px -60px;
+        // max-width: 310px;
+        width: 100%;
+        color: #ffffff;
+        text-align: left;
+        background-color: #000000;
+        font-size: 16px;
+      }
+      .snip1273 * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: all 0.4s ease-in;
+        transition: all 0.4s ease-in;
+      }
+      .snip1273 img {
+        position: relative;
+        max-width: 100%;
+        vertical-align: top;
+      }
+      .snip1273 figcaption {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        opacity: 0;
+        padding: 20px 30px;
+      }
+      .snip1273 figcaption:before,
+      .snip1273 figcaption:after {
+        width: 1px;
+        height: 0;
+      }
+      .snip1273 figcaption:before {
+        right: 0;
+        top: 0;
+      }
+      .snip1273 figcaption:after {
+        left: 0;
+        bottom: 0;
+      }
+      .snip1273 h3,
+      .snip1273 p {
+        line-height: 1.5em;
+      }
+      .snip1273 h3 {
+        margin: 0 0 5px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .snip1273 p {
+        font-size: 0.8em;
+        font-weight: 500;
+        margin: 0 0 15px;
+      }
+      .snip1273 a {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 1;
+      }
+      .snip1273:before,
+      .snip1273:after,
+      .snip1273 figcaption:before,
+      .snip1273 figcaption:after {
+        position: absolute;
+        content: "";
+        background-color: #ffffff;
+        z-index: 1;
+        -webkit-transition: all 0.4s ease-in;
+        transition: all 0.4s ease-in;
+        opacity: 0.8;
+      }
+      .snip1273:before,
+      .snip1273:after {
+        height: 1px;
+        width: 0%;
+      }
+      .snip1273:before {
+        top: 0;
+        left: 0;
+      }
+      .snip1273:after {
+        bottom: 0;
+        right: 0;
+      }
+      .snip1273:hover img,
+      .snip1273.hover img {
+        opacity: 0.4;
+      }
+      .snip1273:hover figcaption,
+      .snip1273.hover figcaption {
+        opacity: 1;
+        cursor: pointer;
+      }
+      .snip1273:hover figcaption:before,
+      .snip1273.hover figcaption:before,
+      .snip1273:hover figcaption:after,
+      .snip1273.hover figcaption:after {
+        height: 100%;
+      }
+      .snip1273:hover:before,
+      .snip1273.hover:before,
+      .snip1273:hover:after,
+      .snip1273.hover:after {
+        width: 100%;
+      }
+      .snip1273:hover:before,
+      .snip1273.hover:before,
+      .snip1273:hover:after,
+      .snip1273.hover:after,
+      .snip1273:hover figcaption:before,
+      .snip1273.hover figcaption:before,
+      .snip1273:hover figcaption:after,
+      .snip1273.hover figcaption:after {
+        opacity: 0.1;
+      }
+    }
+  }
+}
+
+@include md {
+  .intro-wrap {
+    .contents-section {
+      padding-left: 15px;
+      padding-right: 30px;
+      // width: 500px;
+    }
+  }
+}
+
+.intro {
+  margin: 0;
+  overflow-y: hidden;
+  .section-wrap {
+    height: 100vh;
+    overflow-y: auto;
+    position: relative;
+    .section {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 100px;
+      position: absolute;
+      &.bg-yellow {
+        background-color: #f7f6cf;
+        top: 0;
+        z-index: 1;
+      }
+
+      &.bg-blue {
+        background-color: #b6d8f2;
+        top: 100vh;
+        z-index: 2;
+        transition: top 1s;
+        &.go {
+          top: 0;
+        }
+      }
+
+      &.bg-pink {
+        background-color: #f4cfdf;
+        top: 100vh;
+        z-index: 3;
+        &.go {
+          top: 0;
+        }
+      }
+      &.bg-green {
+        background-color: #d3f4cf;
+      }
+      &.bg-orange {
+        background-color: #f4e8cf;
+      }
+    }
+  }
+  .section-wrap::-webkit-scrollbar {
+    display: none;
   }
 }
