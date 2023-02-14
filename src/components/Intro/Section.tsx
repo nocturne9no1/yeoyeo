@@ -1,13 +1,14 @@
-import { forwardRef, LegacyRef } from "react";
+import { forwardRef, LegacyRef, ReactElement } from "react";
 
 interface SectionProps {
-  color: string;
+  sectionType: string;
+  children: ReactElement;
 }
 
-function Section({ color }: SectionProps, ref: LegacyRef<HTMLDivElement>) {
+function Section({ sectionType, children }: SectionProps, ref: LegacyRef<HTMLDivElement>) {
   return (
-    <div className={`section ${color}`} ref={ref}>
-      <p>item2</p>
+    <div className={`section ${sectionType}`} ref={ref}>
+      {children}
     </div>
   );
 }
