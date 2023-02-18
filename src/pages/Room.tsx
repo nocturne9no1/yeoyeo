@@ -1,7 +1,6 @@
 // import { useState, useEffect } from "react";
-import outsideImg from "@temp/yeoyeo_outside.jpg";
-// import floorPlan from "@temp/room_spaces.jpg";
-import floorPlan from "@temp/floor_plan.png";
+import OutsideImg from "@temp/yeoyeo_outside.jpg";
+import FloorPlan from "@temp/floor_plan.png";
 import cn from "classnames";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -11,12 +10,13 @@ import "swiper/css/pagination";
 
 function Room() {
   // const [cnt, setCnt] = useState<number>(0);
+  const ImgList: string[] = [OutsideImg, FloorPlan];
 
   return (
     <div className={cn("room-wrap")}>
       {/* 배너 */}
       <div className={cn("banner-img-wrap")}>
-        <img src={outsideImg} alt="yeoyeo-outside" />
+        <img src={OutsideImg} alt="yeoyeo-outside" />
       </div>
 
       <section className={cn("room-inner")}>
@@ -28,7 +28,7 @@ function Room() {
 
         {/* 공간도 */}
         <div className={cn("floor-plan")}>
-          <img src={floorPlan} alt="floor-plan" />
+          <img src={FloorPlan} alt="floor-plan" />
         </div>
 
         <div className={cn("divider")}>
@@ -37,7 +37,7 @@ function Room() {
         <div className={cn("room-padding")} />
 
         {/* swiper */}
-        <div>
+        <div className={cn("swiper-wrap")}>
           <div>스와이퍼</div>
           <Swiper
             navigation
@@ -45,16 +45,23 @@ function Room() {
               dynamicBullets: true,
             }}
             modules={[Pagination, Navigation]}
-            className="mySwiper"
-            spaceBetween={50}
-            slidesPerView={3}
+            slidesPerView={1}
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
           >
-            <SwiperSlide style={{ backgroundColor: "black" }}>Slide 1</SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
-            <SwiperSlide>Slide 4</SwiperSlide>
+            {/* <SwiperSlide className={cn("slide")} style={{ backgroundColor: "pink" }}>
+              <img src={floorPlan} alt="" />
+            </SwiperSlide>
+            <SwiperSlide className={cn("slide")}>Slide 2</SwiperSlide>
+            <SwiperSlide className={cn("slide")}>Slide 3</SwiperSlide>
+            <SwiperSlide className={cn("slide")}>Slide 4</SwiperSlide> */}
+            {ImgList.map((el) => (
+              <SwiperSlide key={el}>
+                <div className="img-wrap">
+                  <img src={el} alt="" />
+                </div>
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
         <div className={cn("divider")}>

@@ -6,6 +6,7 @@ function Layout() {
     <div className="page-wrap">
       <Header />
       <Outlet />
+      {/* TODO: Insert Footer */}
     </div>
   );
 }
