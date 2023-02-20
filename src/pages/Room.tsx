@@ -1,6 +1,3 @@
-// import { useState, useEffect } from "react";
-import OutsideImg from "@temp/yeoyeo_outside.jpg";
-import FloorPlan from "@temp/floor_plan.png";
 import cn from "classnames";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper";
@@ -8,9 +5,17 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+// 배너와 공간도, 스와이퍼 이미지들
+import OutsideImg from "@temp/yeoyeo_outside.jpg";
+import FloorPlan from "@temp/floor_plan.png";
+import SwiperImg1 from "@temp/swiper_img1.jpg";
+import SwiperImg2 from "@temp/swiper_img2.jpg";
+import SwiperImg3 from "@temp/swiper_img3.jpg";
+
+// Room 이미지들
+
 function Room() {
-  // const [cnt, setCnt] = useState<number>(0);
-  const ImgList: string[] = [OutsideImg, FloorPlan];
+  const ImgList: string[] = [SwiperImg1, SwiperImg2, SwiperImg3];
 
   return (
     <div className={cn("room-wrap")}>
@@ -20,25 +25,13 @@ function Room() {
       </div>
 
       <section className={cn("room-inner")}>
-        {/* 공백 및 구분선 => 나중에 컴포넌트화 해보기 */}
-        <div className={cn("room-padding")} />
-        <div className={cn("divider")}>
-          <div className={cn("divider-line")} />
-        </div>
-
         {/* 공간도 */}
         <div className={cn("floor-plan")}>
           <img src={FloorPlan} alt="floor-plan" />
         </div>
 
-        <div className={cn("divider")}>
-          <div className={cn("divider-line")} />
-        </div>
-        <div className={cn("room-padding")} />
-
         {/* swiper */}
         <div className={cn("swiper-wrap")}>
-          <div>스와이퍼</div>
           <Swiper
             navigation
             pagination={{
@@ -49,12 +42,6 @@ function Room() {
             onSlideChange={() => console.log("slide change")}
             onSwiper={(swiper) => console.log(swiper)}
           >
-            {/* <SwiperSlide className={cn("slide")} style={{ backgroundColor: "pink" }}>
-              <img src={floorPlan} alt="" />
-            </SwiperSlide>
-            <SwiperSlide className={cn("slide")}>Slide 2</SwiperSlide>
-            <SwiperSlide className={cn("slide")}>Slide 3</SwiperSlide>
-            <SwiperSlide className={cn("slide")}>Slide 4</SwiperSlide> */}
             {ImgList.map((el) => (
               <SwiperSlide key={el}>
                 <div className="img-wrap">
@@ -64,22 +51,16 @@ function Room() {
             ))}
           </Swiper>
         </div>
-        <div className={cn("divider")}>
-          <div className={cn("divider-line")} />
+
+        {/* Room 1 */}
+        <div className={cn("room-detail")}>
+          <div className={cn("room-detail-description")}>
+            <p>Room 1</p>
+          </div>
+          <div className={cn("room-detail-pictures")}>
+            <img src="" alt="" />
+          </div>
         </div>
-        <div className={cn("room-padding")} />
-        <div className={cn("divider")}>
-          <div className={cn("divider-line")} />
-        </div>
-        <div className={cn("room-padding")} />
-        <div className={cn("divider")}>
-          <div className={cn("divider-line")} />
-        </div>
-        <div className={cn("room-padding")} />
-        <div className={cn("divider")}>
-          <div className={cn("divider-line")} />
-        </div>
-        <div className={cn("room-padding")} />
       </section>
     </div>
   );
