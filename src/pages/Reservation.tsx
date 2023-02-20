@@ -1,6 +1,7 @@
 import cn from "classnames";
 
 import DatePicker from "@components/reservation/date-picker/DatePicker";
+import CustomerForm from "@components/reservation/CustomerForm";
 
 function Reservation() {
   return (
@@ -8,6 +9,7 @@ function Reservation() {
       <div className={cn("reservation-inner")}>
         Reservation
         <DatePicker />
+        <CustomerForm />
       </div>
     </div>
   );

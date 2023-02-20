@@ -22,5 +22,8 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
+  "rules": {
+    "react/require-default-props": 0
+  },
   "plugins": ["react", "@typescript-eslint", "react-hooks", "jsx-a11y", "import"]
 }
