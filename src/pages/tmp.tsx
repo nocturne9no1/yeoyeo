@@ -11,9 +11,10 @@ import GridRouting from "@components/Intro/GrudRouting";
 
 function Intro() {
   const [sectionIdx, setSectionIdx] = useState(0);
-  const [startY, setStartY] = useState(0);
-  const [currentY, setCurrentY] = useState(0);
-  const [prevY, setPrevY] = useState(0);
+  // const [touchclientY, setClientY] = useState(0);
+  // const [touchDeltaY, setTouchDeltaY] = useState(0);
+  const [scrollDirection, setScrollDirection] = useState<string | null>();
+  const [startY, setStartY] = useState<number | null>(null);
 
   const sectionWrapRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
@@ -156,51 +157,42 @@ function Intro() {
     setScreenSize();
   });
 
-  const handleTouchStart = (event: React.TouchEvent) => {
-    // event.preventDefault();
-    setStartY(event.touches[0].clientY);
-    setPrevY(event.touches[0].clientY);
-  };
-
-  const handleTouchMove = (event: React.TouchEvent) => {
-    // event.preventDefault();
-    setCurrentY(event.touches[0].clientY);
-  };
-
-  const handleTouchEnd = () => {
-    const deltaY = currentY - startY;
-    const direction = prevY > currentY ? "down" : "up";
-    console.log(`Scrolled to offset: ${deltaY}, direction: ${direction}`);
-    document.body.style.overscrollBehaviorY = "none";
-    if (deltaY < -20 && direction === "down") {
+  useEffect(() => {
+    console.log("a", scrollDirection);
+    if (scrollDirection != null && scrollDirection === "down") {
       // 아래방향 스크롤일 때
       if (sectionIdx === 0) {
         console.log("0");
         introRef.current?.classList.add("no");
         serviceRef.current?.classList.add("go");
         setSectionIdx(() => 1);
+        setScrollDirection(() => null);
       } else if (sectionIdx === 1) {
         console.log("1");
         serviceRef.current?.classList.add("no");
         roomRef.current?.classList.add("go");
         setSectionIdx(() => 2);
+        setScrollDirection(() => null);
       } else if (sectionIdx === 2) {
         console.log("2");
         roomRef.current?.classList.add("no");
         reservationRef.current?.classList.add("go");
         setSectionIdx(() => 3);
+        setScrollDirection(() => null);
       } else if (sectionIdx === 3) {
         console.log("3");
         reservationRef.current?.classList.add("no");
         gridRoutingRef.current?.classList.add("go");
         setSectionIdx(() => 4);
+        setScrollDirection(() => null);
       }
-    } else if (deltaY > 20 && direction === "up") {
+    } else if (scrollDirection != null && scrollDirection === "up") {
       // 윗방향 스크롤일 때
       if (sectionIdx === 1) {
         introRef.current?.classList.remove("no");
         serviceRef.current?.classList.remove("go");
         setSectionIdx(() => 0);
+        setScrollDirection(() => null);
       } else if (sectionIdx === 2) {
         serviceRef.current?.classList.remove("no");
         roomRef.current?.classList.remove("go");
@@ -215,31 +207,39 @@ function Intro() {
         setSectionIdx(() => 3);
       }
     }
+  }, [scrollDirection, sectionIdx]);
 
-    // Use deltaY and direction to move the screen as needed
-    setPrevY(currentY);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setStartY(e.touches[0].clientY);
   };
-  /* eslint-disable */
-  useEffect(() => {
-    // const handleScroll = () => {
-    //   // This function is not used anymore
-    // };
-    window.addEventListener("touchend", handleTouchEnd);
-    return () => {
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [currentY]);
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const currentY = e.touches[0].clientY;
+    const scrollY = sectionWrapRef.current?.scrollTop;
 
+    if (currentY > startY! && scrollY === 0) {
+      setScrollDirection("up");
+    } else if (
+      currentY < startY! &&
+      sectionWrapRef.current &&
+      sectionWrapRef.current.scrollHeight - sectionWrapRef.current.scrollTop === sectionWrapRef.current.clientHeight
+    ) {
+      setScrollDirection("down");
+    } else {
+      setScrollDirection(null);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setStartY(null);
+  };
   return (
     <div className="intro">
       <div
         ref={sectionWrapRef}
         className="section-wrap"
-        // onTouchStart={(e) => handleTouchStart(e)}
-        // onTouchMove={(e) => handleTouchMove(e)}
-        // onTouchEnd={handleTouchEnd}
         onTouchStart={(e) => handleTouchStart(e)}
         onTouchMove={(e) => handleTouchMove(e)}
+        onTouchEnd={handleTouchEnd}
       >
         <Section sectionType="intro" ref={introRef}>
           <div className="grid-container">

@@ -11,6 +11,7 @@
     background-size: cover;
     background-position: 50% 50%;
     .section {
+      overscroll-behavior: contain;
       // height: 100vh;
       height: calc(var(--vh, 1vh) * 100);
       width: 100vw;
@@ -481,16 +482,9 @@
       .section {
         &.intro {
           .grid-container {
-            box-sizing: border-box;
-            width: 100%;
-            max-width: 1240px;
             height: calc(var(--vh, 1vh) * 100);
             // height: calc(100vh - 73px);
             margin: auto 0;
-            padding: 73px 20px 0;
-            background-color: #b86464c7;
-            display: flex;
-            flex-direction: column;
             .top {
               justify-content: flex-start;
               padding: 0.125rem;
@@ -516,10 +510,31 @@
             }
           }
         }
+        &.service {
+          .grid-container {
+            height: calc(var(--vh, 1vh) * 100);
+            margin: auto 0;
+          }
+        }
+        &.room {
+          .grid-container {
+            height: calc(var(--vh, 1vh) * 100);
+            margin: auto 0;
+          }
+        }
+        &.reservation {
+          .grid-container {
+            height: calc(var(--vh, 1vh) * 100);
+            margin: auto 0;
+          }
+        }
         &.grid-routing {
           .grid-container {
+            height: calc(var(--vh, 1vh) * 100);
+            margin: auto 0;
             grid-template-columns: repeat(2, minmax(auto, 1fr));
-            grid-auto-rows: minmax(auto, 250px);
+            grid-auto-rows: minmax(auto, 200px);
+            padding: 40px 20px;
             .grid-item {
               img {
                 width: 100%;
