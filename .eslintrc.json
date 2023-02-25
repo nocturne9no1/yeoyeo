@@ -23,7 +23,8 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "react/require-default-props": 0
+    "react/require-default-props": 0,
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   },
   "plugins": ["react", "@typescript-eslint", "react-hooks", "jsx-a11y", "import"]
 }
