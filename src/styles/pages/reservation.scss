@@ -15,19 +15,24 @@
   flex-direction: column;
   align-items: center;
 
-  .calendar-wrap {
-    width: 800px;
-    padding: 12px;
+  .calender-wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
 
-    .calendar-header {
-      padding: 12px 0;
-      display: flex;
-      justify-content: space-between;
+  .calendar-header {
+    padding: 12px 0;
+    display: flex;
+    justify-content: space-between;
 
-      button {
-        width: 120px;
-      }
+    button {
+      width: 120px;
     }
+  }
+  .calendar-item {
+    width: 600px;
+    // padding: 12px;
 
     .calendar {
       width: 100%;
@@ -62,6 +67,14 @@
 
             &.between-day {
               background-color: antiquewhite;
+            }
+
+            &.passed-date {
+              background-color: #808080;
+              // pointer-events: none;
+              cursor: no-drop;
+              // position: relative;
+              // z-index: 10;
             }
           }
         }
