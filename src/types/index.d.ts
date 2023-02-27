@@ -29,5 +29,6 @@ declare global {
     setEndDate: (endDate: Dayjs | null) => void;
     data: MonthRoomData[];
     currentDate: Dayjs;
+    handleDateClick: (day: number, date: Dayjs) => void;
   }
 }
