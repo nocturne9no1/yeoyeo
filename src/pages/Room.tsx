@@ -13,6 +13,8 @@ import SwiperImg2 from "@temp/swiper_img2.jpg";
 import SwiperImg3 from "@temp/swiper_img3.jpg";
 
 // Room 이미지들
+import RoomA1 from "@temp/Room1_1.jpg";
+import RoomA2 from "@temp/Room1_2.jpg";
 
 function Room() {
   const ImgList: string[] = [SwiperImg1, SwiperImg2, SwiperImg3];
@@ -52,13 +54,42 @@ function Room() {
           </Swiper>
         </div>
 
-        {/* Room 1 */}
+        {/* 웰컴문구 */}
+        <h2 className={cn("welcome-title")}>
+          <span>여</span>
+          <span>여</span>
+        </h2>
+        <p className={cn("welcome-description")}>온전한 휴식이 필요한 그대에게 주는 선물.. 한옥스테이 여여</p>
+
+        {/* Room A */}
         <div className={cn("room-detail")}>
           <div className={cn("room-detail-description")}>
-            <p>Room 1</p>
+            <h3>Room A</h3>
+            <p>안녕</p>
           </div>
           <div className={cn("room-detail-pictures")}>
-            <img src="" alt="" />
+            <div className={cn("room-detail-grid-item")}>
+              <img src={RoomA1} alt="" />
+            </div>
+            <div className={cn("room-detail-grid-item")}>
+              <img src={RoomA2} alt="" />
+            </div>
+          </div>
+        </div>
+
+        {/* Room B */}
+        <div className={cn("room-detail")}>
+          <div className={cn("room-detail-description")}>
+            <h3>Room B</h3>
+            <p>안녕</p>
+          </div>
+          <div className={cn("room-detail-pictures")}>
+            <div className={cn("room-detail-grid-item")}>
+              <img src={RoomA1} alt="" />
+            </div>
+            <div className={cn("room-detail-grid-item")}>
+              <img src={RoomA2} alt="" />
+            </div>
           </div>
         </div>
       </section>

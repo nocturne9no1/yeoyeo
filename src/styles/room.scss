@@ -64,9 +64,55 @@
     }
   }
 
+  .welcome-title {
+    display: flex;
+    margin-top: 60px;
+    font-size: large;
+    line-height: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &::before,
+    &::after {
+      display: block;
+      content: "";
+      width: 20px;
+      border: 1px solid #ebe5eb;
+      margin: 5px;
+    }
+  }
+
+  .welcome-description {
+    margin-top: 30px;
+    text-align: center;
+    letter-spacing: 3px;
+  }
+
   .room-detail {
     display: grid;
-
+    grid-template-columns: 1fr 2fr;
     padding: 0 30px;
+    gap: 10px 20px;
+    margin-top: 60px;
+
+    .room-detail-description {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .room-detail-pictures {
+      display: flex;
+
+      .room-detail-grid-item {
+        padding: 10px;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
   }
 }
