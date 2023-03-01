@@ -47,3 +47,9 @@ declare global {
     setIsModal: (isModal: boolean) => void;
   }
 }
+
+declare global {
+  interface Window {
+    IMP: any;
+  }
+}
