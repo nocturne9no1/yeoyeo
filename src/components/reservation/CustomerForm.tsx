@@ -4,16 +4,23 @@ import cn from "classnames";
 import Input from "@components/common/Input";
 import InputForm from "@components/common/InputForm";
 import InputPeopleNumber from "@components/common/InputPeopleNumber";
-import { validUsername, validEmail } from "src/utils/regEx";
+import { validUsername, validEmail, validUserMobileNumber } from "src/utils/regEx";
+import Timer from "./Timer";
 
 function CustomerForm() {
   const [username, setUsername] = useState<string>("");
+  const [userMobileNumber, setUserMobileNumber] = useState<string>("");
+  const [userAuthNumber, setUserAuthNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [requestedTerm, setRequestedTerm] = useState<string>("");
-
+  const [isBtnFocused, setIsBtnFocused] = useState<boolean>(false);
   const handleTextAreaInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setRequestedTerm(value);
+  };
+  const handleAuthNumber = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setUserAuthNumber(value);
   };
 
   return (
@@ -35,9 +42,61 @@ function CustomerForm() {
         errorText="올바른 이메일 양식으로 작성해주세요."
       />
       <InputForm title="연락처">
-        <button type="button" className={cn("certification-button")}>
-          인증하기 (TBD)
-        </button>
+        {isBtnFocused ? (
+          <div style={{ display: "flex" }}>
+            <Input
+              title=""
+              regEx={validUserMobileNumber}
+              placeholder=""
+              inputValue={userMobileNumber}
+              setInputValue={setUserMobileNumber}
+              errorText=""
+              classnames="user-mobile-input disabled"
+              disabled
+            />
+
+            <div className={cn("user-auth-number-wrap")}>
+              <input
+                // disabled={disabled}
+                value={userAuthNumber}
+                onChange={(e) => handleAuthNumber(e)}
+                placeholder="인증번호"
+                maxLength={6}
+              />
+              <Timer />
+            </div>
+            {/* </span> */}
+            <button type="button" className={cn("certification-check-button")} onClick={() => setIsBtnFocused(true)}>
+              인증확인
+            </button>
+          </div>
+        ) : (
+          <div>
+            <Input
+              title=""
+              regEx={validUserMobileNumber}
+              placeholder="000-0000-0000 형식으로 작성해주세요."
+              inputValue={userMobileNumber}
+              setInputValue={setUserMobileNumber}
+              errorText="번호가 올바르지 않습니다. 000-0000-0000 형식으로 작성해주세요."
+              classnames="user-mobile-input"
+              maxLength={13}
+            />
+            <button
+              type="button"
+              className={cn("certification-button")}
+              onClick={() => {
+                // const isValid = validUserMobileNumber.test(userMobileNumber);
+                // if (isValid) {
+                // }
+                setIsBtnFocused(true);
+              }}
+              disabled={!validUserMobileNumber.test(userMobileNumber)}
+            >
+              인증번호요청 (TBD)
+            </button>
+          </div>
+        )}
       </InputForm>
       <InputForm title="인원">
         <InputPeopleNumber />

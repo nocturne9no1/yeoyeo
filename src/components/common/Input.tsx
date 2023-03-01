@@ -1,8 +1,8 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, InputHTMLAttributes } from "react";
 import cn from "classnames";
 import debounce from "lodash/debounce";
 
-interface InputProps {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
   title?: string;
   regEx?: RegExp;
   placeholder?: string;
@@ -10,9 +10,11 @@ interface InputProps {
   setInputValue: (inputValue: string) => void;
   disabled?: boolean;
   errorText?: string;
+  classnames?: string;
+  maxLength?: number;
 }
 
-function Input({ title, regEx, placeholder, inputValue, setInputValue, disabled, errorText }: InputProps) {
+function Input({ title, regEx, placeholder, inputValue, setInputValue, disabled, errorText, classnames, maxLength, type }: InputProps) {
   const [isError, setIsError] = useState<boolean>(false);
 
   const validInput = (text: string) => {
@@ -31,15 +33,16 @@ function Input({ title, regEx, placeholder, inputValue, setInputValue, disabled,
   };
 
   return (
-    <div className={cn("input-wrap")}>
+    <div className={cn("input-wrap", classnames)}>
       {title && <span className={cn("input-title")}>{title}</span>}
       <input
-        type="text"
+        type={type}
         disabled={disabled}
         value={inputValue}
         onChange={(e) => handleChange(e)}
         placeholder={placeholder}
         className={cn(isError && "error")}
+        maxLength={maxLength}
       />
       {isError && <span className={cn("error-text")}>{errorText}</span>}
     </div>

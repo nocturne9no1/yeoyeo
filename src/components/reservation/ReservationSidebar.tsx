@@ -1,4 +1,5 @@
 import InputForm from "@components/common/InputForm";
+// import axios from "axios";
 import cn from "classnames";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
@@ -9,6 +10,7 @@ interface ReservationSidebarProps {
   endDate?: Date | null;
   accommodationPeriod: number;
   defaultFeePerDay: number | null;
+  onClickPayment: () => void;
 }
 // const dayOftheWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 
@@ -24,6 +26,29 @@ function ReservationSidebar({ startDate, endDate, accommodationPeriod, defaultFe
   console.log(tmpStartDate, tmpEndDate, typeof tmpStartDate);
   console.log("차이확인", diffDate);
   console.log(startDate, endDate, accommodationPeriod, defaultFeePerDay);
+
+  // const handlePayment = () => {
+  //   const data = {
+  //     dateRoomIdList: [
+  //       "string"
+  //     ],
+  //     email: "email@gmail.com",
+  //     guestCount: 1,
+  //     name: "김명준",
+  //     phoneNumber: "010-3974-3823",
+  //     request: "확인합니당"
+  //   }
+
+  //   axios({
+  //     method: 'post',
+  //     url: 'http://3.35.98.5:8080/reservation/reserve',
+  //     headers: { "Content-Type": 'application/json'},
+  //     data: JSON.stringify(data),
+  //   })
+  //     .then((res) => console.log('aaaaaaaaa', res))
+  //     .catch((err) => console.log('err', err))
+  // }
+
   return (
     <div className={cn("reservation-sidebar-wrap")}>
       <strong style={{ fontSize: 24, fontWeight: 600 }}>방A, 방A의 이름</strong>
@@ -74,7 +99,7 @@ function ReservationSidebar({ startDate, endDate, accommodationPeriod, defaultFe
         </div>
       </InputForm>
 
-      <button type="button" className={cn("reservation-button")}>
+      <button type="button" className={cn("reservation-button")} onClick={() => onClickPayment()}>
         예약하기
       </button>
     </div>

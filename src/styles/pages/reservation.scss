@@ -125,11 +125,41 @@
     flex-direction: column;
     padding-bottom: 18px;
     position: relative;
+    transition: width 0.2s ease-in;
 
     & + .input-wrap {
       margin-top: 12px;
     }
-
+    &.user-mobile-input {
+      width: 280px;
+      &.disabled {
+        color: #d6d6d6;
+        width: 128px;
+      }
+    }
+    .user-auth-number-wrap {
+      align-items: center;
+      width: 250px;
+      height: 36px;
+      margin-top: 8px;
+      display: flex;
+      position: relative;
+      justify-content: space-between;
+      border: 1px solid #404040;
+      border-radius: 4px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      input {
+        padding: 0;
+        margin: 0;
+        border: none;
+        font-size: 14px;
+      }
+      span {
+        color: tomato;
+        font-size: 13px;
+      }
+    }
     .input-title {
       font-size: 14px;
       line-height: 20px;
@@ -159,6 +189,7 @@
       margin-top: 4px;
       position: absolute;
       bottom: 0;
+      white-space: nowrap;
     }
 
     .certification-button {
@@ -168,7 +199,18 @@
       width: 120px;
       margin-top: 8px;
     }
-
+    .certification-check-button {
+      border: 1px solid #202020;
+      padding: 4px 8px;
+      border-radius: 4px;
+      width: 120px;
+      height: 36px;
+      margin-top: 8px;
+      transition: background-color 1s;
+    }
+    .certification-check-button:hover {
+      background-color: #b2b2b2;
+    }
     .people-number-input-wrap {
       display: flex;
       align-items: center;
