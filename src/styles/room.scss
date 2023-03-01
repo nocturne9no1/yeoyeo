@@ -21,6 +21,10 @@
     margin-right: auto;
     border-top: 1px solid #e5e7eb;
 
+    @include md {
+      width: 100%;
+    }
+
     .room-padding {
       height: 60px;
     }
@@ -89,7 +93,6 @@
     letter-spacing: 3px;
   }
 
-
   .room-detail {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -144,5 +147,4 @@
   .room-detail2 {
     grid-template-columns: 2fr 1fr;
   }
-
 }
