@@ -2,9 +2,12 @@ import { Dayjs } from "dayjs";
 
 declare global {
   interface MonthRoomData {
+    [kye: string]: MonthRoomDataItem[];
+  }
+
+  interface MonthRoomDataItem {
     date: string;
     rooms: DateRoomItem[];
-    isPassedDate?: boolean;
   }
 
   interface DateRoomItem {
@@ -27,8 +30,15 @@ declare global {
     endDate: Dayjs | null;
     setStartDate: (startDate: Dayjs | null) => void;
     setEndDate: (endDate: Dayjs | null) => void;
-    data: MonthRoomData[];
+    data: MonthRoomDataItem[];
     currentDate: Dayjs;
     handleDateClick: (day: number, date: Dayjs) => void;
+    selectedRoom: "A" | "B" | null;
+    setSelectedRoom: (selectedRoom: "A" | "B") => void;
+  }
+
+  interface RoomSelectModalProps {
+    setSelectedRoom: (selectedRoom: "A" | "B") => void;
+    setIsModal: (isModal: boolean) => void;
   }
 }

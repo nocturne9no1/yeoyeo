@@ -63,6 +63,10 @@
             &.selected {
               background-color: #202020 !important;
               color: #fff;
+
+              div {
+                color: #fff;
+              }
             }
 
             &.between-day {
