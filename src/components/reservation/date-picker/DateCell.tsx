@@ -15,11 +15,21 @@ function DateCell({
 }: DateCellProps) {
   const [isModal, setIsModal] = useState<boolean>(false);
 
+  const handleCellClick = () => {
+    if (cellData[0].reservationState === 0 && cellData[1].reservationState === 0 && !isModal && selectedRoom === null) {
+      setIsModal(true);
+      return;
+    }
+    if (!(dayjs() > dayjs(currentDate).set("date", day) && "passed-date")) {
+      handleDateClick(day, currentDate);
+    }
+  };
+
   const cellDate = dayjs(currentDate).set("date", day);
   return (
     <td
       key={day}
-      onClick={() => handleDateClick(day, currentDate)}
+      onClick={() => handleCellClick()}
       aria-hidden="true"
       // className={selectedDate.getDate() === day ? "selected" : ""}
       className={cn(
@@ -33,15 +43,13 @@ function DateCell({
         <>
           {/* <div>{!data[day - 1] && data[day - 1].rooms[0].price}</div> */}
           <ul className={cn("room-list")}>
-            {selectedRoom}
-            {selectedRoom === "A" ||
-              (selectedRoom === null && (
-                <li className={cn("room-item", cellData[0].reservationState === 0 && "available")}>A</li>
-              ))}
-            {selectedRoom === "B" ||
-              (selectedRoom === null && (
-                <li className={cn("room-item", cellData[1].reservationState === 0 && "available")}>B</li>
-              ))}
+            {/* {selectedRoom} */}
+            {(selectedRoom === "A" || selectedRoom === null) && (
+              <li className={cn("room-item", cellData[0].reservationState === 0 && "available")}>A</li>
+            )}
+            {(selectedRoom === "B" || selectedRoom === null) && (
+              <li className={cn("room-item", cellData[1].reservationState === 0 && "available")}>B</li>
+            )}
           </ul>
         </>
       )}

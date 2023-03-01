@@ -5,11 +5,11 @@ import cn from "classnames";
 import DatePicker from "@components/reservation/date-picker/DatePicker";
 import CustomerForm from "@components/reservation/CustomerForm";
 // import { useState } from "react";
-import ReservationSidebar from "@components/reservation/ReservationSidebar";
+// import ReservationSidebar from "@components/reservation/ReservationSidebar";
 // import { useEffect } from "react";
 
 function Reservation() {
-  const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
+  // const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
 
   function callBack(response: any) {
     const {
@@ -20,7 +20,7 @@ function Reservation() {
     } = response;
 
     if (success) {
-      alert('결제 성공');
+      alert("결제 성공");
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
@@ -29,8 +29,8 @@ function Reservation() {
     try {
       /* 1. 가맹점 식별하기 */
       const { IMP } = window;
-      IMP.init('imp28607423');
-  
+      IMP.init("imp28607423");
+
       /* 2. 결제 데이터 정의하기 */
       const data = {
         pg: "nice",
@@ -43,13 +43,13 @@ function Reservation() {
         buyer_name: "박정웅",
         buyer_tel: "010-1234-7777",
         buyer_addr: "서울특별시 강남구 신사동",
-        buyer_postcode: "01181"
-    }
-    
-    IMP.request_pay(data, callBack);
+        buyer_postcode: "01181",
+      };
+
+      IMP.request_pay(data, callBack);
     } catch (e) {
-      console.log(e)
-    } 
+      console.log(e);
+    }
   }
   return (
     <div className={cn("reservation-wrap")}>
@@ -58,12 +58,12 @@ function Reservation() {
         <DatePicker />
         <div className={cn("reservation-form-wrap")}>
           <CustomerForm />
-          <ReservationSidebar
+          {/* <ReservationSidebar
             startDate={new Date()}
             endDate={new Date()}
             accommodationPeriod={accommodationPeriod}
             defaultFeePerDay={200}
-          />
+          /> */}
         </div>
       </div>
       <button type="button" onClick={() => onClickPayment()}>
