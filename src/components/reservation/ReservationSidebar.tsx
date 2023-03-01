@@ -1,4 +1,5 @@
 import InputForm from "@components/common/InputForm";
+// import axios from "axios";
 import cn from "classnames";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
@@ -9,10 +10,11 @@ interface ReservationSidebarProps {
   endDate?: Date | null;
   accommodationPeriod: number;
   defaultFeePerDay: number | null;
+  onClickPayment: ()=>void;
 }
 // const dayOftheWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
 
-function ReservationSidebar({ startDate, endDate, accommodationPeriod, defaultFeePerDay }: ReservationSidebarProps) {
+function ReservationSidebar({ startDate, endDate, accommodationPeriod, defaultFeePerDay, onClickPayment }: ReservationSidebarProps) {
   dayjs.locale('ko');
   const sD = '2023-02-12';
   const eD = '2023-02-15';
@@ -22,8 +24,31 @@ function ReservationSidebar({ startDate, endDate, accommodationPeriod, defaultFe
   const weekDayPrice = 200000;
   const weekEndPrice = 280000;
   console.log(tmpStartDate, tmpEndDate, typeof tmpStartDate);
-  console.log('차이확인', diffDate)
-  console.log(startDate, endDate,accommodationPeriod, defaultFeePerDay )
+  console.log('차이확인', diffDate);
+  console.log(startDate, endDate,accommodationPeriod, defaultFeePerDay );
+
+  // const handlePayment = () => {
+  //   const data = {
+  //     dateRoomIdList: [
+  //       "string"
+  //     ],
+  //     email: "email@gmail.com",
+  //     guestCount: 1,
+  //     name: "김명준",
+  //     phoneNumber: "010-3974-3823",
+  //     request: "확인합니당"
+  //   }
+
+  //   axios({
+  //     method: 'post',
+  //     url: 'http://3.35.98.5:8080/reservation/reserve',
+  //     headers: { "Content-Type": 'application/json'},
+  //     data: JSON.stringify(data),
+  //   }) 
+  //     .then((res) => console.log('aaaaaaaaa', res))
+  //     .catch((err) => console.log('err', err))
+  // }
+
     return (
         <div className={cn("reservation-sidebar-wrap")}>
 
@@ -50,9 +75,7 @@ function ReservationSidebar({ startDate, endDate, accommodationPeriod, defaultFe
             </div>
           </InputForm>
           
-        
-
-          <button type="button" className={cn("reservation-button")}>예약하기</button>
+          <button type="button" className={cn("reservation-button")} onClick={()=>onClickPayment()}>예약하기</button>
 
         </div>
 
