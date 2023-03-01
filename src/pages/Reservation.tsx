@@ -25,7 +25,6 @@ function Reservation() {
   // const [endDate, setEndDate] = useState<Date | null>(null);
   // const accommodationPeriod = ((Number(endDate) - Number(startDate)) / 1000 / 60 / 60 / 24 );
   const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
-  // const [defaultFeePerDay, setDefaultFeePerDay] = useState<number | null>(null);
 
   function callBack(response: any) {
     const {
@@ -36,40 +35,39 @@ function Reservation() {
     } = response;
 
     if (success) {
-      alert('결제 성공');
+      alert("결제 성공");
       // console.log(response)
       const postData = {
-        "dateRoomId": "string",
-        "email": response.buyer_email,
-        "guestCount": 0,
-        "imp_uid": response.imp_uid,
-        "merchant_uid": response.merchant_uid,
-        "name": response.buyer_name,
-        "phoneNumber": response.buyer_tel,
-        "request": "string"
-      }
+        dateRoomId: "string",
+        email: response.buyer_email,
+        guestCount: 0,
+        imp_uid: response.imp_uid,
+        merchant_uid: response.merchant_uid,
+        name: response.buyer_name,
+        phoneNumber: response.buyer_tel,
+        request: "string",
+      };
 
       console.log(postData);
-      navigate('/intro')
+      navigate("/intro");
       // TODO: 결제 성공 요청 이후 서버에 결제 정보 검증 요청
       // axios({
       //   method: 'post',
 
       // })
-
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
   }
-  // TODO : 결제모듈 열기전 
+  // TODO : 결제모듈 열기전
   function onClickPayment() {
     // TODO: 서버에 예약 정보 보낸 뒤 unique_id get
-    
+
     try {
       /* 1. 가맹점 식별하기 */
       const { IMP } = window;
-      IMP.init('imp28607423');
-  
+      IMP.init("imp28607423");
+
       /* 2. 결제 데이터 정의하기 */
       const data = {
         pg: "nice",
@@ -82,26 +80,26 @@ function Reservation() {
         buyer_name: "박정웅",
         buyer_tel: "010-1234-7777",
         buyer_addr: "서울특별시 강남구 신사동",
-        buyer_postcode: "01181"
-    }
-    
-    IMP.request_pay(data, callBack);
+        buyer_postcode: "01181",
+      };
+
+      IMP.request_pay(data, callBack);
     } catch (e) {
-      console.log('aaaaaa', e)
-    } 
+      console.log("aaaaaa", e);
+    }
   }
   function smsCheck() {
-    axios.get('http://3.35.98.5:8080/room/show-all')
-      .then(res => console.log('sms response', res))
-      .catch(err => console.log('sms error', err))
+    axios
+      .get("http://3.35.98.5:8080/room/show-all")
+      .then((res) => console.log("sms response", res))
+      .catch((err) => console.log("sms error", err));
   }
   return (
     <div className={cn("reservation-wrap")}>
       <div className={cn("reservation-inner")}>
         Reservation
-        {/* <DatePicker startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} setDefaultFeePerDay={setDefaultFeePerDay}/> */}
         <DatePicker />
-        <div style={{ display: "flex" }}>
+        <div className={cn("reservation-form-wrap")}>
           <CustomerForm />
           <ReservationSidebar
             startDate={new Date()}

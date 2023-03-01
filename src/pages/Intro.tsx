@@ -1,5 +1,9 @@
 function Intro() {
-  return <div>intro</div>;
+  return (
+    <div>
+      <div>intro</div>
+    </div>
+  );
 }
 
 export default Intro;

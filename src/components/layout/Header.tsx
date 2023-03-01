@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, ReactElement } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ReactComponent as IcoHamburger } from "@icons/ico_hamburger.svg";
 import i18next, { changeLanguage } from "i18next";
 
@@ -47,7 +47,7 @@ function Header(): ReactElement {
             <IcoHamburger />
           </button>
           <h1 className="logo">
-            <NavLink to="/">logo</NavLink>
+            <Link to="/">logo</Link>
           </h1>
           <button type="button" aria-label="language button" className="lang-btn" onClick={() => handleLang()}>
             {lang}

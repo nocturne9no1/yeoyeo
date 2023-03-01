@@ -28,14 +28,13 @@ function DatePicker() {
   }, [currentDate]);
 
   // useEffect(() => {
+  //   if (startDate, endDate) {
 
+  //   }
   // }, [startDate, endDate])
 
   const handleDateClick = (day: number, date: Dayjs) => {
     const selectedDate = dayjs(date).set("date", day);
-    console.log(day);
-    console.log(date);
-    console.log(selectedDate);
     /*
       날짜 Click 시 start/end 규칙
       1. startDate 없음 -> set start
