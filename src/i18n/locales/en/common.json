@@ -1,0 +1,9 @@
+{
+  "router": {
+    "main": "Main",
+    "intro": "Intro",
+    "service": "Service",
+    "room": "Room",
+    "reservation": "Reservation"
+  }
+}
