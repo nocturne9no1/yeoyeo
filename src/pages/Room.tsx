@@ -4,6 +4,7 @@ import { Pagination, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useTranslation } from "react-i18next";
 
 // 배너와 공간도, 스와이퍼 이미지들
 import OutsideImg from "@temp/yeoyeo_outside.jpg";
@@ -15,9 +16,13 @@ import SwiperImg3 from "@temp/swiper_img3.jpg";
 // Room 이미지들
 import RoomA1 from "@temp/Room1_1.jpg";
 import RoomA2 from "@temp/Room1_2.jpg";
+import RoomB1 from "@temp/Room2_1.jpeg";
+import RoomB2 from "@temp/Room2_2.jpeg";
+
 
 function Room() {
   const ImgList: string[] = [SwiperImg1, SwiperImg2, SwiperImg3];
+  const {t} = useTranslation("common")
 
   return (
     <div className={cn("room-wrap")}>
@@ -56,39 +61,53 @@ function Room() {
 
         {/* 웰컴문구 */}
         <h2 className={cn("welcome-title")}>
-          <span>여</span>
-          <span>여</span>
+          <span>{t("floorPlan.serviceTitle")}</span>
+          <span>{t("floorPlan.serviceTitle")}</span>
         </h2>
-        <p className={cn("welcome-description")}>온전한 휴식이 필요한 그대에게 주는 선물.. 한옥스테이 여여</p>
+        <p className={cn("welcome-description")}>{t("floorPlan.serviceDescription")}</p>
 
         {/* Room A */}
         <div className={cn("room-detail")}>
           <div className={cn("room-detail-description")}>
-            <h3>Room A</h3>
-            <p>안녕</p>
+            <h3 className={cn('room-title')}>Room A</h3>
+            <div className={cn('room-features')}>
+              <span>{t("floorPlan.roomA.0")}</span>
+              <span>{t("floorPlan.roomA.1")}</span>
+              <span>{t("floorPlan.roomA.2")}</span>
+              <span>{t("floorPlan.roomA.3")}</span>
+              <span>{t("floorPlan.roomA.4")}</span>
+              <span>{t("floorPlan.roomA.5")}</span>
+            </div>
           </div>
           <div className={cn("room-detail-pictures")}>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA1} alt="" />
+              <img src={RoomA1} alt="Room 이미지 1" />
             </div>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA2} alt="" />
+              <img src={RoomA2} alt="Room 이미지 2 " />
             </div>
           </div>
         </div>
 
         {/* Room B */}
-        <div className={cn("room-detail")}>
-          <div className={cn("room-detail-description")}>
-            <h3>Room B</h3>
-            <p>안녕</p>
+        <div className={cn("room-detail room-detail2")}>
+          <div className={cn("room-detail-description room-order")}>
+            <h3 className={cn('room-title')}>Room B</h3>
+            <div className={cn('room-features')}>
+              <span>{t("floorPlan.roomA.0")}</span>
+              <span>{t("floorPlan.roomA.1")}</span>
+              <span>{t("floorPlan.roomA.2")}</span>
+              <span>{t("floorPlan.roomA.3")}</span>
+              <span>{t("floorPlan.roomA.4")}</span>
+              <span>{t("floorPlan.roomA.5")}</span>
+            </div>
           </div>
           <div className={cn("room-detail-pictures")}>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA1} alt="" />
+              <img src={RoomB1} alt="Room 이미지 1" />
             </div>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA2} alt="" />
+              <img src={RoomB2} alt="Room 이미지 2 " />
             </div>
           </div>
         </div>

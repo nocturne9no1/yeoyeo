@@ -66,7 +66,7 @@
 
   .welcome-title {
     display: flex;
-    margin-top: 60px;
+    margin-top: 100px;
     font-size: large;
     line-height: 25px;
     flex-direction: column;
@@ -89,18 +89,42 @@
     letter-spacing: 3px;
   }
 
+
   .room-detail {
     display: grid;
     grid-template-columns: 1fr 2fr;
     padding: 0 30px;
     gap: 10px 20px;
-    margin-top: 60px;
+    margin-top: 120px;
+
+    .room-order {
+      order: 1;
+    }
 
     .room-detail-description {
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      letter-spacing: 3px;
+    }
+
+    .room-title {
+      font-size: large;
+      padding: 20px;
+      border-bottom: 1px solid #ebe5eb;
+    }
+
+    .room-features {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+
+      span {
+        padding-left: 20px;
+        margin: 10px;
+        white-space: pre-line;
+      }
     }
 
     .room-detail-pictures {
@@ -115,4 +139,9 @@
       }
     }
   }
+
+  .room-detail2 {
+    grid-template-columns: 2fr 1fr;
+  }
+
 }
