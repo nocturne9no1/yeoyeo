@@ -5,5 +5,19 @@
     "service": "Service",
     "room": "Room",
     "reservation": "Reservation"
-  }
+  },
+  "floorPlan": {
+    "serviceTitle": "Yeo",
+    "serviceDescription": "Gift to those who need sound rest.. Traditional Korean stay YeoYeo",
+    "roomA": [
+      "Coffee Machine",
+      "Balmuda Toaster",
+      "Microwave",
+      "Owner's collection of, \n pottery and teapots",
+      "Refrigerator",
+      "Beam Projector"
+    ] 
+  },
+  "address": "53, Gaenmaeul-gil, Gyeongju-si, Gyeongsangbuk-do, Republic of Korea"
+
 }
