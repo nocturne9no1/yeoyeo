@@ -101,13 +101,13 @@ function Reservation() {
         <DatePicker />
         <div className={cn("reservation-form-wrap")}>
           <CustomerForm />
-          {/* <ReservationSidebar
+          <ReservationSidebar
             startDate={new Date()}
             endDate={new Date()}
             accommodationPeriod={accommodationPeriod}
             defaultFeePerDay={200}
             onClickPayment={() => onClickPayment()}
-  /> */}
+          />
         </div>
       </div>
       <button type="button" onClick={() => smsCheck()}>
