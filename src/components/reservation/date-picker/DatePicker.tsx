@@ -20,14 +20,10 @@ function DatePicker() {
   const handleNextMonth = () => setCurrentDate((prevState) => dayjs(prevState).add(1, "month").set("date", 1));
 
   useEffect(() => {
-    console.log("currentDate: ");
-
-    console.log(currentDate);
     setNextMonth(dayjs(currentDate).add(1, "month"));
   }, [currentDate]);
 
   useEffect(() => {
-    console.log(`current month: ${currentDate.get("month")}`);
     axios({
       method: "get",
       url: `http://3.35.98.5:8080/dateroom/${currentDate.get("year")}/${currentDate.get("month") + 1}`,
