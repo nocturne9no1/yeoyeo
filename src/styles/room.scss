@@ -5,55 +5,43 @@
   background-color: #f5f4f0;
   .banner-img-wrap {
     height: 100vh;
-    overflow: hidden;
     display: flex;
     align-items: center;
-
-    img {
-      width: 100%;
-    }
+    justify-content: center;
+    overflow: hidden;
   }
 
   .room-inner {
     padding: 0 30px;
-    width: 1280px;
-    margin-left: auto;
-    margin-right: auto;
-    border-top: 1px solid #e5e7eb;
+    max-width: 1280px;
+    margin: 0 auto;
 
-    @include md {
-      width: 100%;
+    @include sm {
+      padding: 0 10px;
     }
 
     .room-padding {
       height: 60px;
     }
 
-    .divider {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 30px;
-
-      .divider-line {
-        height: 1px;
-        width: 100%;
-        background-color: #e5e7eb;
-      }
-    }
-
     .floor-plan {
       border-top: 1px solid #e5e7eb;
-      margin-top: 60px;
+      margin-top: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
+
+      @include sm {
+        img {
+          width: 100%;
+        }
+      }
     }
   }
 
   .swiper-wrap {
     border-top: 1px solid #e5e7eb;
-    padding: 60px 20px 20px 20px;
+    padding-top: 20px;
 
     .swiper-slide {
       .img-wrap {
@@ -77,6 +65,10 @@
     justify-content: center;
     align-items: center;
 
+    @include sm {
+      margin-top: 50px;
+    }
+
     &::before,
     &::after {
       display: block;
@@ -91,6 +83,11 @@
     margin-top: 30px;
     text-align: center;
     letter-spacing: 3px;
+
+    @include sm {
+      padding: 0 50px;
+      font-size: medium;
+    }
   }
 
   .room-detail {
@@ -99,6 +96,12 @@
     padding: 0 30px;
     gap: 10px 20px;
     margin-top: 120px;
+
+    @include sm {
+      margin-top: 50px;
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
 
     .room-order {
       order: 1;
@@ -110,12 +113,20 @@
       align-items: center;
       flex-direction: column;
       letter-spacing: 3px;
+
+      @include sm {
+        order: 1;
+      }
     }
 
     .room-title {
       font-size: large;
       padding: 20px;
       border-bottom: 1px solid #ebe5eb;
+
+      @include sm {
+        font-size: medium;
+      }
     }
 
     .room-features {
@@ -123,11 +134,21 @@
       display: flex;
       flex-direction: column;
 
+      @include sm {
+        margin-top: 10px;
+      }
+
       span {
         padding-left: 20px;
         margin: 10px;
         white-space: pre-line;
         line-height: 25px;
+
+        @include sm {
+          padding-left: 10px;
+          margin: 5px;
+          line-height: 20px;
+        }
       }
     }
 
@@ -136,6 +157,10 @@
 
       .room-detail-grid-item {
         padding: 10px;
+
+        @include sm {
+          padding: 5px;
+        }
       }
 
       img {
@@ -146,5 +171,11 @@
 
   .room-detail2 {
     grid-template-columns: 2fr 1fr;
+    padding-bottom: 60px;
+
+    @include sm {
+      grid-template-columns: 1fr;
+      padding-bottom: 30px;
+    }
   }
 }

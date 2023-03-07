@@ -20,14 +20,14 @@ import RoomB1 from "@temp/Room2_1.jpeg";
 import RoomB2 from "@temp/Room2_2.jpeg";
 
 function Room() {
-  const ImgList: string[] = [SwiperImg1, SwiperImg2, SwiperImg3];
+  const ImgList: string[] = [OutsideImg, SwiperImg2, SwiperImg3];
   const { t } = useTranslation("common");
 
   return (
     <div className={cn("room-wrap")}>
       {/* 배너 */}
       <div className={cn("banner-img-wrap")}>
-        <img src={OutsideImg} alt="yeoyeo-outside" />
+        <img src={SwiperImg1} alt="yeoyeo-outside" />
       </div>
 
       <section className={cn("room-inner")}>

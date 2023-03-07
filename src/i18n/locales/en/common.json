@@ -16,8 +16,10 @@
       "Owner's collection of, \n pottery and teapots",
       "Refrigerator",
       "Beam Projector"
-    ] 
+    ]
   },
-  "address": "53, Gaenmaeul-gil, Gyeongju-si, Gyeongsangbuk-do, Republic of Korea"
-
+  "address": "53, Gaenmaeul-gil, Gyeongju-si, Gyeongsangbuk-do, Republic of Korea",
+  "service": {
+    "features": ["Front Yard", "Back Yard", "Coffee and Bread", "Beam Projector", "Bath"]
+  }
 }

@@ -1,5 +1,5 @@
 .header-wrap {
-  padding: 20px 0;
+  // padding: 20px 0;
   position: fixed;
   top: 0;
   z-index: 100;
@@ -96,5 +96,16 @@
     .snb-inner {
       transform: translateX(0);
     }
+  }
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  img {
+    height: 120px;
   }
 }
