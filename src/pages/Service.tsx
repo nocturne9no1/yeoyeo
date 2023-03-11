@@ -1,14 +1,20 @@
 import cn from "classnames";
 import { useTranslation } from "react-i18next";
 
-// 배너와 공간도, 스와이퍼 이미지들
+// 서비스 배너
 import ServiceBanner from "@temp/service_banner.jpg";
 
-// Room 이미지들
-import RoomA1 from "@temp/Room1_1.jpg";
-import RoomA2 from "@temp/Room1_2.jpg";
-import RoomB1 from "@temp/Room2_1.jpeg";
-import RoomB2 from "@temp/Room2_2.jpeg";
+// Service 이미지들
+import Frontyard1 from "@temp/Frontyard1.jpeg";
+import Frontyard2 from "@temp/Frontyard2.jpeg";
+import Backyard1 from "@temp/Backyard1.jpeg";
+import Backyard2 from "@temp/Backyard2.jpeg";
+import Coffeebread1 from "@temp/Coffeebread1.jpg";
+import Coffeebread2 from "@temp/Coffeebread2.jpg";
+import Projector1 from "@temp/Projector1.jpg";
+import Projector2 from "@temp/Projector2.jpg";
+import Bath1 from "@temp/Bath1.jpeg";
+import Bath2 from "@temp/Bath2.jpeg";
 
 function Service() {
   const { t } = useTranslation("common");
@@ -17,6 +23,7 @@ function Service() {
     <div className={cn("room-wrap")}>
       {/* 배너 */}
       <div className={cn("banner-img-wrap")}>
+        <h2 className={cn("room-main-title")}>{t("service.name")}</h2>
         <img src={ServiceBanner} alt="services" />
       </div>
 
@@ -26,20 +33,16 @@ function Service() {
           <div className={cn("room-detail-description")}>
             <h3 className={cn("room-title")}>{t("service.features.0")}</h3>
             <div className={cn("room-features")}>
-              <span>{t("floorPlan.roomA.0")}</span>
-              <span>{t("floorPlan.roomA.1")}</span>
-              <span>{t("floorPlan.roomA.2")}</span>
-              <span>{t("floorPlan.roomA.3")}</span>
-              <span>{t("floorPlan.roomA.4")}</span>
-              <span>{t("floorPlan.roomA.5")}</span>
+              <span>{t("service.frontyard.0")}</span>
+              <span>{t("service.frontyard.1")}</span>
             </div>
           </div>
           <div className={cn("room-detail-pictures")}>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA1} alt="Room 이미지 1" />
+              <img src={Frontyard1} alt="앞마당 이미지 1" />
             </div>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA2} alt="Room 이미지 2 " />
+              <img src={Frontyard2} alt="앞마당 이미지 2 " />
             </div>
           </div>
         </div>
@@ -49,20 +52,16 @@ function Service() {
           <div className={cn("room-detail-description room-order")}>
             <h3 className={cn("room-title")}>{t("service.features.1")}</h3>
             <div className={cn("room-features")}>
-              <span>{t("floorPlan.roomA.0")}</span>
-              <span>{t("floorPlan.roomA.1")}</span>
-              <span>{t("floorPlan.roomA.2")}</span>
-              <span>{t("floorPlan.roomA.3")}</span>
-              <span>{t("floorPlan.roomA.4")}</span>
-              <span>{t("floorPlan.roomA.5")}</span>
+              <span>{t("service.backyard.0")}</span>
+              <span>{t("service.backyard.1")}</span>
             </div>
           </div>
           <div className={cn("room-detail-pictures")}>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomB1} alt="Room 이미지 1" />
+              <img src={Backyard1} alt="뒷마당 이미지 1" />
             </div>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomB2} alt="Room 이미지 2 " />
+              <img src={Backyard2} alt="뒷마당 이미지 2 " />
             </div>
           </div>
         </div>
@@ -72,20 +71,15 @@ function Service() {
           <div className={cn("room-detail-description")}>
             <h3 className={cn("room-title")}>{t("service.features.2")}</h3>
             <div className={cn("room-features")}>
-              <span>{t("floorPlan.roomA.0")}</span>
-              <span>{t("floorPlan.roomA.1")}</span>
-              <span>{t("floorPlan.roomA.2")}</span>
-              <span>{t("floorPlan.roomA.3")}</span>
-              <span>{t("floorPlan.roomA.4")}</span>
-              <span>{t("floorPlan.roomA.5")}</span>
+              <span>{t("service.coffeeBread.0")}</span>
             </div>
           </div>
           <div className={cn("room-detail-pictures")}>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA1} alt="Room 이미지 1" />
+              <img src={Coffeebread1} alt="커피와빵 이미지 1" />
             </div>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA2} alt="Room 이미지 2 " />
+              <img src={Coffeebread2} alt="커피와빵 이미지 2 " />
             </div>
           </div>
         </div>
@@ -95,20 +89,15 @@ function Service() {
           <div className={cn("room-detail-description room-order")}>
             <h3 className={cn("room-title")}>{t("service.features.3")}</h3>
             <div className={cn("room-features")}>
-              <span>{t("floorPlan.roomA.0")}</span>
-              <span>{t("floorPlan.roomA.1")}</span>
-              <span>{t("floorPlan.roomA.2")}</span>
-              <span>{t("floorPlan.roomA.3")}</span>
-              <span>{t("floorPlan.roomA.4")}</span>
-              <span>{t("floorPlan.roomA.5")}</span>
+              <span>{t("service.projector.0")}</span>
             </div>
           </div>
           <div className={cn("room-detail-pictures")}>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomB1} alt="Room 이미지 1" />
+              <img src={Projector1} alt="프로젝터 이미지 1" />
             </div>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomB2} alt="Room 이미지 2 " />
+              <img src={Projector2} alt="프로젝터 이미지 2 " />
             </div>
           </div>
         </div>
@@ -118,20 +107,15 @@ function Service() {
           <div className={cn("room-detail-description")}>
             <h3 className={cn("room-title")}>{t("service.features.4")}</h3>
             <div className={cn("room-features")}>
-              <span>{t("floorPlan.roomA.0")}</span>
-              <span>{t("floorPlan.roomA.1")}</span>
-              <span>{t("floorPlan.roomA.2")}</span>
-              <span>{t("floorPlan.roomA.3")}</span>
-              <span>{t("floorPlan.roomA.4")}</span>
-              <span>{t("floorPlan.roomA.5")}</span>
+              <span>{t("service.bath.0")}</span>
             </div>
           </div>
           <div className={cn("room-detail-pictures")}>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA1} alt="Room 이미지 1" />
+              <img src={Bath1} alt="욕탕 이미지 1" />
             </div>
             <div className={cn("room-detail-grid-item")}>
-              <img src={RoomA2} alt="Room 이미지 2 " />
+              <img src={Bath2} alt="욕탕 이미지 2 " />
             </div>
           </div>
         </div>
