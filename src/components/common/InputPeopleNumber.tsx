@@ -2,7 +2,7 @@ import { useState } from "react";
 import cn from "classnames";
 
 function InputPeopleNumber() {
-  const [peopleNumber, setPeopleNumber] = useState<number>(1);
+  const [peopleNumber, setPeopleNumber] = useState<number>(2);
 
   const handleButton = (action: string) => {
     if (action === "increase") {
