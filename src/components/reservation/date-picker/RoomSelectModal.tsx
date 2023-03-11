@@ -1,11 +1,15 @@
 // import {  } from "react";
 import { useEffect } from "react";
 import cn from "classnames";
+import { useSetAtom } from "jotai";
+import modalStatus from "src/state/modalStatus";
 
 function RoomSelectModal({ setSelectedRoom, setIsModal }: RoomSelectModalProps) {
+  const setModal = useSetAtom(modalStatus);
+
   const pushEscape = (e: KeyboardEvent) => {
-    console.log(e.key);
     if (e.key === "Escape") {
+      setModal(false);
       setIsModal(false);
     }
   };
@@ -18,7 +22,7 @@ function RoomSelectModal({ setSelectedRoom, setIsModal }: RoomSelectModalProps) 
   return (
     <div
       className={cn("room-select-modal-mask")}
-      onClick={() => setIsModal(false)}
+      onClick={() => setModal(false)}
       // onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
       //   console.log(e.key);
       //   if (e.key === "Escape") {
@@ -35,6 +39,7 @@ function RoomSelectModal({ setSelectedRoom, setIsModal }: RoomSelectModalProps) 
             className={cn("room-button")}
             onClick={() => {
               setSelectedRoom("A");
+              setModal(false);
               setIsModal(false);
             }}
           >
@@ -45,6 +50,7 @@ function RoomSelectModal({ setSelectedRoom, setIsModal }: RoomSelectModalProps) 
             className={cn("room-button")}
             onClick={() => {
               setSelectedRoom("B");
+              setModal(false);
               setIsModal(false);
             }}
           >

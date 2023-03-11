@@ -9,6 +9,8 @@ import ReservationSidebar from "@components/reservation/ReservationSidebar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { useEffect } from "react";
+import { useAtom } from "jotai";
+import modalStatus from "src/state/modalStatus";
 
 function Reservation() {
   const navigate = useNavigate();
@@ -25,6 +27,8 @@ function Reservation() {
   // const [endDate, setEndDate] = useState<Date | null>(null);
   // const accommodationPeriod = ((Number(endDate) - Number(startDate)) / 1000 / 60 / 60 / 24 );
   const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
+
+  const [isModalMask, setIsModalMask] = useAtom(modalStatus);
 
   function callBack(response: any) {
     const {
@@ -113,6 +117,16 @@ function Reservation() {
       <button type="button" onClick={() => smsCheck()}>
         결제하기
       </button>
+      {isModalMask && (
+        <div
+          tabIndex={0}
+          role="button"
+          className={cn("modal-mask")}
+          onClick={() => setIsModalMask(false)}
+          onKeyDown={() => {}}
+          aria-label="close modal"
+        />
+      )}
     </div>
   );
 }

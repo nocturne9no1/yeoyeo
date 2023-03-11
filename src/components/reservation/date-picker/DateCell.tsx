@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import cn from "classnames";
 import dayjs from "dayjs";
+import { useAtom } from "jotai";
+import modalStatus from "src/state/modalStatus";
+
 import RoomSelectModal from "./RoomSelectModal";
 
 function DateCell({
@@ -14,9 +17,17 @@ function DateCell({
   setSelectedRoom,
 }: DateCellProps) {
   const [isModal, setIsModal] = useState<boolean>(false);
+  const [modalOpen, setModalOpen] = useAtom(modalStatus);
 
   const handleCellClick = () => {
-    if (cellData[0].reservationState === 0 && cellData[1].reservationState === 0 && !isModal && selectedRoom === null) {
+    if (
+      cellData[0].reservationState === 0 &&
+      cellData[1].reservationState === 0 &&
+      !modalOpen &&
+      !isModal &&
+      selectedRoom === null
+    ) {
+      setModalOpen(true);
       setIsModal(true);
       return;
     }
@@ -26,6 +37,13 @@ function DateCell({
   };
 
   const cellDate = dayjs(currentDate).set("date", day);
+
+  useEffect(() => {
+    if (!modalOpen) {
+      setIsModal(false);
+    }
+  }, [modalOpen]);
+
   return (
     <td
       key={day}
@@ -36,6 +54,7 @@ function DateCell({
         (cellDate.isSame(startDate) || cellDate.isSame(endDate)) && "selected",
         startDate && startDate < cellDate && endDate && endDate > cellDate && "between-day",
         dayjs() > dayjs(currentDate).set("date", day) && "passed-date",
+        isModal && "room-selecting",
       )}
     >
       <div className={cn("day")}>{day}</div>

@@ -72,7 +72,8 @@
               border-right: none;
             }
 
-            &:hover {
+            &:hover,
+            &.room-selecting {
               background-color: #d0d0d0;
             }
 
@@ -321,6 +322,23 @@
   padding-top: 40px;
 }
 
+// .room-select-modal-mask {
+//   width: 100vw;
+//   height: 100vh;
+//   overflow: hidden;
+//   position: absolute;
+//   &::after {
+//     position: fixed;
+//     background-color: #808080;
+//     opacity: 0.3;
+//     width: 100vw;
+//     height: 100vh;
+//     content: "";
+//     top: 0;
+//     left: 0;
+//   }
+// }
+
 .room-select-modal {
   position: absolute;
   // left: 100%;
@@ -374,4 +392,14 @@
       }
     }
   }
+}
+
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 50;
 }
