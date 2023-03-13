@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import cn from "classnames";
 import { Dayjs } from "dayjs";
 
@@ -16,15 +16,24 @@ function Reservation() {
   const [canReserve, setCanReserve] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
+  // const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
   const [periodData, setPeriodData] = useState<PeriodDataType>({} as PeriodDataType);
 
   const [isModalMask, setIsModalMask] = useAtom(modalStatus);
+  const reservationFormRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     console.log(periodData);
+    console.log(reservationFormRef.current?.getBoundingClientRect().top);
+    const clientTop = reservationFormRef.current?.getBoundingClientRect().top;
+    if (periodData) {
+      window.scrollTo({
+        top: clientTop! - 73,
+        behavior: "smooth",
+      });
+    }
   }, [periodData]);
 
   function callBack(response: any) {
@@ -135,16 +144,17 @@ function Reservation() {
           setEndDate={setEndDate}
           setPeriodData={setPeriodData}
         />
-        <div className={cn("reservation-form-wrap")}>
-          <CustomerForm setCanReserve={setCanReserve} />
-          <ReservationSidebar
-            startDate={new Date()}
-            endDate={new Date()}
-            accommodationPeriod={accommodationPeriod}
-            defaultFeePerDay={200}
-            onClickPayment={() => validCheck()}
-          />
-        </div>
+        {startDate && endDate && (
+          <div ref={reservationFormRef} className={cn("reservation-form-wrap")}>
+            <CustomerForm setCanReserve={setCanReserve} />
+            <ReservationSidebar
+              startDate={startDate}
+              endDate={endDate}
+              periodData={periodData}
+              onClickPayment={() => validCheck()}
+            />
+          </div>
+        )}
         <Agreement />
         {/* <div className={cn("reservation-form-wrap")}>약관동의가 들어가야할 부분</div> */}
       </div>
