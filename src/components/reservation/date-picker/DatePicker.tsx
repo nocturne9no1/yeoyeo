@@ -5,9 +5,7 @@ import axios from "axios";
 
 import Calendar from "./Calendar";
 
-function DatePicker() {
-  const [startDate, setStartDate] = useState<Dayjs | null>(null);
-  const [endDate, setEndDate] = useState<Dayjs | null>(null);
+function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodData }: DatePickerProps) {
   const [currentDate, setCurrentDate] = useState(dayjs().set("date", 1));
   const [nextMonth, setNextMonth] = useState(dayjs(currentDate).add(1, "month"));
   const [roomMonthData, setRoomMonthData] = useState<MonthRoomData>({} as MonthRoomData);
@@ -33,11 +31,15 @@ function DatePicker() {
   }, [currentDate]);
 
   // TODO: start/end date 모두 설정 시 데이터 계산해서 넘겨주기
-  // useEffect(() => {
-  //   if (startDate, endDate) {
-
-  //   }
-  // }, [startDate, endDate])
+  useEffect(() => {
+    if (startDate && endDate) {
+      console.log(startDate);
+      axios({
+        method: "get",
+        url: `http://3.35.98.5:8080/dateroom/price/1/${startDate.format("YYYYMMDD")}/${endDate.format("YYYYMMDD")}`,
+      }).then((res) => setPeriodData(res.data));
+    }
+  }, [startDate, endDate, setPeriodData]);
 
   const handleDateClick = (day: number, date: Dayjs) => {
     const selectedDate = dayjs(date).set("date", day);

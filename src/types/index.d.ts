@@ -44,6 +44,21 @@ declare global {
     setSelectedRoom: (selectedRoom: "A" | "B") => void;
     setIsModal: (isModal: boolean) => void;
   }
+
+  interface PeriodDataType {
+    discountedPrice: number;
+    originalPrice: number;
+    period: number;
+    totalPrice: number;
+  }
+
+  interface DatePickerProps {
+    startDate: Dayjs | null;
+    endDate: Dayjs | null;
+    setStartDate: (startDate: Dayjs | null) => void;
+    setEndDate: (endDate: Dayjs | null) => void;
+    setPeriodData: (periodData: PeriodDataType) => void;
+  }
 }
 
 declare global {

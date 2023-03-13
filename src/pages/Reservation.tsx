@@ -1,6 +1,6 @@
-// import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import cn from "classnames";
-// import axios from "axios";
+import { Dayjs } from "dayjs";
 
 import DatePicker from "@components/reservation/date-picker/DatePicker";
 import CustomerForm from "@components/reservation/CustomerForm";
@@ -14,21 +14,16 @@ import modalStatus from "src/state/modalStatus";
 
 function Reservation() {
   const navigate = useNavigate();
-  // const [calendarData, setCalendarData] = useState<MonthRoomData[]>();
-
-  // useEffect(() => {
-  //   axios({
-  //     method: "get",
-  //     url: "http://3.35.98.5:8080/dateroom/2023/2",
-  //   }).then((res) => setCalendarData(res.data));
-  // }, []);
-
-  // const [startDate, setStartDate] = useState<Date | null>(null);
-  // const [endDate, setEndDate] = useState<Date | null>(null);
-  // const accommodationPeriod = ((Number(endDate) - Number(startDate)) / 1000 / 60 / 60 / 24 );
   const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
+  const [startDate, setStartDate] = useState<Dayjs | null>(null);
+  const [endDate, setEndDate] = useState<Dayjs | null>(null);
+  const [periodData, setPeriodData] = useState<PeriodDataType>({} as PeriodDataType);
 
   const [isModalMask, setIsModalMask] = useAtom(modalStatus);
+
+  useEffect(() => {
+    console.log(periodData);
+  }, [periodData]);
 
   function callBack(response: any) {
     const {
@@ -102,7 +97,13 @@ function Reservation() {
     <div className={cn("reservation-wrap")}>
       <div className={cn("reservation-inner")}>
         Reservation
-        <DatePicker />
+        <DatePicker
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          setPeriodData={setPeriodData}
+        />
         <div className={cn("reservation-form-wrap")}>
           <CustomerForm />
           <ReservationSidebar
