@@ -13,6 +13,12 @@ import modalStatus from "src/state/modalStatus";
 import Agreement from "@components/reservation/Agreement";
 
 function Reservation() {
+  const [username, setUsername] = useState<string>("");
+  const [userMobileNumber, setUserMobileNumber] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [peopleNumber, setPeopleNumber] = useState<number>(2);
+  const [requestedTerm, setRequestedTerm] = useState<string>("");
+
   const [canReserve, setCanReserve] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -25,8 +31,6 @@ function Reservation() {
   const reservationFormRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log(periodData);
-    console.log(reservationFormRef.current?.getBoundingClientRect().top);
     const clientTop = reservationFormRef.current?.getBoundingClientRect().top;
     if (periodData) {
       window.scrollTo({
@@ -46,24 +50,34 @@ function Reservation() {
 
     if (success) {
       alert("결제 성공");
-      const postData = {
-        dateRoomId: "string",
-        email: response.buyer_email,
-        guestCount: 0,
-        imp_uid: response.imp_uid,
-        merchant_uid: response.merchant_uid,
-        name: response.buyer_name,
-        phoneNumber: response.buyer_tel,
-        request: "string",
-      };
-
-      console.log(postData);
+      // const postData = {
+      //   dateRoomId: "string",
+      //   email: response.buyer_email,
+      //   guestCount: peopleNumber,
+      //   imp_uid: response.imp_uid,
+      //   merchant_uid: response.merchant_uid,
+      //   name: response.buyer_name,
+      //   phoneNumber: response.buyer_tel,
+      //   request: "string",
+      // };
+      // // {
+      // //   "imp_uid": "string",
+      // //   "merchant_uid": 0
+      // // }
+      // console.log(postData);
       navigate("/intro");
-      // TODO: 결제 성공 요청 이후 서버에 결제 정보 검증 요청
-      // axios({
-      //   method: 'post',
 
-      // })
+      // TODO: 결제 성공 요청 이후 서버에 결제 정보 검증 요청
+      axios({
+        method: "post",
+        url: "http://3.35.98.5:8080/payment/pay",
+        data: {
+          imp_uid: response.imp_uid,
+          merchant_uid: response.merchant_uid,
+        },
+      })
+        .then(() => console.log("결제 ㄹㅇ 완료"))
+        .catch(() => console.log("아직 끝난게아님"));
     } else {
       alert(`결제 실패: ${error_msg}`);
     }
@@ -85,12 +99,12 @@ function Reservation() {
         pay_method: "card",
         merchant_uid: merchantUid, // 고유 주문번호 (날짜+방)
         name: "여여 결제 테스트",
-        amount: 100, // 결제금액
-        buyer_email: "aud1132@naver.com",
-        buyer_name: "김명준",
-        buyer_tel: "010-9459-3275",
-        buyer_addr: "서울특별시 강남구 신사동",
-        buyer_postcode: "01181",
+        amount: periodData.totalPrice, // 결제금액
+        buyer_email: email,
+        buyer_name: username,
+        buyer_tel: userMobileNumber,
+        // buyer_addr: "서울특별시 강남구 신사동",
+        // buyer_postcode: "01181",
         confirm_url: "http://3.35.98.5:8080/payment/confirm",
       };
 
@@ -103,18 +117,18 @@ function Reservation() {
   function getReservationId() {
     // TODO: CustomerForm.tsx에 있는 state 옮기기
     // dataRoomIdList, email, guestCount, name, phoneNumber, request
-    const a = {
+    const data = {
       dateRoomIdList: ["string"],
-      email: "aud1132@naver.com",
-      guestCount: 1,
-      name: "김명준",
-      phoneNumber: "010-9459-3275",
-      request: "확인합니당",
+      email,
+      guestCount: peopleNumber,
+      name: username,
+      phoneNumber: userMobileNumber,
+      request: requestedTerm,
     };
     axios({
       method: "post",
       url: "http://3.35.98.5:8080/reservation/reserve",
-      data: a,
+      data,
     })
       .then((res) => {
         console.log("aaaaaaaaa", res);
@@ -127,7 +141,6 @@ function Reservation() {
   function validCheck() {
     if (canReserve) {
       getReservationId();
-      // onClickPayment();
     } else {
       alert("예약폼확인");
     }
@@ -146,7 +159,19 @@ function Reservation() {
         />
         {startDate && endDate && (
           <div ref={reservationFormRef} className={cn("reservation-form-wrap")}>
-            <CustomerForm setCanReserve={setCanReserve} />
+            <CustomerForm
+              username={username}
+              setUsername={setUsername}
+              userMobileNumber={userMobileNumber}
+              setUserMobileNumber={setUserMobileNumber}
+              email={email}
+              setEmail={setEmail}
+              peopleNumber={peopleNumber}
+              setPeopleNumber={setPeopleNumber}
+              requestedTerm={requestedTerm}
+              setRequestedTerm={setRequestedTerm}
+              setCanReserve={setCanReserve}
+            />
             <ReservationSidebar
               startDate={startDate}
               endDate={endDate}

@@ -9,18 +9,36 @@ import axios from "axios";
 import Timer from "./Timer";
 
 interface CustomerFormProps {
+  username: string;
+  setUsername: (username: string) => void;
+  userMobileNumber: string;
+  setUserMobileNumber: (userMobileNumber: string) => void;
+  email: string;
+  setEmail: (email: string) => void;
+  peopleNumber: number;
+  setPeopleNumber: React.Dispatch<React.SetStateAction<number>>;
+  requestedTerm: string;
+  setRequestedTerm: (requestedTerm: string) => void;
   setCanReserve: (canReserve: boolean) => void;
 }
 
-function CustomerForm({ setCanReserve }: CustomerFormProps) {
-  const [username, setUsername] = useState<string>("");
-  const [userMobileNumber, setUserMobileNumber] = useState<string>("");
+function CustomerForm({
+  username,
+  setUsername,
+  userMobileNumber,
+  setUserMobileNumber,
+  email,
+  setEmail,
+  peopleNumber,
+  setPeopleNumber,
+  requestedTerm,
+  setRequestedTerm,
+  setCanReserve,
+}: CustomerFormProps) {
   const [userAuthNumber, setUserAuthNumber] = useState<string>("");
   const [authResultMsg, setAuthResultMsg] = useState<string>("");
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [isTimeOut, setIsTimeOut] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [requestedTerm, setRequestedTerm] = useState<string>("");
   const [isBtnFocused, setIsBtnFocused] = useState<boolean>(false);
 
   const handleTextAreaInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -146,7 +164,7 @@ function CustomerForm({ setCanReserve }: CustomerFormProps) {
         )}
       </InputForm>
       <InputForm title="인원">
-        <InputPeopleNumber />
+        <InputPeopleNumber peopleNumber={peopleNumber} setPeopleNumber={setPeopleNumber} />
       </InputForm>
       <InputForm title="요청사항">
         <div className={cn("text-area-wrap")}>
