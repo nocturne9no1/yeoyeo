@@ -4,15 +4,17 @@ import { Dayjs } from "dayjs";
 
 import DatePicker from "@components/reservation/date-picker/DatePicker";
 import CustomerForm from "@components/reservation/CustomerForm";
-// import { useState } from "react";
 import ReservationSidebar from "@components/reservation/ReservationSidebar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // import { useEffect } from "react";
 import { useAtom } from "jotai";
 import modalStatus from "src/state/modalStatus";
+import Agreement from "@components/reservation/Agreement";
 
 function Reservation() {
+  const [canReserve, setCanReserve] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
@@ -35,7 +37,6 @@ function Reservation() {
 
     if (success) {
       alert("결제 성공");
-      // console.log(response)
       const postData = {
         dateRoomId: "string",
         email: response.buyer_email,
@@ -58,8 +59,9 @@ function Reservation() {
       alert(`결제 실패: ${error_msg}`);
     }
   }
+
   // TODO : 결제모듈 열기전
-  function onClickPayment() {
+  function onClickPayment(merchantUid: number) {
     // TODO: 서버에 예약 정보 보낸 뒤 unique_id get
 
     try {
@@ -72,27 +74,56 @@ function Reservation() {
         pg: "nice",
         // pg: "kakaopay"
         pay_method: "card",
-        merchant_uid: "2023030210test_m04", // 고유 주문번호 (날짜+방)
+        merchant_uid: merchantUid, // 고유 주문번호 (날짜+방)
         name: "여여 결제 테스트",
         amount: 100, // 결제금액
-        buyer_email: "toto9091@naver.com",
-        buyer_name: "박정웅",
-        buyer_tel: "010-1234-7777",
+        buyer_email: "aud1132@naver.com",
+        buyer_name: "김명준",
+        buyer_tel: "010-9459-3275",
         buyer_addr: "서울특별시 강남구 신사동",
         buyer_postcode: "01181",
+        confirm_url: "http://3.35.98.5:8080/payment/confirm",
       };
 
       IMP.request_pay(data, callBack);
     } catch (e) {
-      console.log("aaaaaa", e);
+      console.log("error error", e);
     }
   }
-  function smsCheck() {
-    axios
-      .get("http://3.35.98.5:8080/room/show-all")
-      .then((res) => console.log("sms response", res))
-      .catch((err) => console.log("sms error", err));
+
+  function getReservationId() {
+    // TODO: CustomerForm.tsx에 있는 state 옮기기
+    // dataRoomIdList, email, guestCount, name, phoneNumber, request
+    const a = {
+      dateRoomIdList: ["string"],
+      email: "aud1132@naver.com",
+      guestCount: 1,
+      name: "김명준",
+      phoneNumber: "010-9459-3275",
+      request: "확인합니당",
+    };
+    axios({
+      method: "post",
+      url: "http://3.35.98.5:8080/reservation/reserve",
+      data: a,
+    })
+      .then((res) => {
+        console.log("aaaaaaaaa", res);
+        console.log(res.data.resultId, typeof res.data.resultId);
+        onClickPayment(res.data.resultId);
+      })
+      .catch((err) => console.log("err", err));
   }
+
+  function validCheck() {
+    if (canReserve) {
+      getReservationId();
+      // onClickPayment();
+    } else {
+      alert("예약폼확인");
+    }
+  }
+
   return (
     <div className={cn("reservation-wrap")}>
       <div className={cn("reservation-inner")}>
@@ -105,19 +136,18 @@ function Reservation() {
           setPeriodData={setPeriodData}
         />
         <div className={cn("reservation-form-wrap")}>
-          <CustomerForm />
+          <CustomerForm setCanReserve={setCanReserve} />
           <ReservationSidebar
             startDate={new Date()}
             endDate={new Date()}
             accommodationPeriod={accommodationPeriod}
             defaultFeePerDay={200}
-            onClickPayment={() => onClickPayment()}
+            onClickPayment={() => validCheck()}
           />
         </div>
+        <Agreement />
+        {/* <div className={cn("reservation-form-wrap")}>약관동의가 들어가야할 부분</div> */}
       </div>
-      <button type="button" onClick={() => smsCheck()}>
-        결제하기
-      </button>
       {isModalMask && (
         <div
           tabIndex={0}
