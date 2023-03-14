@@ -44,6 +44,8 @@ function DateCell({
     }
   }, [modalOpen]);
 
+  const isPassed = dayjs() > dayjs(currentDate).set("date", day);
+
   return (
     <td
       key={day}
@@ -53,7 +55,7 @@ function DateCell({
       className={cn(
         (cellDate.isSame(startDate) || cellDate.isSame(endDate)) && "selected",
         startDate && startDate < cellDate && endDate && endDate > cellDate && "between-day",
-        dayjs() > dayjs(currentDate).set("date", day) && "passed-date",
+        isPassed && "passed-date",
         isModal && "room-selecting",
       )}
     >
@@ -63,11 +65,17 @@ function DateCell({
           {/* <div>{!data[day - 1] && data[day - 1].rooms[0].price}</div> */}
           <ul className={cn("room-list")}>
             {/* {selectedRoom} */}
-            {(selectedRoom === "A" || selectedRoom === null) && (
-              <li className={cn("room-item", cellData[0].reservationState === 0 && "available")}>A</li>
+            {!isPassed && (selectedRoom === "A" || selectedRoom === null) && (
+              <li className={cn("room-item", cellData[0].reservationState === 0 && "available")}>
+                <strong className={cn("room-name")}>A</strong>
+                <span className={cn("price")}>{cellData[0].price / 10000}</span>
+              </li>
             )}
-            {(selectedRoom === "B" || selectedRoom === null) && (
-              <li className={cn("room-item", cellData[1].reservationState === 0 && "available")}>B</li>
+            {!isPassed && (selectedRoom === "B" || selectedRoom === null) && (
+              <li className={cn("room-item", cellData[1].reservationState === 0 && "available")}>
+                <strong className={cn("room-name")}>B</strong>
+                <span className={cn("price")}>{cellData[1].price / 10000}</span>
+              </li>
             )}
           </ul>
         </>
