@@ -43,26 +43,22 @@ function ReservationSidebar({ startDate, endDate, periodData, onClickPayment }: 
             right={`+ ${(weekEndPrice * 1).toLocaleString()}원`}
           /> */}
           <ReservationInfo
-            left="정상가"
+            left="정상가(부가세포함)"
             middle={`${periodData.originalPrice?.toLocaleString()}원`}
             right={`+ ${periodData.originalPrice?.toLocaleString()}원`}
           />
-          <ReservationInfo
+          {/* <ReservationInfo
             left="부가세(VAT별도)"
             middle={`${(periodData.totalPrice * 0.1)?.toLocaleString()}원`}
             right={`+ ${(periodData.totalPrice * 0.1)?.toLocaleString()}원`}
-          />
+          /> */}
           <ReservationInfo
             left="연박할인"
             middle={`${periodData.period >= 2 ? `20,000원 * ${(periodData.period - 1)?.toLocaleString()}` : "-"}`}
             right={`${periodData.period >= 2 ? `- ${periodData.discountedPrice?.toLocaleString()}원` : "-"}`}
           />
           <div className={cn("border-line")} />
-          <ReservationInfo
-            left="총액"
-            right={`총 ${(periodData.totalPrice + periodData.totalPrice * 0.1)?.toLocaleString()}원`}
-            isLast
-          />
+          <ReservationInfo left="총액" right={`총 ${periodData.totalPrice?.toLocaleString()}원`} isLast />
         </div>
       </InputForm>
 
