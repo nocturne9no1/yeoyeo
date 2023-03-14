@@ -111,7 +111,7 @@ function CustomerForm({
               onClick={() => {
                 setIsBtnFocused(true);
                 axios
-                  .get(`http://3.35.98.5:8080/reservation/sms/authKey/${userMobileNumber}/${userAuthNumber}`)
+                  .get(`http://3.35.98.5:8080/reservation/validation/authKey/${userMobileNumber}/${userAuthNumber}`)
                   .then((res) => {
                     if (res.data) {
                       setIsAuthorized(true);
