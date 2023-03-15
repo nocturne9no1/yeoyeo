@@ -18,11 +18,9 @@ function Reservation() {
   const [email, setEmail] = useState<string>("");
   const [peopleNumber, setPeopleNumber] = useState<number>(2);
   const [requestedTerm, setRequestedTerm] = useState<string>("");
-
   const [canReserve, setCanReserve] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  // const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
   const [periodData, setPeriodData] = useState<PeriodDataType>({} as PeriodDataType);
@@ -101,7 +99,7 @@ function Reservation() {
         pay_method: "card",
         merchant_uid: merchantUid, // 고유 주문번호 (날짜+방)
         name: "여여 결제 테스트",
-        amount: periodData.totalPrice, // 결제금액
+        amount: peopleNumber > 2 ? periodData.totalPrice + 30000 * periodData.period : periodData.totalPrice, // 결제금액
         buyer_email: email,
         buyer_name: username,
         buyer_tel: userMobileNumber,
@@ -180,6 +178,7 @@ function Reservation() {
               startDate={startDate}
               endDate={endDate}
               periodData={periodData}
+              peopleNumber={peopleNumber}
               onClickPayment={() => validCheck()}
             />
           </div>

@@ -9,10 +9,11 @@ interface ReservationSidebarProps {
   startDate?: Dayjs | null;
   endDate?: Dayjs | null;
   periodData: PeriodDataType;
+  peopleNumber: number;
   onClickPayment: () => void;
 }
 // const dayOftheWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-function ReservationSidebar({ startDate, endDate, periodData, onClickPayment }: ReservationSidebarProps) {
+function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onClickPayment }: ReservationSidebarProps) {
   dayjs.locale("ko");
   const tmpStartDate = dayjs(startDate).format(`YYYY년 MM월 DD일(ddd)`);
   const tmpEndDate = dayjs(endDate).format(`YYYY년 MM월 DD일(ddd)`);
@@ -47,6 +48,13 @@ function ReservationSidebar({ startDate, endDate, periodData, onClickPayment }: 
             middle={`${periodData.originalPrice?.toLocaleString()}원`}
             right={`+ ${periodData.originalPrice?.toLocaleString()}원`}
           />
+          {peopleNumber > 2 && (
+            <ReservationInfo
+              left="추가금(인원추가)"
+              middle={`30,000원 * ${periodData.period.toLocaleString()}`}
+              right={`+ ${(30000 * periodData.period).toLocaleString()}원`}
+            />
+          )}
           {/* <ReservationInfo
             left="부가세(VAT별도)"
             middle={`${(periodData.totalPrice * 0.1)?.toLocaleString()}원`}
@@ -58,7 +66,11 @@ function ReservationSidebar({ startDate, endDate, periodData, onClickPayment }: 
             right={`${periodData.period >= 2 ? `- ${periodData.discountedPrice?.toLocaleString()}원` : "-"}`}
           />
           <div className={cn("border-line")} />
-          <ReservationInfo left="총액" right={`총 ${periodData.totalPrice?.toLocaleString()}원`} isLast />
+          <ReservationInfo
+            left="총액"
+            right={`총 ${(periodData.totalPrice + 30000 * periodData.period).toLocaleString()}원`}
+            isLast
+          />
         </div>
       </InputForm>
 
