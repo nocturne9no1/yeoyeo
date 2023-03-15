@@ -20,14 +20,15 @@ import RoomB1 from "@temp/Room2_1.jpeg";
 import RoomB2 from "@temp/Room2_2.jpeg";
 
 function Room() {
-  const ImgList: string[] = [SwiperImg1, SwiperImg2, SwiperImg3];
+  const ImgList: string[] = [OutsideImg, SwiperImg2, SwiperImg3];
   const { t } = useTranslation("common");
 
   return (
     <div className={cn("room-wrap")}>
       {/* 배너 */}
       <div className={cn("banner-img-wrap")}>
-        <img src={OutsideImg} alt="yeoyeo-outside" />
+        <h2 className={cn("room-main-title")}>{t("floorPlan.name")}</h2>
+        <img src={SwiperImg1} alt="yeoyeo-outside" />
       </div>
 
       <section className={cn("room-inner")}>
@@ -59,16 +60,16 @@ function Room() {
         </div>
 
         {/* 웰컴문구 */}
-        <h2 className={cn("welcome-title")}>
+        <h3 className={cn("welcome-title")}>
           <span>{t("floorPlan.serviceTitle")}</span>
           <span>{t("floorPlan.serviceTitle")}</span>
-        </h2>
+        </h3>
         <p className={cn("welcome-description")}>{t("floorPlan.serviceDescription")}</p>
 
         {/* Room A */}
         <div className={cn("room-detail")}>
           <div className={cn("room-detail-description")}>
-            <h3 className={cn("room-title")}>Room A</h3>
+            <h4 className={cn("room-title")}>Room A</h4>
             <div className={cn("room-features")}>
               <span>{t("floorPlan.roomA.0")}</span>
               <span>{t("floorPlan.roomA.1")}</span>
@@ -91,7 +92,7 @@ function Room() {
         {/* Room B */}
         <div className={cn("room-detail room-detail2")}>
           <div className={cn("room-detail-description room-order")}>
-            <h3 className={cn("room-title")}>Room B</h3>
+            <h4 className={cn("room-title")}>Room B</h4>
             <div className={cn("room-features")}>
               <span>{t("floorPlan.roomA.0")}</span>
               <span>{t("floorPlan.roomA.1")}</span>

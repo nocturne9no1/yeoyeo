@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as IcoHamburger } from "@icons/ico_hamburger.svg";
 import i18next, { changeLanguage } from "i18next";
+import logo from "@temp/logo.png";
 
 // components
 import SNB from "./SNB";
@@ -47,7 +48,9 @@ function Header(): ReactElement {
             <IcoHamburger />
           </button>
           <h1 className="logo">
-            <Link to="/">logo</Link>
+            <Link to="/">
+              <img src={logo} alt="" />
+            </Link>
           </h1>
           <button type="button" aria-label="language button" className="lang-btn" onClick={() => handleLang()}>
             {lang}
