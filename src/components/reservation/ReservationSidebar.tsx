@@ -68,7 +68,11 @@ function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onCl
           <div className={cn("border-line")} />
           <ReservationInfo
             left="총액"
-            right={`총 ${(periodData.totalPrice + 30000 * periodData.period).toLocaleString()}원`}
+            right={
+              peopleNumber > 2
+                ? `총 ${(periodData.totalPrice + 30000 * periodData.period).toLocaleString()}원`
+                : `총 ${periodData.totalPrice.toLocaleString()}원`
+            }
             isLast
           />
         </div>
