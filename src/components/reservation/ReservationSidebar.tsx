@@ -30,7 +30,6 @@ function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onCl
           <ReservationInfo left="숙박기간" right={`총 ${periodData.period}박 ${periodData.period + 1}일`} isLast />
         </div>
       </InputForm>
-
       <InputForm title="요금">
         <div className={cn("reservation-info-box")}>
           {/* <ReservationInfo
@@ -51,8 +50,8 @@ function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onCl
           {peopleNumber > 2 && (
             <ReservationInfo
               left="추가금(인원추가)"
-              middle={`30,000원 * ${periodData.period.toLocaleString()}`}
-              right={`+ ${(30000 * periodData.period).toLocaleString()}원`}
+              middle={`30,000원 * ${periodData.period?.toLocaleString()}`}
+              right={`+ ${(30000 * periodData.period)?.toLocaleString()}원`}
             />
           )}
           {/* <ReservationInfo
@@ -70,8 +69,8 @@ function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onCl
             left="총액"
             right={
               peopleNumber > 2
-                ? `총 ${(periodData.totalPrice + 30000 * periodData.period).toLocaleString()}원`
-                : `총 ${periodData.totalPrice.toLocaleString()}원`
+                ? `총 ${(periodData.totalPrice + 30000 * periodData.period)?.toLocaleString()}원`
+                : `총 ${periodData.totalPrice?.toLocaleString()}원`
             }
             isLast
           />
