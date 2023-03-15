@@ -92,6 +92,8 @@ function Reservation() {
       const { IMP } = window;
       IMP.init("imp28607423");
 
+      IMP.init("imp28607423");
+
       /* 2. 결제 데이터 정의하기 */
       const data = {
         pg: "nice",

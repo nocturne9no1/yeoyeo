@@ -2,7 +2,7 @@ import { Dayjs } from "dayjs";
 
 declare global {
   interface MonthRoomData {
-    [kye: string]: MonthRoomDataItem[];
+    [key: string]: MonthRoomDataItem[];
   }
 
   interface MonthRoomDataItem {
