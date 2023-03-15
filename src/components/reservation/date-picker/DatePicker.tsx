@@ -5,16 +5,17 @@ import axios from "axios";
 
 import Calendar from "./Calendar";
 
-function DatePicker() {
-  const [startDate, setStartDate] = useState<Dayjs | null>(null);
-  const [endDate, setEndDate] = useState<Dayjs | null>(null);
-  const [currentDate, setCurrentDate] = useState(dayjs());
+function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodData }: DatePickerProps) {
+  const [currentDate, setCurrentDate] = useState(dayjs().set("date", 1));
   const [nextMonth, setNextMonth] = useState(dayjs(currentDate).add(1, "month"));
   const [roomMonthData, setRoomMonthData] = useState<MonthRoomData>({} as MonthRoomData);
   const [selectedRoom, setSelectedRoom] = useState<"A" | "B" | null>(null);
 
-  const handlePrevMonth = () => setCurrentDate((prevState) => dayjs(prevState).add(-1, "month"));
-  const handleNextMonth = () => setCurrentDate((prevState) => dayjs(prevState).add(1, "month"));
+  const handlePrevMonth = () => {
+    if (currentDate < dayjs().set("date", 1)) return;
+    setCurrentDate((prevState) => dayjs(prevState).add(-1, "month").set("date", 1));
+  };
+  const handleNextMonth = () => setCurrentDate((prevState) => dayjs(prevState).add(1, "month").set("date", 1));
 
   useEffect(() => {
     setNextMonth(dayjs(currentDate).add(1, "month"));
@@ -23,15 +24,22 @@ function DatePicker() {
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://3.35.98.5:8080/dateroom/2023/${currentDate.get("month") + 1}`,
-    }).then((res) => setRoomMonthData(res.data));
+      url: `http://3.35.98.5:8080/dateroom/${currentDate.get("year")}/${currentDate.get("month") + 1}`,
+    }).then((res) => {
+      setRoomMonthData(res.data);
+    });
   }, [currentDate]);
 
-  // useEffect(() => {
-  //   if (startDate, endDate) {
-
-  //   }
-  // }, [startDate, endDate])
+  // TODO: start/end date 모두 설정 시 데이터 계산해서 넘겨주기
+  useEffect(() => {
+    if (startDate && endDate) {
+      console.log(startDate);
+      axios({
+        method: "get",
+        url: `http://3.35.98.5:8080/dateroom/price/1/${startDate.format("YYYYMMDD")}/${endDate.format("YYYYMMDD")}`,
+      }).then((res) => setPeriodData(res.data));
+    }
+  }, [startDate, endDate, setPeriodData]);
 
   const handleDateClick = (day: number, date: Dayjs) => {
     const selectedDate = dayjs(date).set("date", day);
@@ -60,8 +68,17 @@ function DatePicker() {
     }
   };
 
+  const resetSelect = () => {
+    setStartDate(null);
+    setEndDate(null);
+    setSelectedRoom(null);
+  };
+
   return (
     <div className={cn("date-picker-wrap")}>
+      <button type="button" onClick={() => resetSelect()}>
+        초기화
+      </button>
       <div className={cn("calendar-header")}>
         <button type="button" onClick={() => handlePrevMonth()}>
           Prev

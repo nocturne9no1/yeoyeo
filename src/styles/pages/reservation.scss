@@ -1,6 +1,7 @@
 .reservation-wrap {
   margin-top: 73px;
   padding-top: 40px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 
   .reservation-inner {
     max-width: 1240px;
@@ -50,13 +51,29 @@
 
       tbody {
         tr {
+          &:first-child td {
+            border-top: none;
+          }
+          &:last-child td {
+            border-bottom: none;
+          }
           td {
-            height: 40px;
+            position: relative;
+            height: 50px;
             padding: 12px;
             cursor: pointer;
             transition: background-color 0.2s;
+            border: 1px solid #d0d0d0;
 
-            &:hover {
+            &:first-child {
+              border-left: none;
+            }
+            &:last-child {
+              border-right: none;
+            }
+
+            &:hover,
+            &.room-selecting {
               background-color: #d0d0d0;
             }
 
@@ -79,6 +96,21 @@
               cursor: no-drop;
               // position: relative;
               // z-index: 10;
+            }
+
+            &.no-date {
+              background-color: #f0f0f0;
+              cursor: no-drop;
+            }
+
+            .room-list {
+              .room-name {
+                display: inline-block;
+                width: 20px;
+              }
+              .price {
+                font-size: 12px;
+              }
             }
           }
         }
@@ -104,11 +136,41 @@
     flex-direction: column;
     padding-bottom: 18px;
     position: relative;
+    transition: width 0.2s ease-in;
 
     & + .input-wrap {
       margin-top: 12px;
     }
-
+    &.user-mobile-input {
+      width: 280px;
+      &.disabled {
+        color: #d6d6d6;
+        width: 128px;
+      }
+    }
+    .user-auth-number-wrap {
+      align-items: center;
+      width: 250px;
+      height: 36px;
+      margin-top: 8px;
+      display: flex;
+      position: relative;
+      justify-content: space-between;
+      border: 1px solid #404040;
+      border-radius: 4px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      input {
+        padding: 0;
+        margin: 0;
+        border: none;
+        font-size: 14px;
+      }
+      span {
+        color: tomato;
+        font-size: 13px;
+      }
+    }
     .input-title {
       font-size: 14px;
       line-height: 20px;
@@ -138,6 +200,7 @@
       margin-top: 4px;
       position: absolute;
       bottom: 0;
+      white-space: nowrap;
     }
 
     .certification-button {
@@ -147,7 +210,18 @@
       width: 120px;
       margin-top: 8px;
     }
-
+    .certification-check-button {
+      border: 1px solid #202020;
+      padding: 4px 8px;
+      border-radius: 4px;
+      width: 120px;
+      height: 36px;
+      margin-top: 8px;
+      transition: background-color 1s;
+    }
+    .certification-check-button:hover {
+      background-color: #b2b2b2;
+    }
     .people-number-input-wrap {
       display: flex;
       align-items: center;
@@ -256,4 +330,135 @@
   border-top: 1px solid #404040;
   margin-top: 40px;
   padding-top: 40px;
+  .btn-wrap {
+    display: flex;
+    justify-content: flex-end;
+    svg {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+// .room-select-modal-mask {
+//   width: 100vw;
+//   height: 100vh;
+//   overflow: hidden;
+//   position: absolute;
+//   &::after {
+//     position: fixed;
+//     background-color: #808080;
+//     opacity: 0.3;
+//     width: 100vw;
+//     height: 100vh;
+//     content: "";
+//     top: 0;
+//     left: 0;
+//   }
+// }
+
+.room-select-modal {
+  position: absolute;
+  // left: 100%;
+  right: -10px;
+  transform: translateX(100%);
+  background-color: #fff;
+  border: 1px solid black;
+  border-radius: 4px;
+  z-index: 100;
+  width: 150px;
+  padding: 8px 12px;
+  top: 50%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+
+  &::before {
+    content: "";
+    position: absolute;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+    left: -10px;
+    top: 10px;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    border-width: 4px;
+    border-style: solid;
+    border-color: transparent #fff transparent transparent;
+    left: -8px;
+    top: 11px;
+  }
+
+  .room-select {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+
+    .room-button {
+      background-color: #f9f9f9;
+      border: 1px solid #d8d8d8;
+      border-radius: 4px;
+      transition: all 0.3s;
+
+      & + .room-button {
+        margin-top: 4px;
+      }
+
+      &:hover {
+        background-color: #918f8f;
+      }
+    }
+  }
+}
+
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 50;
+}
+
+.agreement-wrap {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #404040;
+  margin-top: 40px;
+  padding-top: 40px;
+  .agreement-section {
+    width: 800px;
+    .agreement-title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      span {
+        display: inline-block;
+        color: #808080;
+      }
+      .btn-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        // display: inline-flex;
+        // align-items: center;
+        // justify-content: center;
+        svg {
+          // position: relative;
+          // top: 14px;
+          // left: 12px;
+          // transform: translate(-50%, -50%);
+          width: 25px;
+          height: 25px;
+        }
+      }
+      // .btn-wrap:hover {
+      //   background-color: #a3a3a33e;
+      // }
+    }
+  }
 }

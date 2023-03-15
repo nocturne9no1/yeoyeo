@@ -59,8 +59,9 @@ function Calendar({
                     // const cellDate = dayjs(currentDate).set("date", day);
                     return (
                       <DateCell
+                        key={currentDate.toString() + day}
                         day={day}
-                        cellData={data[day - 1].rooms as DateRoomItem[]}
+                        cellData={data[day - 1] && (data[day - 1].rooms as DateRoomItem[])}
                         handleDateClick={handleDateClick}
                         startDate={startDate}
                         endDate={endDate}
@@ -70,7 +71,7 @@ function Calendar({
                       />
                     );
                   }
-                  return <td key={j} />;
+                  return <td key={j} className={cn("no-date")} />;
                 })}
               </tr>
             ))}

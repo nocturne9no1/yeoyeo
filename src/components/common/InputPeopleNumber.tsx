@@ -1,9 +1,13 @@
-import { useState } from "react";
+// import { useState } from "react";
 import cn from "classnames";
+import React from "react";
 
-function InputPeopleNumber() {
-  const [peopleNumber, setPeopleNumber] = useState<number>(1);
+interface InputPeopleNumberProps {
+  peopleNumber: number;
+  setPeopleNumber: React.Dispatch<React.SetStateAction<number>>;
+}
 
+function InputPeopleNumber({ peopleNumber, setPeopleNumber }: InputPeopleNumberProps) {
   const handleButton = (action: string) => {
     if (action === "increase") {
       if (peopleNumber + 1 < 4) {
