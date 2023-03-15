@@ -219,6 +219,27 @@
       margin-top: 8px;
       transition: background-color 1s;
     }
+    .certification-result-msg {
+      align-items: center;
+      height: 36px;
+      margin-top: 8px;
+      display: flex;
+      position: relative;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-sizing: border-box;
+      font-size: 14px;
+      &.error {
+        span {
+          color: tomato;
+        }
+      }
+      &.success {
+        span {
+          color: #77dd77;
+        }
+      }
+    }
     .certification-check-button:hover {
       background-color: #b2b2b2;
     }
