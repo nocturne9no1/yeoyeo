@@ -102,6 +102,16 @@
               background-color: #f0f0f0;
               cursor: no-drop;
             }
+
+            .room-list {
+              .room-name {
+                display: inline-block;
+                width: 20px;
+              }
+              .price {
+                font-size: 12px;
+              }
+            }
           }
         }
       }

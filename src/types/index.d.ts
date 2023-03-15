@@ -44,9 +44,14 @@ declare global {
     setSelectedRoom: (selectedRoom: "A" | "B") => void;
     setIsModal: (isModal: boolean) => void;
   }
-
+  interface InfoDtoListData {
+    date: string;
+    dateRoomId: string;
+    price: number;
+  }
   interface PeriodDataType {
     discountedPrice: number;
+    infoDtoList: InfoDtoListData[];
     originalPrice: number;
     period: number;
     totalPrice: number;

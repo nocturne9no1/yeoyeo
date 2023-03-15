@@ -117,10 +117,13 @@ function Reservation() {
   }
 
   function getReservationId() {
-    // TODO: CustomerForm.tsx에 있는 state 옮기기
+    // [o]TODO: CustomerForm.tsx에 있는 state 옮기기
+    const dateRoomIdList: string[] = [];
+    periodData.infoDtoList.map((item) => dateRoomIdList.push(item.dateRoomId));
+
     // dataRoomIdList, email, guestCount, name, phoneNumber, request
     const data = {
-      dateRoomIdList: ["string"],
+      dateRoomIdList,
       email,
       guestCount: peopleNumber,
       name: username,
@@ -133,8 +136,7 @@ function Reservation() {
       data,
     })
       .then((res) => {
-        console.log("aaaaaaaaa", res);
-        console.log(res.data.resultId, typeof res.data.resultId);
+        console.log("reservation/reserve complete", res);
         onClickPayment(res.data.resultId);
       })
       .catch((err) => console.log("err", err));
