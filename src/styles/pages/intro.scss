@@ -569,6 +569,7 @@
       flex-direction: column;
       background-repeat: no-repeat !important;
       background-position: center !important;
+      background-size: cover !important;
 
       &.service {
         background: url("../../assets/@temp/service_banner.jpg");
@@ -614,7 +615,7 @@
           justify-content: center;
           display: flex;
           flex-direction: column;
-          background-color: rgba(0, 0, 0, 0.3);
+          // background-color: rgba(0, 0, 0, 0.1);
           padding: 0 40px;
 
           .section-title {
