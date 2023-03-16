@@ -68,7 +68,7 @@ function Reservation() {
       // TODO: 결제 성공 요청 이후 서버에 결제 정보 검증 요청
       axios({
         method: "post",
-        url: "http://3.35.98.5:8080/payment/pay",
+        url: "/payment/pay",
         data: {
           imp_uid: response.imp_uid,
           merchant_uid: response.merchant_uid,
@@ -105,7 +105,7 @@ function Reservation() {
         buyer_tel: userMobileNumber,
         // buyer_addr: "서울특별시 강남구 신사동",
         // buyer_postcode: "01181",
-        confirm_url: "http://3.35.98.5:8080/payment/confirm",
+        confirm_url: "/payment/confirm",
       };
 
       IMP.request_pay(data, callBack);
@@ -130,7 +130,7 @@ function Reservation() {
     };
     axios({
       method: "post",
-      url: "http://3.35.98.5:8080/reservation/reserve",
+      url: "/reservation/reserve",
       data,
     })
       .then((res) => {

@@ -24,8 +24,9 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
   useEffect(() => {
     axios({
       method: "get",
-      url: `http://3.35.98.5:8080/dateroom/${currentDate.get("year")}/${currentDate.get("month") + 1}`,
+      url: `/dateroom/${currentDate.get("year")}/${currentDate.get("month") + 1}`,
     }).then((res) => {
+      console.log(res);
       setRoomMonthData(res.data);
     });
   }, [currentDate]);
@@ -33,10 +34,9 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
   // TODO: start/end date 모두 설정 시 데이터 계산해서 넘겨주기
   useEffect(() => {
     if (startDate && endDate) {
-      console.log(startDate);
       axios({
         method: "get",
-        url: `http://3.35.98.5:8080/dateroom/price/1/${startDate.format("YYYYMMDD")}/${endDate.format("YYYYMMDD")}`,
+        url: `/dateroom/price/1/${startDate.format("YYYYMMDD")}/${endDate.format("YYYYMMDD")}`,
       }).then((res) => setPeriodData(res.data));
     }
   }, [startDate, endDate, setPeriodData]);

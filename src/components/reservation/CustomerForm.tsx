@@ -111,7 +111,7 @@ function CustomerForm({
               onClick={() => {
                 setIsBtnFocused(true);
                 axios
-                  .get(`http://3.35.98.5:8080/reservation/validation/authKey/${userMobileNumber}/${userAuthNumber}`)
+                  .get(`/reservation/validation/authKey/${userMobileNumber}/${userAuthNumber}`)
                   .then((res) => {
                     if (res.data) {
                       setIsAuthorized(true);
@@ -154,7 +154,7 @@ function CustomerForm({
               onClick={() => {
                 setIsBtnFocused(true);
                 axios
-                  .get(`http://3.35.98.5:8080/reservation/sms/authKey/${userMobileNumber}`)
+                  .get(`/reservation/sms/authKey/${userMobileNumber}`)
                   .then((res) => console.log(res))
                   .catch((err) => console.log(err));
               }}

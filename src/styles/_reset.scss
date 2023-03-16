@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap");
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -91,6 +93,7 @@ video {
   font-size: 100%;
   vertical-align: baseline;
   color: black;
+  font-family: "Gowun Batang", serif;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -140,6 +143,7 @@ button {
   margin: 0;
   padding: 0;
   background-color: transparent;
+  font-family: "Gowun Batang", serif;
   cursor: pointer;
 }
 
