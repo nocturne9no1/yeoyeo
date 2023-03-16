@@ -21,9 +21,9 @@ function SNB({ open, setOpen }: SNBProps): ReactElement {
     {
       id: "main",
     },
-    {
-      id: "intro",
-    },
+    // {
+    //   id: "intro",
+    // },
     {
       id: "service",
     },

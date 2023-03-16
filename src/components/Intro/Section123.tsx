@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import cn from "classnames";
 
 interface Section123Type {
   title: string;
@@ -26,17 +27,17 @@ function Section123({ title, desc, buttonTitle }: Section123Type) {
   };
 
   return (
-    <div className="grid-container">
-      <div className="top">
-        <h1>{title}</h1>
-      </div>
-      <div className="body">
-        <div className="desc">
-          <p>{desc}</p>
+    <div className="section-wrap">
+      <div className={cn("section-inner")}>
+        <div className="top">
+          <strong className={cn("section-title")}>{title}</strong>
         </div>
-        <button className="nav-resrve-btn" type="button" onClick={() => navigateToPurchase(title)}>
-          {buttonTitle}
-        </button>
+        <div className="body">
+          <div className="desc">{desc}</div>
+          <button className="nav-btn" type="button" onClick={() => navigateToPurchase(title)}>
+            {buttonTitle}
+          </button>
+        </div>
       </div>
     </div>
   );
