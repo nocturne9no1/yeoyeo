@@ -592,7 +592,7 @@
 
         .section-inner {
           margin: 0 auto;
-          width: 1280px;
+          width: 1200px;
 
           .section-title {
             display: block;
@@ -617,6 +617,16 @@
           flex-direction: column;
           // background-color: rgba(0, 0, 0, 0.1);
           padding: 0 40px;
+
+          @include md {
+            width: calc(100% - 80px);
+            padding: 0 40px;
+          }
+
+          @include sm {
+            width: calc(100% - 40px);
+            padding: 0 20px;
+          }
 
           .section-title {
             font-size: 28px;
@@ -675,6 +685,16 @@
         flex: 1;
         padding-bottom: 400px;
         padding-top: 180px;
+
+        @include md {
+          width: calc(100% - 80px) !important;
+          padding: 10% 40px 10%;
+        }
+
+        @include sm {
+          width: calc(100% - 40px) !important;
+          padding: 10% 20px 10%;
+        }
 
         .top .desc {
           margin-top: 36px;
