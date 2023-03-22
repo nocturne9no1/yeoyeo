@@ -8,6 +8,8 @@
   },
   "floorPlan": {
     "name": "Rooms",
+    "roomName1": "Room A",
+    "roomName2": "Room B",
     "serviceTitle": "Yeo",
     "serviceDescription": "Gift to those who need sound rest.. Traditional Korean stay YeoYeo",
     "roomA": [

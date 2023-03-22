@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as IcoHamburger } from "@icons/ico_hamburger.svg";
 import i18next, { changeLanguage } from "i18next";
-import logo from "@temp/logo.png";
+import logo from "@temp/logo_long.png";
 
 // components
 import SNB from "./SNB";

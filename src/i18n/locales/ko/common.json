@@ -3,11 +3,13 @@
     "main": "홈",
     "intro": "인트로",
     "service": "서비스",
-    "room": "방",
+    "room": "객실",
     "reservation": "예약하기"
   },
   "floorPlan": {
     "name": "객실",
+    "roomName1": "A호실",
+    "roomName2": "B호실",
     "serviceTitle": "여",
     "serviceDescription": "온전한 휴식이 필요한 그대에게 주는 선물.. 한옥스테이 여여",
     "roomA": [
