@@ -105,7 +105,7 @@ function Reservation() {
         buyer_tel: userMobileNumber,
         // buyer_addr: "서울특별시 강남구 신사동",
         // buyer_postcode: "01181",
-        confirm_url: "/payment/confirm",
+        confirm_url: "https://yeoyeo.kr/payment/confirm",
       };
 
       IMP.request_pay(data, callBack);
