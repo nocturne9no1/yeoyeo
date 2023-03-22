@@ -20,6 +20,7 @@ declare global {
 
   interface DateCellProps {
     day: number;
+    data: MonthRoomDataItem[];
     cellData: DateRoomItem[];
     handleDateClick: (day: number, date: Dayjs) => void;
     startDate: Dayjs | null;
@@ -34,6 +35,7 @@ declare global {
     setStartDate: (startDate: Dayjs | null) => void;
     setEndDate: (endDate: Dayjs | null) => void;
     data: MonthRoomDataItem[];
+    twoMonthsData: MonthRoomDataItem[];
     currentDate: Dayjs;
     handleDateClick: (day: number, date: Dayjs) => void;
     selectedRoom: "A" | "B" | null;

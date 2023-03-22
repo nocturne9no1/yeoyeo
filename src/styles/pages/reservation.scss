@@ -90,6 +90,9 @@
               background-color: antiquewhite;
             }
 
+            &.checkout-only {
+              background-color: #f96c6c;
+            }
             &.passed-date {
               background-color: #808080;
               // pointer-events: none;
@@ -110,6 +113,12 @@
               }
               .price {
                 font-size: 12px;
+              }
+              .room-item {
+                opacity: 0;
+                &.available {
+                  opacity: 1;
+                }
               }
             }
           }

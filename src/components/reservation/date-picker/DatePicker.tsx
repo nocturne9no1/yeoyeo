@@ -9,6 +9,7 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
   const [currentDate, setCurrentDate] = useState(dayjs().set("date", 1));
   const [nextMonth, setNextMonth] = useState(dayjs(currentDate).add(1, "month"));
   const [roomMonthData, setRoomMonthData] = useState<MonthRoomData>({} as MonthRoomData);
+  const [twoMonthsData, setTwoMonthsData] = useState<any>();
   const [selectedRoom, setSelectedRoom] = useState<"A" | "B" | null>(null);
 
   const handlePrevMonth = () => {
@@ -26,7 +27,7 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
       method: "get",
       url: `/dateroom/${currentDate.get("year")}/${currentDate.get("month") + 1}`,
     }).then((res) => {
-      console.log(res);
+      setTwoMonthsData([...res.data.month, ...res.data.nextMonth]);
       setRoomMonthData(res.data);
     });
   }, [currentDate]);
@@ -36,10 +37,12 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
     if (startDate && endDate) {
       axios({
         method: "get",
-        url: `/dateroom/price/1/${startDate.format("YYYYMMDD")}/${endDate.format("YYYYMMDD")}`,
+        url: `/dateroom/price/${selectedRoom !== null && selectedRoom === "A" ? 1 : 2}/${startDate.format(
+          "YYYYMMDD",
+        )}/${endDate.format("YYYYMMDD")}`,
       }).then((res) => setPeriodData(res.data));
     }
-  }, [startDate, endDate, setPeriodData]);
+  }, [startDate, endDate, setPeriodData, selectedRoom]);
 
   const handleDateClick = (day: number, date: Dayjs) => {
     const selectedDate = dayjs(date).set("date", day);
@@ -94,6 +97,7 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
           setStartDate={setStartDate}
           setEndDate={setEndDate}
           data={roomMonthData?.month}
+          twoMonthsData={twoMonthsData}
           currentDate={currentDate}
           handleDateClick={handleDateClick}
           selectedRoom={selectedRoom}
@@ -105,6 +109,7 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
           setStartDate={setStartDate}
           setEndDate={setEndDate}
           data={roomMonthData?.nextMonth}
+          twoMonthsData={twoMonthsData}
           currentDate={nextMonth}
           handleDateClick={handleDateClick}
           selectedRoom={selectedRoom}
