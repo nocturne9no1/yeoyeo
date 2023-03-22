@@ -26,12 +26,15 @@ import { debounce } from "lodash";
 
 function Room() {
   const ImgList: string[] = [OutsideImg, SwiperImg2, SwiperImg3];
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+
   const introRef = useRef<HTMLDivElement>(null);
   const roomSelectionRef = useRef<HTMLDivElement>(null);
   const roomARef = useRef<HTMLDivElement>(null);
   const roomBRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("common");
 
+  // 스크롤
   const useScroll = ()=>{
     const [scrollY, setScrollY] = useState<number>(0);
     const delay = 100; // 메모리 누출을 막기 위한 debounce delay
@@ -56,13 +59,31 @@ function Room() {
     if (introRef) {
       introRef.current?.addEventListener("wheel", (e: WheelEvent)=>{
         const scrollDirection = e.screenY;
-        if (scrollDirection > 0 && scrollY < 100) {
+        if (scrollDirection > 0 && scrollY === 0) {
           e.preventDefault();
           roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
         }
       })
     }
   }, [scrollY])
+
+  // 터치
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartY(e.touches[0].clientY);
+  };
+
+  useEffect(()=>{
+    if (touchStartY) {
+      if (introRef) {
+        introRef.current?.addEventListener("touchstart", (e: TouchEvent)=>{
+          if (window.scrollY === 0) {
+            e.preventDefault();
+            roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
+          }
+        })
+      }
+    }
+  }, [touchStartY])
 
   const selectRoom = (room: string) => {
     const roomA = document.querySelector(".roomA-info");
@@ -81,7 +102,10 @@ function Room() {
   return (
     <div className={cn("room-wrap")}>
       {/* 배너 */}
-      <div ref={introRef} className={cn("banner-img-wrap")}>
+      <div
+        ref={introRef} 
+        className={cn("banner-img-wrap")}
+        onTouchStart={(e) => handleTouchStart(e)}>
         <h2 className={cn("room-main-title")}>{t("floorPlan.name")}</h2>
         <img src={SwiperImg1} alt="yeoyeo-outside" />
       </div>
