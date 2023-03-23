@@ -486,7 +486,28 @@
       overflow: hidden;
       transition: max-height 0.2s;
       .agreement-content {
+        box-sizing: border-box;
+        background-color: #fbfbfb;
         padding: 24px;
+        .refund-policy,
+        .agreement,
+        .personal-info,
+        .event-alarm {
+          li {
+            font-size: 14px;
+            margin-bottom: 5px;
+            line-height: 18px;
+            .agree-checkbox {
+              input {
+                width: 13px;
+                // width: 13px;
+                // height: 13px;
+                // background-color: #77dd77;
+                // border: 1px solid black;
+              }
+            }
+          }
+        }
       }
     }
   }
