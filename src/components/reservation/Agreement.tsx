@@ -5,7 +5,11 @@ import { RefObject, useRef, useState } from "react";
 function Agreement() {
   const contentRef = useRef<HTMLDivElement>(null);
   const contentRef2 = useRef<HTMLDivElement>(null);
+  const contentRef3 = useRef<HTMLDivElement>(null);
+  const contentRef4 = useRef<HTMLDivElement>(null);
+
   const [selectedRef, setSelectedRef] = useState<RefObject<HTMLDivElement> | null>(null);
+  const [peopleAgreement, setPeopleAgreeent] = useState<boolean>(false);
 
   function handleAgreementOpen(ref: RefObject<HTMLDivElement>) {
     const refDiv = ref.current;
@@ -27,7 +31,9 @@ function Agreement() {
     <div className={cn("agreement-wrap")}>
       <div className={cn("agreement-section")}>
         <div className={cn("agreement-title")}>
-          <span>▪️ 여여 이용약관(필수)</span>
+          <button type="button" onClick={() => handleAgreementOpen(contentRef)}>
+            <span>▪️ 환불규정안내</span>
+          </button>
           <div className={cn("btn-wrap")}>
             <button type="button" aria-label="menu close" onClick={() => handleAgreementOpen(contentRef)}>
               <ChevronDown />
@@ -36,17 +42,29 @@ function Agreement() {
         </div>
         <div className={cn("agreement-content-wrap")} ref={contentRef}>
           <div className={cn("agreement-content")}>
-            <div>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias delectus ipsam facere earum, cumque cum!
-              Ducimus sequi corrupti cum laboriosam, dolorem rerum quis minus consectetur repellat ex illum fugiat
-              praesentium!
+            <div className={cn("refund-policy")}>
+              <ul>
+                <li>10일 전 : 결제 금액의 100% 환불</li>
+                <li>9일 전 : 결제 금액의 90% 환불</li>
+                <li>8일 전 : 결제 금액의 80% 환불</li>
+                <li>7일 전 : 결제 금액의 70% 환불</li>
+                <li>6일 전 : 결제 금액의 60% 환불</li>
+                <li>5일 전 : 결제 금액의 50% 환불</li>
+                <li>4일 전 : 결제 금액의 40% 환불</li>
+                <li>3일 전 : 결제 금액의 30% 환불</li>
+                <li>2일 전 : 결제 금액의 20% 환불</li>
+                <li>1일 전 : 결제 금액의 10% 환불</li>
+                <li>당일 : 환불 불가</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
       <div className={cn("agreement-section")}>
         <div className={cn("agreement-title")}>
-          <span>▪️ 여여 이용약관(필수)</span>
+          <button type="button" onClick={() => handleAgreementOpen(contentRef2)}>
+            <span>▪️ 둉의사항</span>
+          </button>
           <div className={cn("btn-wrap")}>
             <button type="button" aria-label="menu close" onClick={() => handleAgreementOpen(contentRef2)}>
               <ChevronDown />
@@ -55,15 +73,90 @@ function Agreement() {
         </div>
         <div className={cn("agreement-content-wrap")} ref={contentRef2}>
           <div className={cn("agreement-content")}>
-            <div>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias delectus ipsam facere earum, cumque cum!
-              Ducimus sequi corrupti cum laboriosam, dolorem rerum quis minus consectetur repellat ex illum fugiat
-              praesentium!
+            <div className={cn("agreement")}>
+              <ul>
+                <li style={{ display: "flex", justifyContent: "space-between" }}>
+                  인원 규정 : 예약 인원 초과 입실 및 방문자 출입은 불가합니다. 위반시 환불 없이 퇴실 조치{" "}
+                  <div className={cn("agree-checkbox")}>
+                    <span>동의</span>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                    <label>
+                      <input
+                        type="checkbox"
+                        disabled={false}
+                        checked={peopleAgreement}
+                        onChange={({ target: { checked } }) => {
+                          setPeopleAgreeent(checked);
+                        }}
+                      />
+                    </label>
+                  </div>
+                </li>
+                <li>
+                  금연 안내 : 숙소 내 모든 구역에서는 전자담배 포함 절대 금연. 위반 시 환불 없이 즉각 퇴실 조치 및
+                  청소비 청구
+                </li>
+                <li>변상 안내 : 숙소 내 기물 파손 및 침구 오염 등이 발생할 경우 배상비용이 청구</li>
+                <li>
+                  취사 규정 : 화기를 사용한 취사가 불가능한 숙소이며, 냄새가 나는 음식(고기, 생선, 해산물 등)의 섭취를
+                  금지
+                </li>
+                <li>환불 규정 : 안내된 환불 규정에 동의합니다.</li>
+              </ul>
             </div>
-            <div>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias delectus ipsam facere earum, cumque cum!
-              Ducimus sequi corrupti cum laboriosam, dolorem rerum quis minus consectetur repellat ex illum fugiat
-              praesentium!
+          </div>
+        </div>
+      </div>
+      <div className={cn("agreement-section")}>
+        <div className={cn("agreement-title")}>
+          <button type="button" onClick={() => handleAgreementOpen(contentRef3)}>
+            <span>▪️ 개인정보 수집 및 이용 동의(필수)</span>
+          </button>
+          <div className={cn("btn-wrap")}>
+            <button type="button" aria-label="menu close" onClick={() => handleAgreementOpen(contentRef3)}>
+              <ChevronDown />
+            </button>
+          </div>
+        </div>
+        <div className={cn("agreement-content-wrap")} ref={contentRef3}>
+          <div className={cn("agreement-content")}>
+            <div className={cn("personal-info")}>
+              <ul>
+                <li>1. 수집항목 : [필수] 이름, 연락처, 이메일주소, 인원정보</li>
+                <li>
+                  2. 수집 및 이용목적 : 사업자회원과 예약이용자의 원활한 거래 진행, 고객상담, 불만처리 등 민원 처리,
+                  분쟁조정 해결을 위한 기록보존, 스테이폴리오 멤버십 및 프로모션, 이벤트 안내
+                </li>
+                <li>
+                  3. 보관기간 : 회원탈퇴 등 개인정보 이용목적 달성 시까지 보관. 단, 상법 및 ‘전자상거래 등에서의 소비자
+                  보호에 관한 법률’ 등 관련 법령에 의하여 일정 기간 보관이 필요한 경우에는 해당 기간 동안 보관함
+                </li>
+                <li>
+                  4. 동의 거부권 등에 대한 고지 : 정보주체는 개인정보의 수집 및 이용 동의를 거부할 권리가 있으나, 이
+                  경우 상품 및 서비스 예약이 제한될 수 있습니다.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={cn("agreement-section")}>
+        <div className={cn("agreement-title")}>
+          <button type="button" onClick={() => handleAgreementOpen(contentRef4)}>
+            <span>▪️ 쿠폰, 이벤트 등 혜택 알림 동의(선택)</span>
+          </button>
+          <div className={cn("btn-wrap")}>
+            <button type="button" aria-label="menu close" onClick={() => handleAgreementOpen(contentRef4)}>
+              <ChevronDown />
+            </button>
+          </div>
+        </div>
+        <div className={cn("agreement-content-wrap")} ref={contentRef4}>
+          <div className={cn("agreement-content")}>
+            <div className={cn("event-alarm")}>
+              <ul>
+                <li>한옥 스테이 여여의 혜택 및 프로모션, 이벤트 소식 구독</li>
+              </ul>
             </div>
           </div>
         </div>

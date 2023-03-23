@@ -158,30 +158,32 @@ function Reservation() {
           setPeriodData={setPeriodData}
         />
         {startDate && endDate && (
-          <div ref={reservationFormRef} className={cn("reservation-form-wrap")}>
-            <CustomerForm
-              username={username}
-              setUsername={setUsername}
-              userMobileNumber={userMobileNumber}
-              setUserMobileNumber={setUserMobileNumber}
-              email={email}
-              setEmail={setEmail}
-              peopleNumber={peopleNumber}
-              setPeopleNumber={setPeopleNumber}
-              requestedTerm={requestedTerm}
-              setRequestedTerm={setRequestedTerm}
-              setCanReserve={setCanReserve}
-            />
-            <ReservationSidebar
-              startDate={startDate}
-              endDate={endDate}
-              periodData={periodData}
-              peopleNumber={peopleNumber}
-              onClickPayment={() => validCheck()}
-            />
-          </div>
+          <>
+            <div ref={reservationFormRef} className={cn("reservation-form-wrap")}>
+              <CustomerForm
+                username={username}
+                setUsername={setUsername}
+                userMobileNumber={userMobileNumber}
+                setUserMobileNumber={setUserMobileNumber}
+                email={email}
+                setEmail={setEmail}
+                peopleNumber={peopleNumber}
+                setPeopleNumber={setPeopleNumber}
+                requestedTerm={requestedTerm}
+                setRequestedTerm={setRequestedTerm}
+                setCanReserve={setCanReserve}
+              />
+              <ReservationSidebar
+                startDate={startDate}
+                endDate={endDate}
+                periodData={periodData}
+                peopleNumber={peopleNumber}
+                onClickPayment={() => validCheck()}
+              />
+            </div>
+            <Agreement />
+          </>
         )}
-        <Agreement />
         {/* <div className={cn("reservation-form-wrap")}>약관동의가 들어가야할 부분</div> */}
       </div>
       {isModalMask && (
