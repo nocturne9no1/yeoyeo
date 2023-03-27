@@ -34,14 +34,11 @@
   "intro": {
     "intro": {
       "poem": [
-        "달빛이 하얗게 쏟아지는 가을밤에\n달빛을 밟으며\n마을 밖으로 걸어 나가보았느냐\n세상은 잠이들고\n지푸라기들만\n찬 서리에 반짝이는",
-        "적막한 들판에\n아득히 서보았느냐\n달빛 아래 산들은\n빚진 아버지처럼\n까맣게 앉아 있고",
-        "저 멀리 강물이 반짝인다\n까만 산속",
-        "집들은 보이지 않고\n담뱃불처럼\n불빛만 깜박인다\n이 세상엔 달빛뿐인",
-        "가을밤에\n모든 걸 다 잃어버린\n들판이 가득 흐느껴\n달빛으로 제 가슴을 적시는\n우리나라 서러운 가을들판을\n너는 보았느냐"
+        "\"그와 같이 아름다운\", 여여 (如麗)",
+        "경주 남산 소나무숲 아래에서\n온전한 휴식이 필요한 그대에게 주는 특별한 선물"
       ],
       "title": "여여",
-      "desc": "여여를 방문해주신 여러분 진심으로 환영합니다."
+      "desc": "여여를 방문해주신 여러분을 진심으로 환영합니다."
     },
     "service": {
       "title": "서비스",
@@ -49,7 +46,7 @@
       "buttonTitle": "서비스 확인하기"
     },
     "room": {
-      "title": "공간",
+      "title": "객실",
       "desc": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque recusandae veniam alias amet laboriosam namsint eos corporis sunt rerum voluptate, deserunt molestiae sequi magnam accusamus quibusdam consequuntur esse vitae.",
       "buttonTitle": "방 둘러보기"
     },
