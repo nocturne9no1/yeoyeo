@@ -27,6 +27,7 @@ import { debounce } from "lodash";
 function Room() {
   const ImgList: string[] = [OutsideImg, SwiperImg2, SwiperImg3];
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  const [scrollStartY, setScrollStartY] = useState<number | number>(0);
 
   const introRef = useRef<HTMLDivElement>(null);
   const roomSelectionRef = useRef<HTMLDivElement>(null);
@@ -42,11 +43,19 @@ function Room() {
     const listener = ()=>{
       setScrollY(window.scrollY);
     };
+    const keyListener = (e: KeyboardEvent)=>{
+      e.preventDefault();
+      if (scrollStartY < 100 && e.key === "ArrowDown") {
+        roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
 
     useEffect(()=>{
       window.addEventListener("scroll", debounce(listener, delay));
+      window.addEventListener("keydown", debounce(keyListener, delay));
       return ()=>{
         window.removeEventListener("scroll", listener);
+        window.removeEventListener("keydown", keyListener);
       };
     });
 
@@ -58,14 +67,15 @@ function Room() {
   useEffect(()=>{
     if (introRef) {
       introRef.current?.addEventListener("wheel", (e: WheelEvent)=>{
+        e.preventDefault();
         const scrollDirection = e.screenY;
-        if (scrollDirection > 0 && scrollY === 0) {
-          e.preventDefault();
+        if (scrollDirection > 0) {
           roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
         }
       })
+      setScrollStartY(window.scrollY);
     }
-  }, [scrollY])
+  }, [scrollY, scrollStartY])
 
   // 터치
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -143,8 +153,6 @@ function Room() {
               }}
               modules={[Pagination, Navigation]}
               slidesPerView={1}
-              onSlideChange={() => console.log("slide change")}
-              onSwiper={(swiper) => console.log(swiper)}
             >
               {ImgList.map((el) => (
                 <SwiperSlide key={el}>
@@ -228,8 +236,6 @@ function Room() {
               }}
               modules={[Pagination, Navigation]}
               slidesPerView={1}
-              onSlideChange={() => console.log("slide change")}
-              onSwiper={(swiper) => console.log(swiper)}
             >
               {ImgList.map((el) => (
                 <SwiperSlide key={el}>
