@@ -7,7 +7,6 @@ import CustomerForm from "@components/reservation/CustomerForm";
 import ReservationSidebar from "@components/reservation/ReservationSidebar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { useEffect } from "react";
 import { useAtom } from "jotai";
 import modalStatus from "src/state/modalStatus";
 import Agreement from "@components/reservation/Agreement";
@@ -18,7 +17,8 @@ function Reservation() {
   const [email, setEmail] = useState<string>("");
   const [peopleNumber, setPeopleNumber] = useState<number>(2);
   const [requestedTerm, setRequestedTerm] = useState<string>("");
-  const [canReserve, setCanReserve] = useState<boolean>(false);
+  const [formCompleted, setFormCompleted] = useState<boolean>(false);
+  const [agreementCompleted, setAgreementCompleted] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
@@ -139,10 +139,10 @@ function Reservation() {
   }
 
   function validCheck() {
-    if (canReserve) {
+    if (formCompleted && agreementCompleted) {
       getReservationId();
     } else {
-      alert("예약폼확인");
+      alert("예약폼완성 및 동의사항을 체크해주세요.");
     }
   }
 
@@ -171,7 +171,7 @@ function Reservation() {
                 setPeopleNumber={setPeopleNumber}
                 requestedTerm={requestedTerm}
                 setRequestedTerm={setRequestedTerm}
-                setCanReserve={setCanReserve}
+                setCanReserve={setFormCompleted}
               />
               <ReservationSidebar
                 startDate={startDate}
@@ -181,7 +181,7 @@ function Reservation() {
                 onClickPayment={() => validCheck()}
               />
             </div>
-            <Agreement />
+            <Agreement setAgreementCompleted={setAgreementCompleted} />
           </>
         )}
         {/* <div className={cn("reservation-form-wrap")}>약관동의가 들어가야할 부분</div> */}
