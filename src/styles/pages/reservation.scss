@@ -332,7 +332,7 @@
 }
 
 .check input[type="checkbox"]:checked {
-  background-color: #63aeff;
+  background-color: #202122;
   border-color: rgba(255, 255, 255, 0.3);
   color: white;
 }
@@ -551,7 +551,6 @@
         .event-alarm {
           li {
             font-size: 14px;
-            margin-bottom: 10px;
             line-height: 18px;
             display: flex;
             justify-content: space-between;
@@ -566,6 +565,9 @@
                 margin-right: 5px;
               }
             }
+          }
+          li + li {
+            margin-top: 5px;
           }
         }
       }
