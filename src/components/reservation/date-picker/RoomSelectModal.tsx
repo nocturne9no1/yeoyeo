@@ -4,7 +4,7 @@ import cn from "classnames";
 import { useSetAtom } from "jotai";
 import modalStatus from "src/state/modalStatus";
 
-function RoomSelectModal({ setSelectedRoom, setIsModal }: RoomSelectModalProps) {
+function RoomSelectModal({ setSelectedRoom, setIsModal, handleCellClick }: RoomSelectModalProps) {
   const setModal = useSetAtom(modalStatus);
 
   const pushEscape = (e: KeyboardEvent) => {
@@ -22,7 +22,10 @@ function RoomSelectModal({ setSelectedRoom, setIsModal }: RoomSelectModalProps) 
   return (
     <div
       className={cn("room-select-modal-mask")}
-      onClick={() => setModal(false)}
+      onClick={(e) => {
+        e.stopPropagation();
+        setModal(false);
+      }}
       // onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => {
       //   console.log(e.key);
       //   if (e.key === "Escape") {
@@ -41,6 +44,7 @@ function RoomSelectModal({ setSelectedRoom, setIsModal }: RoomSelectModalProps) 
               setSelectedRoom("A");
               setModal(false);
               setIsModal(false);
+              handleCellClick();
             }}
           >
             A
@@ -52,6 +56,7 @@ function RoomSelectModal({ setSelectedRoom, setIsModal }: RoomSelectModalProps) 
               setSelectedRoom("B");
               setModal(false);
               setIsModal(false);
+              handleCellClick();
             }}
           >
             B

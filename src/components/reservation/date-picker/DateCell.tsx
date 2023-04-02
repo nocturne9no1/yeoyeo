@@ -161,7 +161,9 @@ function DateCell({
           </ul>
         </>
       )}
-      {isModal && <RoomSelectModal setSelectedRoom={setSelectedRoom} setIsModal={setIsModal} />}
+      {isModal && (
+        <RoomSelectModal setSelectedRoom={setSelectedRoom} setIsModal={setIsModal} handleCellClick={handleCellClick} />
+      )}
     </td>
   );
 }
