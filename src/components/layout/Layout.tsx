@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import ScrollToTop from "@components/common/ScrollRestoration";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -8,6 +9,7 @@ function Layout() {
       <Header />
       <Outlet />
       <Footer />
+      <ScrollToTop />
     </div>
   );
 }

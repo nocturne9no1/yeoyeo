@@ -30,6 +30,64 @@
       padding: 0 10px;
     }
 
+    .room-intro {
+      border-top: 1px solid #e5e7eb;
+      margin-top: 10px;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      scroll-margin: 60px;
+
+      div {
+        position: relative;
+        border: 1px solid #e5e7eb;
+        width: 100%;
+        height: calc(100vh - 120px);
+        height: -moz-calc(100vh - 120px);
+        height: -webkit-calc(100vh - 120px);
+
+        span {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 36px;
+          color: white;
+          z-index: 1;
+        }
+        
+        img {
+          filter: brightness(0.7);
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          overflow: hidden;
+        }
+
+        &:hover {
+          cursor: pointer;
+          background-color: #d0d0d0;
+          transition: 1s;
+
+          img {
+            filter: brightness(0.5);
+            transition: 0.5s;
+          }
+        }
+      }
+    }
+
+    .roomA-info {
+      display: none;
+      scroll-margin: 120px;
+    }
+
+    .roomB-info {
+      display: none;
+      scroll-margin: 120px;
+    }
+
     .room-padding {
       height: 60px;
     }

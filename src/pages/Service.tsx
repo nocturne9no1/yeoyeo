@@ -13,8 +13,8 @@ import Coffeebread1 from "@temp/Coffeebread1.jpg";
 import Coffeebread2 from "@temp/Coffeebread2.jpg";
 import Projector1 from "@temp/Projector1.jpg";
 import Projector2 from "@temp/Projector2.jpg";
-import Bath1 from "@temp/Bath1.jpeg";
-import Bath2 from "@temp/Bath2.jpeg";
+import Bath1 from "@images/service/Bath1.jpeg";
+import Bath2 from "@images/service/Bath2.jpeg";
 
 function Service() {
   const { t } = useTranslation("common");
