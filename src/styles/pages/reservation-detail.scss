@@ -1,0 +1,14 @@
+.reservation-detail-wrap {
+  font-family: "Gowun Batang", serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .section-wrap {
+    border: 1px solid black;
+    border-radius: 4px;
+    max-width: 1240px;
+    box-sizing: border-box;
+    padding: 25px;
+  }
+}
