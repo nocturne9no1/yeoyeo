@@ -45,6 +45,7 @@ declare global {
   interface RoomSelectModalProps {
     setSelectedRoom: (selectedRoom: "A" | "B") => void;
     setIsModal: (isModal: boolean) => void;
+    handleCellClick: () => void;
   }
   interface InfoDtoListData {
     date: string;
