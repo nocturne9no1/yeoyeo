@@ -4,7 +4,8 @@
     "intro": "인트로",
     "service": "서비스",
     "room": "방",
-    "reservation": "예약하기"
+    "reservation": "예약하기",
+    "reservation/check": "예약조회"
   },
   "floorPlan": {
     "name": "객실",
