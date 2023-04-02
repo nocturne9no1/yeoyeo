@@ -3,7 +3,7 @@ import "@styles/common.scss";
 import axios from "axios";
 import Router from "./utils/Router";
 
-axios.defaults.baseURL = "https://yeoyeo.kr";
+axios.defaults.baseURL = "https://api.yeoyeo.co.kr";
 
 function App() {
   return (
