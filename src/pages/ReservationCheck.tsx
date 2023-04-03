@@ -1,7 +1,7 @@
 import Input from "@components/common/Input";
 import axios from "axios";
 import cn from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validReservationNumberPatter, validUserMobileNumber } from "src/utils/regEx";
 
@@ -9,6 +9,17 @@ function ReservationCheck() {
   const navigate = useNavigate();
   const [userMobileNumber, setUserMobileNumber] = useState<string>("");
   const [reservationNumber, setReservationNumber] = useState<string>("");
+  const [isInputAllValid, setIsInputAllValid] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log("alkl");
+    console.log(validUserMobileNumber.test(userMobileNumber));
+    console.log(validReservationNumberPatter.test(reservationNumber));
+    if (validUserMobileNumber.test(userMobileNumber) && validReservationNumberPatter.test(reservationNumber)) {
+      console.log("hihi");
+      setIsInputAllValid(true);
+    }
+  }, [userMobileNumber, reservationNumber]);
 
   const reqReservationCheck = () => {
     if (validUserMobileNumber && validReservationNumberPatter) {
@@ -67,7 +78,7 @@ function ReservationCheck() {
             {/* <span>문자로 전송된 예약번호 13자리를 입력해주세요.</span> */}
           </div>
           <div className={cn("button-wrap")}>
-            <button type="button" onClick={reqReservationCheck}>
+            <button type="button" onClick={reqReservationCheck} disabled={!isInputAllValid}>
               <span>예약확인</span>
             </button>
           </div>
