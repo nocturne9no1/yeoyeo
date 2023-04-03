@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   .section-wrap {
     border: 1px solid black;
     border-radius: 4px;
@@ -35,7 +36,7 @@
       .input-wrap {
         display: flex;
         flex-direction: column;
-        padding-bottom: 18px;
+        padding-bottom: 22px;
         position: relative;
         transition: width 0.2s ease-in;
         &.reservation-number {
@@ -55,6 +56,10 @@
           border-radius: 4px;
           transition: border-color 0.3s;
 
+          @include sm {
+            font-size: 12px;
+          }
+
           &:focus,
           &:focus-within {
             outline: none;
@@ -68,10 +73,14 @@
         .error-text {
           color: #f96c6c;
           font-size: 14px;
-          margin-top: 4px;
           position: absolute;
-          bottom: 0;
+          bottom: 4px;
           white-space: nowrap;
+
+          @include sm {
+            font-size: 12px;
+            // white-space: break-spaces;
+          }
         }
       }
       .button-wrap {
@@ -84,14 +93,25 @@
           padding: 12px 24px;
           font-size: 14px;
           text-transform: uppercase;
-          color: #000;
-          border-radius: 45px;
+          border-radius: 12px;
           box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
           transition: background-color 0.3s ease 0s;
+          background-color: #303030;
+
+          span {
+            color: #fff;
+          }
+
+          &:disabled {
+            background-color: #cfcfcf;
+            span {
+              color: #000;
+            }
+          }
         }
-        button:hover {
-          background-color: #acacac;
-        }
+        // button:hover {
+        //   background-color: #acacac;
+        // }
       }
     }
     .bottom-nav {
