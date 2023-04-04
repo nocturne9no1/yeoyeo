@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from "@components/layout/Layout";
-import { Main, Service, Reservation, Room, Admin } from "../pages";
+import { Main, Service, Reservation, Room, Admin, Login } from "../pages";
 
 const Router = createBrowserRouter([
   {
@@ -25,6 +25,10 @@ const Router = createBrowserRouter([
       {
         path: "/admin",
         element: <Admin />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
       {
         path: "*",
