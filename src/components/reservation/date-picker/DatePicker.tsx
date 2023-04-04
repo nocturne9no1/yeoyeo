@@ -79,7 +79,7 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
 
   return (
     <div className={cn("date-picker-wrap")}>
-      <button type="button" onClick={() => resetSelect()}>
+      <button type="button" onClick={() => resetSelect()} className={cn("init-button")}>
         초기화
       </button>
       <div className={cn("calendar-header")}>
@@ -116,23 +116,14 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
           setSelectedRoom={setSelectedRoom}
         />
       </div>
-      {/* <div>start date: {startDate?.toDateString()}</div>
-      <div>end date: {endDate?.toDateString()}</div> */}
       <div className={cn("input-wrap")}>
         <input
           type="text"
           value={startDate?.format("YYYY-MM-DD") || ""}
-          // onFocus={() => setFocusedInput("startDate")}
           placeholder="Start Date"
           onChange={() => null}
         />
-        <input
-          type="text"
-          value={endDate?.format("YYYY-MM-DD") || ""}
-          // onFocus={() => setFocusedInput("endDate")}
-          placeholder="End Date"
-          onChange={() => null}
-        />
+        <input type="text" value={endDate?.format("YYYY-MM-DD") || ""} placeholder="End Date" onChange={() => null} />
       </div>
     </div>
   );

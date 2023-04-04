@@ -149,7 +149,7 @@ function Reservation() {
   return (
     <div className={cn("reservation-wrap")}>
       <div className={cn("reservation-inner")}>
-        Reservation
+        <h2 className={cn("title")}>Reservation</h2>
         <DatePicker
           startDate={startDate}
           endDate={endDate}

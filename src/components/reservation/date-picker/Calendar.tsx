@@ -36,7 +36,7 @@ function Calendar({
 
   return (
     <div className={cn("calendar-item")}>
-      <span className={cn("mont-year")}>
+      <span className={cn("month-year")}>
         {monthNames[currentDate.get("month")]} {currentDate.get("year")}
       </span>
       <table className={cn("calendar")}>

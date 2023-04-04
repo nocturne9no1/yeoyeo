@@ -78,7 +78,7 @@ function CustomerForm({
       />
       <InputForm title="연락처">
         {isBtnFocused ? (
-          <div style={{ display: "flex" }}>
+          <div className={cn("mobile-input-wrap")}>
             <Input
               title=""
               regEx={validUserMobileNumber}
@@ -160,7 +160,7 @@ function CustomerForm({
               }}
               disabled={!validUserMobileNumber.test(userMobileNumber)}
             >
-              인증번호요청 (TBD)
+              인증번호요청
             </button>
           </div>
         )}
