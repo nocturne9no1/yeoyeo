@@ -12,11 +12,7 @@ function ReservationCheck() {
   const [isInputAllValid, setIsInputAllValid] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("alkl");
-    console.log(validUserMobileNumber.test(userMobileNumber));
-    console.log(validReservationNumberPatter.test(reservationNumber));
     if (validUserMobileNumber.test(userMobileNumber) && validReservationNumberPatter.test(reservationNumber)) {
-      console.log("hihi");
       setIsInputAllValid(true);
     }
   }, [userMobileNumber, reservationNumber]);
@@ -29,7 +25,7 @@ function ReservationCheck() {
       })
         .then((res) => {
           if (res.data) {
-            navigate("/reservation/detail", { state: res.data });
+            navigate("/reservation/detail", { state: { state: res.data, reservationNumber } });
           } else {
             alert(`해당 예약을 확인할 수 없습니다.`);
           }

@@ -96,22 +96,22 @@
           border-radius: 12px;
           box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
           transition: background-color 0.3s ease 0s;
-          background-color: #303030;
+          // background-color: #303030;
 
-          span {
-            color: #fff;
-          }
+          // span {
+          //   color: #fff;
+          // }
 
-          &:disabled {
-            background-color: #cfcfcf;
-            span {
-              color: #000;
-            }
-          }
+          // &:disabled {
+          //   background-color: #cfcfcf;
+          //   span {
+          //     color: #000;
+          //   }
+          // }
         }
-        // button:hover {
-        //   background-color: #acacac;
-        // }
+        button:hover {
+          background-color: #acacac;
+        }
       }
     }
     .bottom-nav {
