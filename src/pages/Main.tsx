@@ -34,12 +34,6 @@ function Intro() {
                   <p>{t("intro.intro.poem.0")}</p>
                   <br />
                   <p>{t("intro.intro.poem.1")}</p>
-                  <br />
-                  <p>{t("intro.intro.poem.2")}</p>
-                  <br />
-                  <p>{t("intro.intro.poem.3")}</p>
-                  <br />
-                  <p>{t("intro.intro.poem.4")}</p>
                 </div>
               </div>
             </div>

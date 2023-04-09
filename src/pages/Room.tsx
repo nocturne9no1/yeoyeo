@@ -27,6 +27,7 @@ import { debounce } from "lodash";
 function Room() {
   const ImgList: string[] = [OutsideImg, SwiperImg2, SwiperImg3];
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  const [scrollStartY, setScrollStartY] = useState<number | number>(0);
 
   const introRef = useRef<HTMLDivElement>(null);
   const roomSelectionRef = useRef<HTMLDivElement>(null);
@@ -42,11 +43,19 @@ function Room() {
     const listener = ()=>{
       setScrollY(window.scrollY);
     };
+    const keyListener = (e: KeyboardEvent)=>{
+      e.preventDefault();
+      if (scrollStartY < 100 && e.key === "ArrowDown") {
+        roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
 
     useEffect(()=>{
       window.addEventListener("scroll", debounce(listener, delay));
+      window.addEventListener("keydown", debounce(keyListener, delay));
       return ()=>{
         window.removeEventListener("scroll", listener);
+        window.removeEventListener("keydown", keyListener);
       };
     });
 
@@ -58,14 +67,15 @@ function Room() {
   useEffect(()=>{
     if (introRef) {
       introRef.current?.addEventListener("wheel", (e: WheelEvent)=>{
+        e.preventDefault();
         const scrollDirection = e.screenY;
-        if (scrollDirection > 0 && scrollY === 0) {
-          e.preventDefault();
+        if (scrollDirection > 0) {
           roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
         }
       })
+      setScrollStartY(window.scrollY);
     }
-  }, [scrollY])
+  }, [scrollY, scrollStartY])
 
   // 터치
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -116,13 +126,13 @@ function Room() {
           <div
             role="presentation" 
             onClick={() => selectRoom("A")}>
-            <span>{t("floorPlan.roomName1")}</span>
+            <span>{t("floorPlan.roomA.name")}</span>
             <img src={RoomAIntro} alt="roomA-intro" />
           </div>
           <div
             role="presentation" 
             onClick={() => selectRoom("B")}>
-            <span>{t("floorPlan.roomName2")}</span>
+            <span>{t("floorPlan.roomB.name")}</span>
             <img src={RoomBIntro} alt="roomB-intro" />
           </div>
         </div>
@@ -143,8 +153,6 @@ function Room() {
               }}
               modules={[Pagination, Navigation]}
               slidesPerView={1}
-              onSlideChange={() => console.log("slide change")}
-              onSwiper={(swiper) => console.log(swiper)}
             >
               {ImgList.map((el) => (
                 <SwiperSlide key={el}>
@@ -163,17 +171,15 @@ function Room() {
           </h3>
           <p className={cn("welcome-description")}>{t("floorPlan.serviceDescription")}</p>
 
-          {/* Room A */}
+          {/* 뒷마당 */}
           <div className={cn("room-detail")}>
             <div className={cn("room-detail-description")}>
-              <h4 className={cn("room-title")}>{t("floorPlan.roomName1")}</h4>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomA.titles.0")}</h4>
               <div className={cn("room-features")}>
-                <span>{t("floorPlan.roomA.0")}</span>
-                <span>{t("floorPlan.roomA.1")}</span>
-                <span>{t("floorPlan.roomA.2")}</span>
-                <span>{t("floorPlan.roomA.3")}</span>
-                <span>{t("floorPlan.roomA.4")}</span>
-                <span>{t("floorPlan.roomA.5")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.0")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.1")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.2")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.3")}</span>
               </div>
             </div>
             <div className={cn("room-detail-pictures")}>
@@ -186,17 +192,15 @@ function Room() {
             </div>
           </div>
 
-          {/* Room B */}
+          {/* 거실 */}
           <div className={cn("room-detail room-detail2")}>
             <div className={cn("room-detail-description room-order")}>
-              <h4 className={cn("room-title")}>{t("floorPlan.roomName2")}</h4>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomA.titles.1")}</h4>
               <div className={cn("room-features")}>
-                <span>{t("floorPlan.roomA.0")}</span>
-                <span>{t("floorPlan.roomA.1")}</span>
-                <span>{t("floorPlan.roomA.2")}</span>
-                <span>{t("floorPlan.roomA.3")}</span>
-                <span>{t("floorPlan.roomA.4")}</span>
-                <span>{t("floorPlan.roomA.5")}</span>
+                <span>{t("floorPlan.roomA.descriptions.1.0")}</span>
+                <span>{t("floorPlan.roomA.descriptions.1.1")}</span>
+                <span>{t("floorPlan.roomA.descriptions.1.2")}</span>
+                <span>{t("floorPlan.roomA.descriptions.1.3")}</span>
               </div>
             </div>
             <div className={cn("room-detail-pictures")}>
@@ -205,6 +209,69 @@ function Room() {
               </div>
               <div className={cn("room-detail-grid-item")}>
                 <img src={RoomB2} alt="Room 이미지 2 " />
+              </div>
+            </div>
+          </div>
+
+          {/* 침실 */}
+          <div className={cn("room-detail")}>
+            <div className={cn("room-detail-description")}>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomA.titles.2")}</h4>
+              <div className={cn("room-features")}>
+                <span>{t("floorPlan.roomA.descriptions.0.0")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.1")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.2")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.3")}</span>
+              </div>
+            </div>
+            <div className={cn("room-detail-pictures")}>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomA1} alt="Room 이미지 1" />
+              </div>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomA2} alt="Room 이미지 2 " />
+              </div>
+            </div>
+          </div>
+
+          {/* 욕실 */}
+          <div className={cn("room-detail room-detail2")}>
+            <div className={cn("room-detail-description room-order")}>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomA.titles.3")}</h4>
+              <div className={cn("room-features")}>
+                <span>{t("floorPlan.roomA.descriptions.1.0")}</span>
+                <span>{t("floorPlan.roomA.descriptions.1.1")}</span>
+                <span>{t("floorPlan.roomA.descriptions.1.2")}</span>
+                <span>{t("floorPlan.roomA.descriptions.1.3")}</span>
+              </div>
+            </div>
+            <div className={cn("room-detail-pictures")}>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomB1} alt="Room 이미지 1" />
+              </div>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomB2} alt="Room 이미지 2 " />
+              </div>
+            </div>
+          </div>
+
+          {/* 주방 */}
+          <div className={cn("room-detail")}>
+            <div className={cn("room-detail-description")}>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomA.titles.4")}</h4>
+              <div className={cn("room-features")}>
+                <span>{t("floorPlan.roomA.descriptions.0.0")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.1")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.2")}</span>
+                <span>{t("floorPlan.roomA.descriptions.0.3")}</span>
+              </div>
+            </div>
+            <div className={cn("room-detail-pictures")}>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomA1} alt="Room 이미지 1" />
+              </div>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomA2} alt="Room 이미지 2 " />
               </div>
             </div>
           </div>
@@ -228,8 +295,6 @@ function Room() {
               }}
               modules={[Pagination, Navigation]}
               slidesPerView={1}
-              onSlideChange={() => console.log("slide change")}
-              onSwiper={(swiper) => console.log(swiper)}
             >
               {ImgList.map((el) => (
                 <SwiperSlide key={el}>
@@ -248,17 +313,15 @@ function Room() {
           </h3>
           <p className={cn("welcome-description")}>{t("floorPlan.serviceDescription")}</p>
 
-          {/* Room A */}
+          {/* 뒷마당 */}
           <div className={cn("room-detail")}>
             <div className={cn("room-detail-description")}>
-              <h4 className={cn("room-title")}>{t("floorPlan.roomName2")}</h4>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomB.titles.0")}</h4>
               <div className={cn("room-features")}>
-                <span>{t("floorPlan.roomA.0")}</span>
-                <span>{t("floorPlan.roomA.1")}</span>
-                <span>{t("floorPlan.roomA.2")}</span>
-                <span>{t("floorPlan.roomA.3")}</span>
-                <span>{t("floorPlan.roomA.4")}</span>
-                <span>{t("floorPlan.roomA.5")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.0")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.1")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.2")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.3")}</span>
               </div>
             </div>
             <div className={cn("room-detail-pictures")}>
@@ -271,17 +334,15 @@ function Room() {
             </div>
           </div>
 
-          {/* Room B */}
+          {/* 거실 */}
           <div className={cn("room-detail room-detail2")}>
             <div className={cn("room-detail-description room-order")}>
-              <h4 className={cn("room-title")}>{t("floorPlan.roomName2")}</h4>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomB.titles.1")}</h4>
               <div className={cn("room-features")}>
-                <span>{t("floorPlan.roomA.0")}</span>
-                <span>{t("floorPlan.roomA.1")}</span>
-                <span>{t("floorPlan.roomA.2")}</span>
-                <span>{t("floorPlan.roomA.3")}</span>
-                <span>{t("floorPlan.roomA.4")}</span>
-                <span>{t("floorPlan.roomA.5")}</span>
+                <span>{t("floorPlan.roomB.descriptions.1.0")}</span>
+                <span>{t("floorPlan.roomB.descriptions.1.1")}</span>
+                <span>{t("floorPlan.roomB.descriptions.1.2")}</span>
+                <span>{t("floorPlan.roomB.descriptions.1.3")}</span>
               </div>
             </div>
             <div className={cn("room-detail-pictures")}>
@@ -290,6 +351,69 @@ function Room() {
               </div>
               <div className={cn("room-detail-grid-item")}>
                 <img src={RoomB2} alt="Room 이미지 2 " />
+              </div>
+            </div>
+          </div>
+
+          {/* 침실 */}
+          <div className={cn("room-detail")}>
+            <div className={cn("room-detail-description")}>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomB.titles.2")}</h4>
+              <div className={cn("room-features")}>
+                <span>{t("floorPlan.roomB.descriptions.0.0")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.1")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.2")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.3")}</span>
+              </div>
+            </div>
+            <div className={cn("room-detail-pictures")}>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomA1} alt="Room 이미지 1" />
+              </div>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomA2} alt="Room 이미지 2 " />
+              </div>
+            </div>
+          </div>
+
+          {/* 욕실 */}
+          <div className={cn("room-detail room-detail2")}>
+            <div className={cn("room-detail-description room-order")}>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomB.titles.3")}</h4>
+              <div className={cn("room-features")}>
+                <span>{t("floorPlan.roomB.descriptions.1.0")}</span>
+                <span>{t("floorPlan.roomB.descriptions.1.1")}</span>
+                <span>{t("floorPlan.roomB.descriptions.1.2")}</span>
+                <span>{t("floorPlan.roomB.descriptions.1.3")}</span>
+              </div>
+            </div>
+            <div className={cn("room-detail-pictures")}>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomB1} alt="Room 이미지 1" />
+              </div>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomB2} alt="Room 이미지 2 " />
+              </div>
+            </div>
+          </div>
+
+          {/* 주방 */}
+          <div className={cn("room-detail")}>
+            <div className={cn("room-detail-description")}>
+              <h4 className={cn("room-title")}>{t("floorPlan.roomB.titles.4")}</h4>
+              <div className={cn("room-features")}>
+                <span>{t("floorPlan.roomB.descriptions.0.0")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.1")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.2")}</span>
+                <span>{t("floorPlan.roomB.descriptions.0.3")}</span>
+              </div>
+            </div>
+            <div className={cn("room-detail-pictures")}>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomA1} alt="Room 이미지 1" />
+              </div>
+              <div className={cn("room-detail-grid-item")}>
+                <img src={RoomA2} alt="Room 이미지 2 " />
               </div>
             </div>
           </div>
