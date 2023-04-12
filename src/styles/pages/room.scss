@@ -104,6 +104,244 @@
           width: 100%;
         }
       }
+
+      div {
+        position: relative;
+      }
+
+      .floor-plan-A-living {
+        position: absolute;
+        top: 53%;
+        left: 41%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 33%;
+        height: 18%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+
+      .floor-plan-A-bed {
+        position: absolute;
+        top: 30%;
+        left: 26%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 15%;
+        height: 40%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+
+      .floor-plan-A-kitchen {
+        position: absolute;
+        top: 30%;
+        left: 41%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 16%;
+        height: 20%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+
+      .floor-plan-A-bath {
+        position: absolute;
+        top: 30%;
+        left: 59%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 16%;
+        height: 21%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+
+      .floor-plan-A-yard {
+        position: absolute;
+        top: 12%;
+        left: 26%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 41%;
+        height: 15%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+
+      .floor-plan-B-living {
+        position: absolute;
+        top: 37%;
+        left: 47%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 23%;
+        height: 41%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+
+      .floor-plan-B-bed {
+        position: absolute;
+        top: 38%;
+        left: 26%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 20%;
+        height: 15%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+
+      .floor-plan-B-kitchen {
+        position: absolute;
+        top: 21%;
+        left: 47%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 23%;
+        height: 16%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+
+      .floor-plan-B-bath {
+        position: absolute;
+        top: 21%;
+        left: 26%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 19%;
+        height: 15%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+
+      .floor-plan-B-yard {
+        position: absolute;
+        top: 4%;
+        left: 35%;
+        
+        background: rgba(130, 151, 163, 0);
+        width: 35%;
+        height: 15%;
+
+        &:hover {
+          cursor: pointer;
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+
+        &.selected {
+          background: rgba(130, 151, 163, 0.37);
+          transition: 0.5s;
+        }
+      }
+    }
+  }
+
+  .space-selection {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    div {
+      border: 1px solid #dd7b20;
+      width: 100%;
+      padding: 2px 0px;
+      text-align: center;
+
+      &:hover {
+        cursor: pointer;
+        background: rgba($color: #dd7b20, $alpha: 0.2);
+        transition: 0.5s;
+      }
+
+      &.selected {
+        background: rgba($color: #dd7b20, $alpha: 0.2);
+        transition: 0.5s;
+      }
     }
   }
 
@@ -121,6 +359,43 @@
           width: 100%;
         }
       }
+    }
+
+    .swiper-pagination-bullet {
+      background: black;
+    }
+
+    .swiper-button-next {
+      background: url(/assets/icons/ico_arrow_right.png) no-repeat;
+      background-size: 100% auto;
+      background-position: center;
+    }
+    
+    .swiper-button-prev {
+      background: url(/assets/icons/ico_arrow_left.png) no-repeat;
+      background-size: 100% auto;
+      background-position: center;
+    }
+    
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      display: none;
+    }
+  }
+
+  .space-description {
+    margin-top: 30px;
+    text-align: center;
+    letter-spacing: 3px;
+    display: none;
+
+    &.selected {
+      display: block;
+    }
+
+    @include sm {
+      padding: 0 50px;
+      font-size: medium;
     }
   }
 

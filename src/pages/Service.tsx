@@ -13,8 +13,6 @@ import Coffeebread1 from "@temp/Coffeebread1.jpg";
 import Coffeebread2 from "@temp/Coffeebread2.jpg";
 import Projector1 from "@temp/Projector1.jpg";
 import Projector2 from "@temp/Projector2.jpg";
-import Bath1 from "@images/service/Bath1.jpeg";
-import Bath2 from "@images/service/Bath2.jpeg";
 
 function Service() {
   const { t } = useTranslation("common");
@@ -28,7 +26,7 @@ function Service() {
       </div>
 
       <section className={cn("room-inner")}>
-        {/* 앞마당 */}
+        {/* 커피와 빵 */}
         <div className={cn("room-detail")}>
           <div className={cn("room-detail-description")}>
             <h3 className={cn("room-title")}>{t("service.features.0")}</h3>
@@ -47,7 +45,7 @@ function Service() {
           </div>
         </div>
 
-        {/* 뒷마당 */}
+        {/* 빔프로젝터 */}
         <div className={cn("room-detail room-detail2")}>
           <div className={cn("room-detail-description room-order")}>
             <h3 className={cn("room-title")}>{t("service.features.1")}</h3>
@@ -66,7 +64,7 @@ function Service() {
           </div>
         </div>
 
-        {/* 커피와 빵 */}
+        {/* 욕실 */}
         <div className={cn("room-detail")}>
           <div className={cn("room-detail-description")}>
             <h3 className={cn("room-title")}>{t("service.features.2")}</h3>
@@ -84,7 +82,7 @@ function Service() {
           </div>
         </div>
 
-        {/* 빔 프로젝터 */}
+        {/* 생활한복 */}
         <div className={cn("room-detail room-detail2")}>
           <div className={cn("room-detail-description room-order")}>
             <h3 className={cn("room-title")}>{t("service.features.3")}</h3>
@@ -98,24 +96,6 @@ function Service() {
             </div>
             <div className={cn("room-detail-grid-item")}>
               <img src={Projector2} alt="프로젝터 이미지 2 " />
-            </div>
-          </div>
-        </div>
-
-        {/* 욕탕 */}
-        <div className={cn("room-detail")}>
-          <div className={cn("room-detail-description")}>
-            <h3 className={cn("room-title")}>{t("service.features.4")}</h3>
-            <div className={cn("room-features")}>
-              <span>{t("service.bath.0")}</span>
-            </div>
-          </div>
-          <div className={cn("room-detail-pictures")}>
-            <div className={cn("room-detail-grid-item")}>
-              <img src={Bath1} alt="욕탕 이미지 1" />
-            </div>
-            <div className={cn("room-detail-grid-item")}>
-              <img src={Bath2} alt="욕탕 이미지 2 " />
             </div>
           </div>
         </div>
