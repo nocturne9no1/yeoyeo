@@ -1,47 +1,49 @@
 import cn from "classnames";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Navigation, Autoplay } from "swiper";
+import SwiperCore, { Pagination, Navigation, Autoplay, type Swiper as swiperRef } from "swiper";
 import { useState, useRef, useEffect } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useTranslation } from "react-i18next";
 
+// 배너
+import RoomBanner from "@images/room/room_banner.jpg";
+
 // 배너와 공간도, 스와이퍼 이미지들
 import RoomAIntro from "@images/room/roomA_intro.jpg";
 import RoomBIntro from "@images/room/roomB_intro.jpg";
 import FloorPlanA from "@images/room/floor_plan_A.png";
 import FloorPlanB from "@images/room/floor_plan_B.png";
-import SwiperImg1 from "@temp/swiper_img1.jpg";
 
 // Room 이미지들
-import RoomA1 from "@images/room/roomA_1.jpg";
-import RoomA2 from "@images/room/roomA_2.jpg";
-import RoomA3 from "@images/room/roomA_3.jpg";
-import RoomA4 from "@images/room/roomA_4.jpg";
-import RoomA5 from "@images/room/roomA_5.jpg";
-import RoomA6 from "@images/room/roomA_6.jpg";
-
 import outside1 from '@images/room/outside1.jpg'
 import outside2 from '@images/room/outside2.jpg'
 import roomA1 from '@images/room/roomA1.jpg'
 import roomA2 from '@images/room/roomA2.jpg'
 import roomA3 from '@images/room/roomA3.jpg'
 import roomA4 from '@images/room/roomA4.jpg'
-import roomB1 from '@images/room/roomB1.jpg'
-import roomB2 from '@images/room/roomB2.jpg'
+// import roomB1 from '@images/room/roomB1.jpg'
+// import roomB2 from '@images/room/roomB2.jpg'
 import roomB3 from '@images/room/roomB3.jpg'
-import roomB4 from '@images/room/roomB4.jpg'
-import roomB5 from '@images/room/roomB5.jpg'
-import roomB6 from '@images/room/roomB6.jpg'
+// import roomB5 from '@images/room/roomB5.jpg'
+// import roomB6 from '@images/room/roomB6.jpg'
 
-import { debounce } from "lodash";
+import roomA_bed1 from "@images/room/roomA_bed1.jpg";
+import roomA_yard1 from '@images/room/roomA_yard1.jpg'
+
+import roomB_kitchen1 from '@images/room/roomB_kitchen1.jpg'
+import roomB_yard1 from '@images/room/roomB_yard1.jpg'
+import roomB_yard2 from '@images/room/roomB_yard2.jpg'
+
+// import { debounce } from "lodash";
 
 function Room() {
-  const [ImgList, setImgList] = useState([RoomA1, RoomA2, RoomA3, RoomA4, RoomA5, RoomA6]);
+  const [ImgList, setImgList] = useState([outside1]);
+  const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
   const [selectedSpace, setSelectedSpace] = useState<number>(0);
-  const [touchStartY, setTouchStartY] = useState<number | null>(null);
-  const [scrollStartY, setScrollStartY] = useState<number | number>(0);
+  // const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  // const [scrollStartY, setScrollStartY] = useState<number | number>(0);
   
   const introRef = useRef<HTMLDivElement>(null);
   const roomSelectionRef = useRef<HTMLDivElement>(null);
@@ -61,97 +63,124 @@ function Room() {
   const selectA5 = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("common");
 
-  const [swiper, serSwiper] = useState<SwiperCore>();
+  const swiperRef1 = useRef<swiperRef>();
+  const swiperRef2 = useRef<swiperRef>();
   const selectSpace = (idx: number)=>{
+    if (selectedRoom==="A" && swiperRef1.current) {
+      swiperRef1.current.init();
+      swiperRef1.current.slideTo(0, 0);
+    } else if (selectedRoom==="B" && swiperRef2.current) {
+      swiperRef2.current.init();
+      swiperRef2.current.slideTo(0, 0);
+    }
     setSelectedSpace(idx);
   }
 
   useEffect(()=>{
-    switch (selectedSpace) {
-      case 0:
-        setImgList([outside1, outside2, roomA1, roomA2])
-        break;
-      case 1:
-        setImgList([roomA1, roomA2])
-        break;
-      case 2:
-        setImgList([roomA3, roomA4])
-        break;
-      case 3:
-        setImgList([roomB1, roomB2])
-        break;
-      case 4:
-        setImgList([roomB3, roomB4])
-        break;
-      case 5:
-        setImgList([roomB5, roomB6])
-        break;
-      default:
-        alert("올바르지 않은 접근입니다.")
-        break;
+    if (selectedRoom) {
+      switch (selectedRoom+selectedSpace) {
+        case "A0":
+          setImgList([outside1, outside2, roomA1, roomA2])
+          break;
+        case "A1":
+          setImgList([roomA1, roomA2])
+          break;
+        case "A2":
+          setImgList([roomA_bed1, roomA3, roomA4])
+          break;
+        case "A3":
+          setImgList([roomB_kitchen1])
+          break;
+        case "A4":
+          setImgList([roomB3])
+          break;
+        case "A5":
+          setImgList([roomA_yard1])
+          break;
+        case "B0":
+          setImgList([outside1, outside2, roomA1, roomA2])
+          break;
+        case "B1":
+          setImgList([roomA1, roomA2])
+          break;
+        case "B2":
+          setImgList([roomA3, roomA4])
+          break;
+        case "B3":
+          setImgList([roomB_kitchen1])
+          break;
+        case "B4":
+          setImgList([roomB3])
+          break;
+        case "B5":
+          setImgList([roomB_yard1, roomB_yard2])
+          break;
+        default:
+          alert("올바르지 않은 접근입니다.")
+          break;
+      }
     }
-    swiper?.slideTo(0,0.5);
-  }, [selectedSpace, swiper])
+  }, [selectedRoom, selectedSpace])
 
   // 스크롤
-  const useScroll = ()=>{
-    const [scrollY, setScrollY] = useState<number>(0);
-    const delay = 100; // 메모리 누출을 막기 위한 debounce delay
+  // const useScroll = ()=>{
+  //   const [scrollY, setScrollY] = useState<number>(0);
+  //   const delay = 100; // 메모리 누출을 막기 위한 debounce delay
 
-    const listener = ()=>{
-      setScrollY(window.scrollY);
-    };
-    const keyListener = (e: KeyboardEvent)=>{
-      e.preventDefault();
-      if (scrollStartY < 100 && e.key === "ArrowDown") {
-        roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
-      }
-    };
+  //   const listener = ()=>{
+  //     setScrollY(window.scrollY);
+  //   };
+  //   const keyListener = (e: KeyboardEvent)=>{
+  //     e.preventDefault();
+  //     if (scrollStartY < 100 && e.key === "ArrowDown") {
+  //       roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  //     }
+  //   };
 
-    useEffect(()=>{
-      window.addEventListener("scroll", debounce(listener, delay));
-      window.addEventListener("keydown", debounce(keyListener, delay));
-      return ()=>{
-        window.removeEventListener("scroll", listener);
-        window.removeEventListener("keydown", keyListener);
-      };
-    });
+  //   useEffect(()=>{
+  //     window.addEventListener("scroll", debounce(listener, delay));
+  //     window.addEventListener("keydown", debounce(keyListener, delay));
+  //     return ()=>{
+  //       window.removeEventListener("scroll", listener);
+  //       window.removeEventListener("keydown", keyListener);
+  //     };
+  //   });
 
-    return { scrollY };
-  }
+  //   return { scrollY };
+  // }
 
-  const { scrollY } = useScroll();
+  // const { scrollY } = useScroll();
 
-  useEffect(()=>{
-    if (introRef) {
-      introRef.current?.addEventListener("wheel", (e: WheelEvent)=>{
-        e.preventDefault();
-        const scrollDirection = e.screenY;
-        if (scrollDirection > 0) {
-          roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
-        }
-      })
-      setScrollStartY(window.scrollY);
-    }
-  }, [scrollY, scrollStartY])
+  // useEffect(()=>{
+  //   if (introRef) {
+  //     introRef.current?.addEventListener("wheel", (e: WheelEvent)=>{
+  //       e.preventDefault();
+  //       const scrollDirection = e.screenY;
+  //       if (scrollDirection > 0) {
+  //         roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  //       }
+  //     })
+  //     setScrollStartY(window.scrollY);
+  //   }
+  // }, [scrollY, scrollStartY])
 
   // 터치
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartY(e.touches[0].clientY);
-  };
+  // const handleTouchStart = (e: React.TouchEvent) => {
+  //   setTouchStartY(e.touches[0].clientY);
+  // };
 
-  useEffect(()=>{
-    if (touchStartY) {
-      if (introRef) {
-        introRef.current?.addEventListener("touchstart", (e: TouchEvent)=>{
-          if (window.scrollY === 0) {
-            e.preventDefault();
-            roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
-          }
-        })
-      }
-    }
-  }, [touchStartY])
+  // useEffect(()=>{
+  //   if (touchStartY) {
+  //     if (introRef) {
+  //       introRef.current?.addEventListener("touchstart", (e: TouchEvent)=>{
+  //         if (window.scrollY === 0) {
+  //           e.preventDefault();
+  //           roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  //         }
+  //       })
+  //     }
+  //   }
+  // }, [touchStartY])
 
   const selectRoom = (room: string) => {
     const roomA = document.querySelector(".roomA-info");
@@ -165,6 +194,7 @@ function Room() {
       roomB?.setAttribute("style", "display:block;");
       roomBRef.current?.scrollIntoView({ behavior: "smooth" });
     }
+    setSelectedRoom(room);
     setSelectedSpace(0);
   }
 
@@ -174,9 +204,10 @@ function Room() {
       <div
         ref={introRef} 
         className={cn("banner-img-wrap")}
-        onTouchStart={(e) => handleTouchStart(e)}>
+        // onTouchStart={(e) => handleTouchStart(e)}
+      >
         <h2 className={cn("room-main-title")}>{t("floorPlan.name")}</h2>
-        <img src={SwiperImg1} alt="yeoyeo-outside" />
+        <img src={RoomBanner} alt="yeoyeo-outside" />
       </div>
 
       <section className={cn("room-inner")}>
@@ -241,8 +272,10 @@ function Room() {
               modules={[Pagination, Navigation, Autoplay]}
               slidesPerView={1}
               rewind
-              autoplay={{delay:5000, disableOnInteraction: false}}
-              onSwiper={serSwiper}
+              autoplay={{delay:10000, disableOnInteraction: false}}
+              onInit={(swiper: SwiperCore) => {
+                swiperRef1.current = swiper;
+              }}
             >
               {ImgList.map((el) => (
                 <SwiperSlide key={el}>
@@ -306,8 +339,10 @@ function Room() {
               modules={[Pagination, Navigation, Autoplay]}
               slidesPerView={1}
               rewind
-              autoplay={{delay:5000, disableOnInteraction: false}}
-              onSwiper={serSwiper}
+              autoplay={{delay:10000, disableOnInteraction: false}}
+              onInit={(swiper: SwiperCore) => {
+                swiperRef2.current = swiper;
+              }}
             >
               {ImgList.map((el) => (
                 <SwiperSlide key={el}>
