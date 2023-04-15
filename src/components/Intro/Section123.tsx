@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import cn from "classnames";
-import AOS from "aos";
-import "aos/dist/aos.css";
+// import AOS from "aos";
+// import "aos/dist/aos.css";
 
 interface Section123Type {
   title: string;
@@ -13,9 +13,9 @@ interface Section123Type {
 function Section123({ title, desc, buttonTitle }: Section123Type) {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    AOS.init();
-  }, []);
+  // useEffect(() => {
+  //   AOS.init();
+  // }, []);
 
   const navigateToPurchase = (route: string) => {
     switch (route) {
@@ -36,11 +36,12 @@ function Section123({ title, desc, buttonTitle }: Section123Type) {
   return (
     <div className="section-wrap">
       <div className={cn("section-inner")}>
-        <div className="top" data-aos="fade-down" data-aos-duration="700" data-aos-offset="100">
+        <div className="top">
+        {/* <div className="top" data-aos="fade-down" data-aos-duration="700" data-aos-offset="100"> */}
           <strong className={cn("section-title")}>{title}</strong>
         </div>
         <div className="body">
-          <div
+          {/* <div
             className="desc"
             data-aos="fade-right"
             data-aos-duration="700"
@@ -49,11 +50,12 @@ function Section123({ title, desc, buttonTitle }: Section123Type) {
           >
             {desc}
           </div>
-          <div data-aos="fade-right" data-aos-duration="700" data-aos-offset="100" data-aos-delay="1000">
+          <div data-aos="fade-right" data-aos-duration="700" data-aos-offset="100" data-aos-delay="1000"> */}
+          <div className="desc">{desc}</div>
             <button className="nav-btn" type="button" onClick={() => navigateToPurchase(title)}>
               {buttonTitle}
             </button>
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </div>

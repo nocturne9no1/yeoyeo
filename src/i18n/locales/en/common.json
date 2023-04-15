@@ -9,7 +9,7 @@
   "floorPlan": {
     "name": "Room",
     "roomA": {
-      "name": "Yeo Yu",
+      "name": "「Yeo Yu」",
       "titles": ["View All", "Living Room", "Bed Room", "Kitchen", "Bath Room", "Back Yard"],
       "descriptions": [
         "80수 순면 침구류과 생활 한복",
@@ -20,7 +20,7 @@
       ]
     },
     "roomB": {
-      "name": "Yeo Hang",
+      "name": "「Yeo Hang」",
       "titles": ["View All", "Living Room", "Bed Room", "Kitchen", "Bath Room", "Back Yard"],
       "descriptions": [
         "80수 순면 침구류과 생활 한복",
@@ -30,9 +30,9 @@
         "경주 남산의 소나무 숲을 배경으로 하는 뒷마당"
       ]
     },
-    "serviceTitle": "Yeo",
     "serviceDescription": "Gift to those who need sound rest.. Traditional Korean stay YeoYeo"
   },
+  "owner": "Kim Myoungsug",
   "address": "53, Gaenmaeul-gil, Gyeongju-si, Gyeongsangbuk-do, Republic of Korea",
   "service": {
     "name": "Services",
