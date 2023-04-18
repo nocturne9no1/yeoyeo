@@ -4,7 +4,7 @@ import Room from "./Room";
 import Reservation from "./Reservation";
 import Admin from "./Admin";
 import Login from "./Login";
-import ReservationSuccess from "./ReservationSucess";
+import ReservationSuccess from "./ReservationSuccess";
 import ReservationCheck from "./ReservationCheck";
 import ReservationDetail from "./ReservationDetail";
 
