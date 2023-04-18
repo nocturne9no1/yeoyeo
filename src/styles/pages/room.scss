@@ -1,9 +1,10 @@
 .room-wrap {
   font-family: "Gowun Batang", serif;
   background-color: #f5f4f0;
+  margin-top: $header-height;
   .banner-img-wrap {
     position: relative;
-    height: 100vh;
+    height: calc(100vh - #{$header-height});
     display: flex;
     align-items: center;
     justify-content: center;
@@ -27,7 +28,7 @@
     margin: 0 auto;
 
     @include sm {
-      padding: 0 10px;
+      padding: 0 20px;
     }
 
     .room-intro {
@@ -134,7 +135,7 @@
     align-items: center;
 
     @include sm {
-      margin-top: 50px;
+      margin-top: 48px;
     }
 
     &::before,
@@ -177,7 +178,7 @@
 
     .room-detail-description {
       display: flex;
-      justify-content: start;
+      justify-content: center;
       align-items: center;
       flex-direction: column;
       letter-spacing: 3px;
@@ -207,7 +208,8 @@
       flex-direction: column;
 
       @include sm {
-        margin-top: 10px;
+        margin-top: 0px;
+        text-align: center;
       }
 
       span {
@@ -217,7 +219,7 @@
         line-height: 25px;
 
         @include sm {
-          padding-left: 10px;
+          padding-left: 0px;
           margin: 5px;
           line-height: 20px;
         }
@@ -227,18 +229,24 @@
     .room-detail-pictures {
       display: flex;
 
+      @include sm {
+        flex-direction: column;
+        gap: 12px;
+      }
+
       .room-detail-grid-item {
         width: 100%;
         padding: 10px;
 
         @include sm {
-          padding: 5px;
+          padding: 0px;
         }
       }
 
       img {
         width: 100%;
         height: 500px;
+        object-fit: cover;
 
         @include sm {
           height: 250px;
