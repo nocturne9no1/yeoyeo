@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 import dayjs, { Dayjs } from "dayjs";
 import axios from "axios";
+import useMediaQuery from "src/hooks/useMediaQuery";
 
 import Calendar from "./Calendar";
 
@@ -9,7 +10,10 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
   const [currentDate, setCurrentDate] = useState(dayjs().set("date", 1));
   const [nextMonth, setNextMonth] = useState(dayjs(currentDate).add(1, "month"));
   const [roomMonthData, setRoomMonthData] = useState<MonthRoomData>({} as MonthRoomData);
+  const [twoMonthsData, setTwoMonthsData] = useState<any>();
   const [selectedRoom, setSelectedRoom] = useState<"A" | "B" | null>(null);
+
+  const isDesktop = useMediaQuery("desktop");
 
   const handlePrevMonth = () => {
     if (currentDate < dayjs().set("date", 1)) return;
@@ -26,7 +30,7 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
       method: "get",
       url: `/dateroom/${currentDate.get("year")}/${currentDate.get("month") + 1}`,
     }).then((res) => {
-      console.log(res);
+      setTwoMonthsData([...res.data.month, ...res.data.nextMonth]);
       setRoomMonthData(res.data);
     });
   }, [currentDate]);
@@ -36,10 +40,12 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
     if (startDate && endDate) {
       axios({
         method: "get",
-        url: `/dateroom/price/1/${startDate.format("YYYYMMDD")}/${endDate.format("YYYYMMDD")}`,
+        url: `/dateroom/price/${selectedRoom !== null && selectedRoom === "A" ? 1 : 2}/${startDate.format(
+          "YYYYMMDD",
+        )}/${endDate.format("YYYYMMDD")}`,
       }).then((res) => setPeriodData(res.data));
     }
-  }, [startDate, endDate, setPeriodData]);
+  }, [startDate, endDate, setPeriodData, selectedRoom]);
 
   const handleDateClick = (day: number, date: Dayjs) => {
     const selectedDate = dayjs(date).set("date", day);
@@ -76,7 +82,7 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
 
   return (
     <div className={cn("date-picker-wrap")}>
-      <button type="button" onClick={() => resetSelect()}>
+      <button type="button" onClick={() => resetSelect()} className={cn("init-button")}>
         초기화
       </button>
       <div className={cn("calendar-header")}>
@@ -94,40 +100,35 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
           setStartDate={setStartDate}
           setEndDate={setEndDate}
           data={roomMonthData?.month}
+          twoMonthsData={twoMonthsData}
           currentDate={currentDate}
           handleDateClick={handleDateClick}
           selectedRoom={selectedRoom}
           setSelectedRoom={setSelectedRoom}
         />
-        <Calendar
-          startDate={startDate}
-          endDate={endDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          data={roomMonthData?.nextMonth}
-          currentDate={nextMonth}
-          handleDateClick={handleDateClick}
-          selectedRoom={selectedRoom}
-          setSelectedRoom={setSelectedRoom}
-        />
+        {isDesktop && (
+          <Calendar
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            data={roomMonthData?.nextMonth}
+            twoMonthsData={twoMonthsData}
+            currentDate={nextMonth}
+            handleDateClick={handleDateClick}
+            selectedRoom={selectedRoom}
+            setSelectedRoom={setSelectedRoom}
+          />
+        )}
       </div>
-      {/* <div>start date: {startDate?.toDateString()}</div>
-      <div>end date: {endDate?.toDateString()}</div> */}
       <div className={cn("input-wrap")}>
         <input
           type="text"
           value={startDate?.format("YYYY-MM-DD") || ""}
-          // onFocus={() => setFocusedInput("startDate")}
           placeholder="Start Date"
           onChange={() => null}
         />
-        <input
-          type="text"
-          value={endDate?.format("YYYY-MM-DD") || ""}
-          // onFocus={() => setFocusedInput("endDate")}
-          placeholder="End Date"
-          onChange={() => null}
-        />
+        <input type="text" value={endDate?.format("YYYY-MM-DD") || ""} placeholder="End Date" onChange={() => null} />
       </div>
     </div>
   );

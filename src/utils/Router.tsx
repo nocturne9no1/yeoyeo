@@ -1,6 +1,16 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from "@components/layout/Layout";
-import { Main, Service, Reservation, Room, Admin, Login } from "../pages";
+import {
+  Main,
+  Service,
+  Reservation,
+  Room,
+  Admin,
+  Login,
+  ReservationSuccess,
+  ReservationCheck,
+  ReservationDetail,
+} from "../pages";
 
 const Router = createBrowserRouter([
   {
@@ -21,6 +31,18 @@ const Router = createBrowserRouter([
       {
         path: "/reservation",
         element: <Reservation />,
+      },
+      {
+        path: "/reservation/success/:reservationId",
+        element: <ReservationSuccess />,
+      },
+      {
+        path: "/reservation/check",
+        element: <ReservationCheck />,
+      },
+      {
+        path: "/reservation/detail",
+        element: <ReservationDetail />,
       },
       {
         path: "/admin",

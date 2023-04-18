@@ -166,3 +166,7 @@ input,
 textarea {
   all: unset;
 }
+
+input[type="checkbox"] {
+  all: revert;
+}
