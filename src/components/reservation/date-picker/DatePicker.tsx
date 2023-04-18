@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 import dayjs, { Dayjs } from "dayjs";
 import axios from "axios";
-import useMediaQuery from "src/hooks/useMediaQuery";
+import useMediaQuery from "@hooks/useMediaQuery";
 
 import Calendar from "./Calendar";
 
