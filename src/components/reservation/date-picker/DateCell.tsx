@@ -103,7 +103,7 @@ function DateCell({
   return (
     <td
       key={day}
-      onClick={() => handleCellClick()}
+      onClick={isPassed ? (e) => e.preventDefault() : () => handleCellClick()}
       aria-hidden="true"
       // className={selectedDate.getDate() === day ? "selected" : ""}
       className={cn(
