@@ -7,6 +7,16 @@
     max-width: 1240px;
     width: 100%;
     margin: 0 auto;
+
+    @include md {
+      width: calc(100% - 40px);
+      margin: 0 auto;
+    }
+
+    @include sm {
+      width: calc(100% - 40px);
+      margin: 0 auto;
+    }
   }
 
   h2.title {
@@ -42,6 +52,13 @@
     justify-content: space-between;
     width: 100%;
     margin-top: 12px;
+
+    @include md {
+      justify-content: center;
+    }
+    @include sm {
+      justify-content: center;
+    }
   }
 
   .calendar-header {
@@ -162,11 +179,19 @@
     justify-content: space-between;
     gap: 40px;
 
+    @include sm {
+      gap: 12px;
+    }
+
     input {
       border: 1px solid #cecece;
       padding: 4px;
       border-radius: 4px;
       text-align: center;
+
+      @include sm {
+        width: 50%;
+      }
     }
   }
 }
@@ -174,6 +199,14 @@
 .customer-form-wrap {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   width: 800px;
+
+  @include md {
+    width: 100%;
+  }
+
+  @include sm {
+    width: 100%;
+  }
 
   .input-wrap {
     display: flex;
@@ -400,6 +433,10 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   width: 400px;
 
+  @include sm {
+    width: 100%;
+  }
+
   .input-wrap {
     display: flex;
     flex-direction: column;
@@ -450,6 +487,14 @@
   border-top: 1px solid #404040;
   margin-top: 40px;
   padding-top: 40px;
+
+  @include md {
+    flex-direction: column;
+  }
+
+  @include sm {
+    flex-direction: column;
+  }
   .btn-wrap {
     display: flex;
     justify-content: flex-end;
@@ -548,6 +593,13 @@
   .agreement-section {
     width: 800px;
     margin-top: 12px;
+
+    @include md {
+      width: 100%;
+    }
+    @include sm {
+      width: 100%;
+    }
     .btn-wrap {
       margin-left: 5px;
       margin-top: 5px;
@@ -601,6 +653,10 @@
         padding: 12px 24px;
         margin-top: 8px;
         border-radius: 2px;
+
+        @include sm {
+          padding: 8px 12px;
+        }
         .refund-policy,
         .agreement,
         .personal-info,
@@ -624,6 +680,19 @@
           }
           li + li {
             margin-top: 5px;
+
+            @include sm {
+              margin-top: 8px;
+            }
+          }
+        }
+
+        .agreement {
+          li .agree-checkbox {
+            @include sm {
+              flex-shrink: 0;
+              margin-left: 12px;
+            }
           }
         }
       }
@@ -637,8 +706,23 @@
   border-top: 1px solid #404040;
   margin-top: 40px;
   padding-top: 40px;
+  @include md {
+    flex-direction: column;
+  }
+  @include sm {
+    flex-direction: column;
+  }
   .refund-policy-wrap {
     min-width: 400px;
+
+    @include md {
+      margin-top: 24px;
+    }
+
+    @include sm {
+      margin-top: 12px;
+      min-width: auto;
+    }
     .title {
       display: inline-block;
       margin-bottom: 5px;
@@ -653,10 +737,13 @@
         border-radius: 2px;
         li {
           font-size: 14px;
-          margin-bottom: 10px;
           line-height: 18px;
           display: flex;
           justify-content: space-between;
+
+          & + li {
+            margin-top: 8px;
+          }
         }
       }
     }
