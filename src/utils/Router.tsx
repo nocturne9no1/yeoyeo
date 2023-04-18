@@ -6,6 +6,7 @@ import {
   Reservation,
   Room,
   Admin,
+  Login,
   ReservationSuccess,
   ReservationCheck,
   ReservationDetail,
@@ -46,6 +47,10 @@ const Router = createBrowserRouter([
       {
         path: "/admin",
         element: <Admin />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
       {
         path: "*",
