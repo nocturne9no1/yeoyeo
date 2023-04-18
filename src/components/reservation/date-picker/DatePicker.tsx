@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 import dayjs, { Dayjs } from "dayjs";
 import axios from "axios";
+import useMediaQuery from "src/hooks/useMediaQuery";
 
 import Calendar from "./Calendar";
 
@@ -11,6 +12,8 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
   const [roomMonthData, setRoomMonthData] = useState<MonthRoomData>({} as MonthRoomData);
   const [twoMonthsData, setTwoMonthsData] = useState<any>();
   const [selectedRoom, setSelectedRoom] = useState<"A" | "B" | null>(null);
+
+  const isDesktop = useMediaQuery("desktop");
 
   const handlePrevMonth = () => {
     if (currentDate < dayjs().set("date", 1)) return;
@@ -103,18 +106,20 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
           selectedRoom={selectedRoom}
           setSelectedRoom={setSelectedRoom}
         />
-        <Calendar
-          startDate={startDate}
-          endDate={endDate}
-          setStartDate={setStartDate}
-          setEndDate={setEndDate}
-          data={roomMonthData?.nextMonth}
-          twoMonthsData={twoMonthsData}
-          currentDate={nextMonth}
-          handleDateClick={handleDateClick}
-          selectedRoom={selectedRoom}
-          setSelectedRoom={setSelectedRoom}
-        />
+        {isDesktop && (
+          <Calendar
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            data={roomMonthData?.nextMonth}
+            twoMonthsData={twoMonthsData}
+            currentDate={nextMonth}
+            handleDateClick={handleDateClick}
+            selectedRoom={selectedRoom}
+            setSelectedRoom={setSelectedRoom}
+          />
+        )}
       </div>
       <div className={cn("input-wrap")}>
         <input
