@@ -78,7 +78,7 @@ function CustomerForm({
       />
       <InputForm title="연락처">
         {isBtnFocused ? (
-          <div style={{ display: "flex" }}>
+          <div className={cn("mobile-input-wrap")}>
             <Input
               title=""
               regEx={validUserMobileNumber}
@@ -116,8 +116,12 @@ function CustomerForm({
                     if (res.data) {
                       setIsAuthorized(true);
                       setAuthResultMsg("인증이 성공적으로 완료되었습니다.");
+                      const msgDiv = document.getElementsByClassName("certification-result-msg");
+                      msgDiv[0].classList.add("success");
                     } else if (res.data === false) {
                       setAuthResultMsg("인증번호가 올바르지 않습니다.");
+                      const msgDiv = document.getElementsByClassName("certification-result-msg");
+                      msgDiv[0].classList.add("error");
                     }
                   })
                   .catch((err) => {
@@ -128,7 +132,9 @@ function CustomerForm({
             >
               인증확인
             </button>
-            <span>{authResultMsg}</span>
+            <div className={cn("certification-result-msg")}>
+              <span>{authResultMsg}</span>
+            </div>
           </div>
         ) : (
           <div>
@@ -146,11 +152,7 @@ function CustomerForm({
               type="button"
               className={cn("certification-button")}
               onClick={() => {
-                // const isValid = validUserMobileNumber.test(userMobileNumber);
-                // if (isValid) {
-                // }
                 setIsBtnFocused(true);
-                // console.log(userMobileNumber);
                 axios
                   .get(`/reservation/sms/authKey/${userMobileNumber}`)
                   .then((res) => console.log(res))
@@ -158,7 +160,7 @@ function CustomerForm({
               }}
               disabled={!validUserMobileNumber.test(userMobileNumber)}
             >
-              인증번호요청 (TBD)
+              인증번호요청
             </button>
           </div>
         )}

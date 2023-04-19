@@ -7,6 +7,24 @@
     max-width: 1240px;
     width: 100%;
     margin: 0 auto;
+
+    @include md {
+      width: calc(100% - 40px);
+      margin: 0 auto;
+    }
+
+    @include sm {
+      width: calc(100% - 40px);
+      margin: 0 auto;
+    }
+  }
+
+  h2.title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2em;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #cecece;
   }
 }
 
@@ -15,17 +33,40 @@
   // justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin-top: 24px;
 
+  .init-button,
+  .calendar-header button {
+    border: 1px solid #cecece;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.2em;
+    transition: 0.2s;
+    &:hover {
+      background-color: #cecece;
+    }
+  }
   .calender-wrap {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-top: 12px;
+
+    @include md {
+      justify-content: center;
+    }
+    @include sm {
+      justify-content: center;
+    }
   }
 
   .calendar-header {
+    margin-top: 12px;
     padding: 12px 0;
     display: flex;
     justify-content: space-between;
+    gap: 40px;
 
     button {
       width: 120px;
@@ -33,11 +74,16 @@
   }
   .calendar-item {
     width: 600px;
-    // padding: 12px;
+
+    .month-year {
+      font-size: 16px;
+      line-height: 1.2em;
+    }
 
     .calendar {
       width: 100%;
       border: 1px solid black;
+      margin-top: 12px;
 
       thead {
         tr {
@@ -90,6 +136,9 @@
               background-color: antiquewhite;
             }
 
+            &.checkout-only {
+              background-color: #f96c6c;
+            }
             &.passed-date {
               background-color: #808080;
               // pointer-events: none;
@@ -111,6 +160,12 @@
               .price {
                 font-size: 12px;
               }
+              .room-item {
+                opacity: 0;
+                &.available {
+                  opacity: 1;
+                }
+              }
             }
           }
         }
@@ -120,9 +175,23 @@
 
   .input-wrap {
     margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
 
-    input + input {
-      margin-left: 12px;
+    @include sm {
+      gap: 12px;
+    }
+
+    input {
+      border: 1px solid #cecece;
+      padding: 4px;
+      border-radius: 4px;
+      text-align: center;
+
+      @include sm {
+        width: 50%;
+      }
     }
   }
 }
@@ -130,6 +199,14 @@
 .customer-form-wrap {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   width: 800px;
+
+  @include md {
+    width: 100%;
+  }
+
+  @include sm {
+    width: 100%;
+  }
 
   .input-wrap {
     display: flex;
@@ -142,23 +219,22 @@
       margin-top: 12px;
     }
     &.user-mobile-input {
-      width: 280px;
+      width: 293px;
       &.disabled {
         color: #d6d6d6;
-        width: 128px;
+        width: 133px;
       }
     }
     .user-auth-number-wrap {
       align-items: center;
       width: 250px;
-      height: 36px;
-      margin-top: 8px;
+      // height: 36px;
       display: flex;
       position: relative;
       justify-content: space-between;
       border: 1px solid #404040;
       border-radius: 4px;
-      padding: 0 12px;
+      padding: 8px 12px;
       box-sizing: border-box;
       input {
         padding: 0;
@@ -175,6 +251,19 @@
       font-size: 14px;
       line-height: 20px;
     }
+
+    .mobile-input-wrap {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-top: 8px;
+      input {
+        margin-top: 0;
+        font-size: 16px;
+        // padding: 8px 12px;
+      }
+    }
+
     input {
       // width: 200px;
       padding: 8px 12px;
@@ -207,17 +296,37 @@
       border: 1px solid #202020;
       padding: 8px 12px;
       border-radius: 4px;
-      width: 120px;
-      margin-top: 8px;
+      // width: 120px;
+      // margin-top: 8px;
     }
     .certification-check-button {
       border: 1px solid #202020;
-      padding: 4px 8px;
+      padding: 8px 12px;
       border-radius: 4px;
       width: 120px;
-      height: 36px;
-      margin-top: 8px;
+      height: 42px;
       transition: background-color 1s;
+    }
+    .certification-result-msg {
+      align-items: center;
+      height: 42px;
+      // margin-top: 8px;
+      display: flex;
+      position: relative;
+      justify-content: space-between;
+      padding: 0 12px;
+      box-sizing: border-box;
+      font-size: 14px;
+      &.error {
+        span {
+          color: tomato;
+        }
+      }
+      &.success {
+        span {
+          color: #77dd77;
+        }
+      }
     }
     .certification-check-button:hover {
       background-color: #b2b2b2;
@@ -249,6 +358,8 @@
 
       input {
         border-radius: 0;
+        height: 37px;
+        box-sizing: border-box;
         margin-top: 0;
         border-left: none;
         border-right: none;
@@ -260,6 +371,7 @@
       border: 1px solid #404040;
       border-radius: 4px;
       padding: 8px;
+      margin-top: 8px;
 
       .input-text-area {
         resize: none;
@@ -276,9 +388,54 @@
   }
 }
 
+.check input[type="checkbox"] {
+  -webkit-appearance: none;
+  -webkit-box-sizing: border-box;
+  // box-sizing: border-box;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  outline: none !important;
+  border: 1px solid #9999;
+  vertical-align: middle;
+  margin: 0;
+}
+
+.check input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 8.66px;
+  background: url("../../assets/icons/ico_check.svg") no-repeat;
+  background-position: center;
+  background-size: contain;
+  overflow: hidden;
+  transform: scale(0) translate(-50%, -55%);
+  line-height: 1;
+  margin: 0;
+}
+
+.check input[type="checkbox"]:checked {
+  background-color: #202122;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.check input[type="checkbox"]:checked::before {
+  // border-radius: 4px;
+  transform: scale(1) translate(-50%, -55%);
+}
+
 .reservation-sidebar-wrap {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   width: 400px;
+
+  @include sm {
+    width: 100%;
+  }
 
   .input-wrap {
     display: flex;
@@ -330,6 +487,14 @@
   border-top: 1px solid #404040;
   margin-top: 40px;
   padding-top: 40px;
+
+  @include md {
+    flex-direction: column;
+  }
+
+  @include sm {
+    flex-direction: column;
+  }
   .btn-wrap {
     display: flex;
     justify-content: flex-end;
@@ -425,16 +590,38 @@
 .agreement-wrap {
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #404040;
-  margin-top: 40px;
-  padding-top: 40px;
   .agreement-section {
     width: 800px;
+    margin-top: 12px;
+
+    @include md {
+      width: 100%;
+    }
+    @include sm {
+      width: 100%;
+    }
+    .btn-wrap {
+      margin-left: 5px;
+      margin-top: 5px;
+    }
     .agreement-title {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 6px;
+      .agree-checkbox {
+        font-size: 14px;
+        .check {
+          display: flex;
+          align-items: center;
+        }
+        input {
+          width: 16px;
+          height: 16px;
+          margin-right: 5px;
+        }
+      }
       span {
         display: inline-block;
         color: #808080;
@@ -443,22 +630,122 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 50%;
-        // display: inline-flex;
-        // align-items: center;
-        // justify-content: center;
         svg {
-          // position: relative;
-          // top: 14px;
-          // left: 12px;
-          // transform: translate(-50%, -50%);
           width: 25px;
           height: 25px;
         }
       }
-      // .btn-wrap:hover {
-      //   background-color: #a3a3a33e;
-      // }
+    }
+    .agreement-content-wrap {
+      border-top: #202020 1px solid;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s;
+      &.show-content {
+        max-height: fit-content;
+      }
+      &.border-none {
+        border: transparent;
+      }
+      .agreement-content {
+        box-sizing: border-box;
+        background-color: #f4f4f4;
+        padding: 12px 24px;
+        margin-top: 8px;
+        border-radius: 2px;
+
+        @include sm {
+          padding: 8px 12px;
+        }
+        .refund-policy,
+        .agreement,
+        .personal-info,
+        .event-alarm {
+          li {
+            font-size: 14px;
+            line-height: 20px;
+            display: flex;
+            justify-content: space-between;
+            .check {
+              display: flex;
+              align-items: center;
+            }
+            .agree-checkbox {
+              input {
+                width: 16px;
+                height: 16px;
+                margin-right: 5px;
+              }
+            }
+          }
+          li + li {
+            margin-top: 5px;
+
+            @include sm {
+              margin-top: 8px;
+            }
+          }
+        }
+
+        .agreement {
+          li .agree-checkbox {
+            @include sm {
+              flex-shrink: 0;
+              margin-left: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.agreement-form-wrap {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #404040;
+  margin-top: 40px;
+  padding-top: 40px;
+  @include md {
+    flex-direction: column;
+  }
+  @include sm {
+    flex-direction: column;
+  }
+  .refund-policy-wrap {
+    min-width: 400px;
+
+    @include md {
+      margin-top: 24px;
+    }
+
+    @include sm {
+      margin-top: 12px;
+      min-width: auto;
+    }
+    .title {
+      display: inline-block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    .content-wrap {
+      .content {
+        box-sizing: border-box;
+        background-color: #f4f4f4;
+        padding: 12px 24px;
+        margin-top: 8px;
+        border-radius: 2px;
+        li {
+          font-size: 14px;
+          line-height: 18px;
+          display: flex;
+          justify-content: space-between;
+
+          & + li {
+            margin-top: 8px;
+          }
+        }
+      }
     }
   }
 }

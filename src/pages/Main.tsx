@@ -2,7 +2,6 @@
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import Section from "@components/Intro/Section";
-import Section123 from "@components/Intro/Section123";
 import cn from "classnames";
 // import AOS from "aos";
 // import "aos/dist/aos.css";
@@ -10,9 +9,6 @@ import cn from "classnames";
 function Intro() {
   const sectionWrapRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
-  const serviceRef = useRef<HTMLDivElement>(null);
-  const roomRef = useRef<HTMLDivElement>(null);
-  const reservationRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation("common");
 
   // useEffect(() => {
@@ -41,30 +37,6 @@ function Intro() {
             </div>
           </div>
         </Section>
-        <Section sectionType="service section123" ref={serviceRef}>
-          <Section123
-            title={t("intro.service.title")}
-            desc={t("intro.service.desc")}
-            buttonTitle={t("intro.service.buttonTitle")}
-          />
-        </Section>
-        <Section sectionType="room section123" ref={roomRef}>
-          <Section123
-            title={t("intro.room.title")}
-            desc={t("intro.room.desc")}
-            buttonTitle={t("intro.room.buttonTitle")}
-          />
-        </Section>
-        <Section sectionType="reservation section123" ref={reservationRef}>
-          <Section123
-            title={t("intro.reservation.title")}
-            desc={t("intro.reservation.desc")}
-            buttonTitle={t("intro.reservation.buttonTitle")}
-          />
-        </Section>
-        {/* <Section sectionType="grid-routing" ref={gridRoutingRef}>
-          <GridRouting />
-        </Section> */}
       </div>
     </div>
   );

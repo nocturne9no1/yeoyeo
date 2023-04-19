@@ -4,7 +4,8 @@
     "intro": "Intro",
     "service": "Service",
     "room": "Room",
-    "reservation": "Reservation"
+    "reservation": "Reservation",
+    "reservation/check": "Reservation Check"
   },
   "floorPlan": {
     "name": "Room",

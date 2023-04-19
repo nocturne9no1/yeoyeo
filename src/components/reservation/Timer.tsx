@@ -7,8 +7,8 @@ interface TimerProps {
   setIsTimeOut: (isTimeOut: boolean) => void;
 }
 function Timer({ setAuthResultMsg, isAuthorized, setIsTimeOut }: TimerProps) {
-  const [time, setTime] = useState<any>(20);
-  const deadline = dayjs().add(21, "second");
+  const [time, setTime] = useState<any>(180);
+  const deadline = dayjs().add(181, "second");
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
 

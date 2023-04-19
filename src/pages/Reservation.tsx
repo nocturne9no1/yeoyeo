@@ -7,7 +7,6 @@ import CustomerForm from "@components/reservation/CustomerForm";
 import ReservationSidebar from "@components/reservation/ReservationSidebar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { useEffect } from "react";
 import { useAtom } from "jotai";
 import modalStatus from "src/state/modalStatus";
 import Agreement from "@components/reservation/Agreement";
@@ -18,11 +17,10 @@ function Reservation() {
   const [email, setEmail] = useState<string>("");
   const [peopleNumber, setPeopleNumber] = useState<number>(2);
   const [requestedTerm, setRequestedTerm] = useState<string>("");
-
-  const [canReserve, setCanReserve] = useState<boolean>(false);
+  const [formCompleted, setFormCompleted] = useState<boolean>(false);
+  const [agreementCompleted, setAgreementCompleted] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  // const accommodationPeriod = (Number(new Date()) - Number(new Date())) / 1000 / 60 / 60 / 24;
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
   const [periodData, setPeriodData] = useState<PeriodDataType>({} as PeriodDataType);
@@ -92,8 +90,6 @@ function Reservation() {
       const { IMP } = window;
       IMP.init("imp28607423");
 
-      IMP.init("imp28607423");
-
       /* 2. 결제 데이터 정의하기 */
       const data = {
         pg: "nice",
@@ -101,13 +97,13 @@ function Reservation() {
         pay_method: "card",
         merchant_uid: merchantUid, // 고유 주문번호 (날짜+방)
         name: "여여 결제 테스트",
-        amount: periodData.totalPrice, // 결제금액
+        amount: peopleNumber > 2 ? periodData.totalPrice + 30000 * periodData.period : periodData.totalPrice, // 결제금액
         buyer_email: email,
         buyer_name: username,
         buyer_tel: userMobileNumber,
         // buyer_addr: "서울특별시 강남구 신사동",
         // buyer_postcode: "01181",
-        confirm_url: "/payment/confirm",
+        confirm_url: "https://api.yeoyeo.co.kr/payment/confirm",
       };
 
       IMP.request_pay(data, callBack);
@@ -143,17 +139,17 @@ function Reservation() {
   }
 
   function validCheck() {
-    if (canReserve) {
+    if (formCompleted && agreementCompleted) {
       getReservationId();
     } else {
-      alert("예약폼확인");
+      alert("예약폼완성 및 동의사항을 체크해주세요.");
     }
   }
 
   return (
     <div className={cn("reservation-wrap")}>
       <div className={cn("reservation-inner")}>
-        Reservation
+        <h2 className={cn("title")}>Reservation</h2>
         <DatePicker
           startDate={startDate}
           endDate={endDate}
@@ -162,29 +158,32 @@ function Reservation() {
           setPeriodData={setPeriodData}
         />
         {startDate && endDate && (
-          <div ref={reservationFormRef} className={cn("reservation-form-wrap")}>
-            <CustomerForm
-              username={username}
-              setUsername={setUsername}
-              userMobileNumber={userMobileNumber}
-              setUserMobileNumber={setUserMobileNumber}
-              email={email}
-              setEmail={setEmail}
-              peopleNumber={peopleNumber}
-              setPeopleNumber={setPeopleNumber}
-              requestedTerm={requestedTerm}
-              setRequestedTerm={setRequestedTerm}
-              setCanReserve={setCanReserve}
-            />
-            <ReservationSidebar
-              startDate={startDate}
-              endDate={endDate}
-              periodData={periodData}
-              onClickPayment={() => validCheck()}
-            />
-          </div>
+          <>
+            <div ref={reservationFormRef} className={cn("reservation-form-wrap")}>
+              <CustomerForm
+                username={username}
+                setUsername={setUsername}
+                userMobileNumber={userMobileNumber}
+                setUserMobileNumber={setUserMobileNumber}
+                email={email}
+                setEmail={setEmail}
+                peopleNumber={peopleNumber}
+                setPeopleNumber={setPeopleNumber}
+                requestedTerm={requestedTerm}
+                setRequestedTerm={setRequestedTerm}
+                setCanReserve={setFormCompleted}
+              />
+              <ReservationSidebar
+                startDate={startDate}
+                endDate={endDate}
+                periodData={periodData}
+                peopleNumber={peopleNumber}
+                onClickPayment={() => validCheck()}
+              />
+            </div>
+            <Agreement setAgreementCompleted={setAgreementCompleted} />
+          </>
         )}
-        <Agreement />
         {/* <div className={cn("reservation-form-wrap")}>약관동의가 들어가야할 부분</div> */}
       </div>
       {isModalMask && (

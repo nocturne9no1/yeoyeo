@@ -1,7 +1,4 @@
-// import { useState } from "react";
 import cn from "classnames";
-// import dayjs from "dayjs";
-// import axios from "axios";
 
 import DateCell from "./DateCell";
 
@@ -11,6 +8,7 @@ function Calendar({
   currentDate,
   handleDateClick,
   data,
+  twoMonthsData,
   selectedRoom,
   setSelectedRoom,
 }: CalendarProps) {
@@ -38,7 +36,7 @@ function Calendar({
 
   return (
     <div className={cn("calendar-item")}>
-      <span className={cn("mont-year")}>
+      <span className={cn("month-year")}>
         {monthNames[currentDate.get("month")]} {currentDate.get("year")}
       </span>
       <table className={cn("calendar")}>
@@ -61,6 +59,7 @@ function Calendar({
                       <DateCell
                         key={currentDate.toString() + day}
                         day={day}
+                        data={twoMonthsData}
                         cellData={data[day - 1] && (data[day - 1].rooms as DateRoomItem[])}
                         handleDateClick={handleDateClick}
                         startDate={startDate}

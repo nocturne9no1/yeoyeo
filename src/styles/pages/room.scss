@@ -1,9 +1,10 @@
 .room-wrap {
   font-family: "Gowun Batang", serif;
   background-color: #f5f4f0;
+  margin-top: $header-height;
   .banner-img-wrap {
     position: relative;
-    height: 100vh;
+    height: calc(100vh - #{$header-height});
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,7 +34,7 @@
     margin: 0 auto;
 
     @include sm {
-      padding: 0 10px;
+      padding: 0 20px;
     }
 
     .room-intro {
@@ -423,7 +424,7 @@
     align-items: center;
 
     @include sm {
-      margin-top: 50px;
+      margin-top: 48px;
     }
 
     &::before,

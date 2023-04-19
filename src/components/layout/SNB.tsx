@@ -33,6 +33,9 @@ function SNB({ open, setOpen }: SNBProps): ReactElement {
     {
       id: "reservation",
     },
+    {
+      id: "reservation/check",
+    },
   ];
 
   return (
