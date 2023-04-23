@@ -2,7 +2,6 @@
 
 .footer-wrap {
   font-family: "Gowun Batang", serif;
-  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,6 +12,7 @@
 
   span {
     text-align: center;
+    font-size: small;
   }
 
   .footer-wrap-link {

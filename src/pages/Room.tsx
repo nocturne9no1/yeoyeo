@@ -19,22 +19,40 @@ import FloorPlanB from "@images/room/floor_plan_B.png";
 // Room 이미지들
 import outside1 from '@images/room/outside1.jpg'
 import outside2 from '@images/room/outside2.jpg'
-import roomA1 from '@images/room/roomA1.jpg'
-import roomA2 from '@images/room/roomA2.jpg'
-import roomA3 from '@images/room/roomA3.jpg'
-import roomA4 from '@images/room/roomA4.jpg'
-// import roomB1 from '@images/room/roomB1.jpg'
-// import roomB2 from '@images/room/roomB2.jpg'
-import roomB3 from '@images/room/roomB3.jpg'
-// import roomB5 from '@images/room/roomB5.jpg'
-// import roomB6 from '@images/room/roomB6.jpg'
 
+import roomA_living1 from "@images/room/roomA_living1.jpg";
+import roomA_living2 from "@images/room/roomA_living2.jpg";
+import roomA_living3 from "@images/room/roomA_living3.jpg";
+import roomA_living4 from "@images/room/roomA_living4.jpg";
 import roomA_bed1 from "@images/room/roomA_bed1.jpg";
+import roomA_bed2 from "@images/room/roomA_bed2.jpg";
+import roomA_bed3 from "@images/room/roomA_bed3.jpg";
+import roomA_bed4 from "@images/room/roomA_bed4.jpg";
+import roomA_kitchen1 from "@images/room/roomA_kitchen1.jpg";
+import roomA_kitchen2 from "@images/room/roomA_kitchen2.jpg";
+import roomA_bath1 from "@images/room/roomA_bath1.jpg";
+import roomA_bath2 from "@images/room/roomA_bath2.jpg";
+import roomA_bath3 from "@images/room/roomA_bath3.jpg";
 import roomA_yard1 from '@images/room/roomA_yard1.jpg'
 
+import roomB1 from "@images/room/roomB1.jpg";
+import roomB2 from "@images/room/roomB2.jpg";
+import roomB3 from "@images/room/roomB3.jpg";
+import roomB_living1 from "@images/room/roomB_living1.jpg";
+import roomB_living2 from "@images/room/roomB_living2.jpg";
+import roomB_living3 from "@images/room/roomB_living3.jpg";
+import roomB_living4 from "@images/room/roomB_living4.jpg";
+import roomB_bed1 from "@images/room/roomB_bed1.jpg";
+import roomB_bed2 from "@images/room/roomB_bed2.jpg";
 import roomB_kitchen1 from '@images/room/roomB_kitchen1.jpg'
+import roomB_kitchen2 from '@images/room/roomB_kitchen2.jpg'
+import roomB_bath1 from "@images/room/roomB_bath1.jpg";
+import roomB_bath2 from "@images/room/roomB_bath2.jpg";
+import roomB_bath3 from "@images/room/roomB_bath3.jpg";
 import roomB_yard1 from '@images/room/roomB_yard1.jpg'
 import roomB_yard2 from '@images/room/roomB_yard2.jpg'
+import roomB_yard3 from '@images/room/roomB_yard3.jpg'
+import roomB_yard4 from '@images/room/roomB_yard4.jpg'
 
 // import { debounce } from "lodash";
 
@@ -80,40 +98,50 @@ function Room() {
     if (selectedRoom) {
       switch (selectedRoom+selectedSpace) {
         case "A0":
-          setImgList([outside1, outside2, roomA1, roomA2])
+          setImgList([outside1, outside2,
+            roomA_living1, roomA_living2, roomA_living3, roomA_living4,
+            roomA_bed1, roomA_bed2, roomA_bed3, roomA_bed4,
+            roomA_kitchen1, roomA_kitchen2,
+            roomA_bath1, roomA_bath2, roomA_bath3,
+            roomA_yard1])
           break;
         case "A1":
-          setImgList([roomA1, roomA2])
+          setImgList([roomA_living1, roomA_living2, roomA_living3, roomA_living4])
           break;
         case "A2":
-          setImgList([roomA_bed1, roomA3, roomA4])
+          setImgList([roomA_bed1, roomA_bed2, roomA_bed3, roomA_bed4])
           break;
         case "A3":
-          setImgList([roomB_kitchen1])
+          setImgList([roomA_kitchen1, roomA_kitchen2])
           break;
         case "A4":
-          setImgList([roomB3])
+          setImgList([roomA_bath1, roomA_bath2, roomA_bath3])
           break;
         case "A5":
           setImgList([roomA_yard1])
           break;
         case "B0":
-          setImgList([outside1, outside2, roomA1, roomA2])
+          setImgList([roomB1, roomB2, roomB3, outside1, outside2,
+            roomB_living1, roomB_living2, roomB_living3, roomB_living4,
+            roomB_bed1, roomB_bed2,
+            roomB_kitchen1, roomB_kitchen2,
+            roomB_bath1, roomB_bath2, roomB_bath3,
+            roomB_yard1])
           break;
         case "B1":
-          setImgList([roomA1, roomA2])
+          setImgList([roomB_living1, roomB_living2, roomB_living3, roomB_living4])
           break;
         case "B2":
-          setImgList([roomA3, roomA4])
+          setImgList([roomB_bed1, roomB_bed2])
           break;
         case "B3":
-          setImgList([roomB_kitchen1])
+          setImgList([roomB_kitchen1, roomB_kitchen2])
           break;
         case "B4":
-          setImgList([roomB3])
+          setImgList([roomB_bath1, roomB_bath2, roomB_bath3])
           break;
         case "B5":
-          setImgList([roomB_yard1, roomB_yard2])
+          setImgList([roomB_yard1, roomB_yard2, roomB_yard3, roomB_yard4])
           break;
         default:
           alert("올바르지 않은 접근입니다.")

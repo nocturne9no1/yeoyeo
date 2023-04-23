@@ -20,9 +20,12 @@ function Footer() {
           <img src={naver} alt="네이버 바로가기" />
         </a>
       </div>
-      <span>{t("owner")}</span>
-      <span>010-8959-9091</span>
+      <span>{t("yeoyeo")}</span>
+      <span>{t("registration-number")}</span>
       <span>{t("address")}</span>
+      <span>{t("owner")}</span>
+      <span>010-8959-9091 | 010-2033-9091</span>
+      <span>pinokio775@daum.net | dvlprjw@gmail.com</span>
     </div>
   );
 }

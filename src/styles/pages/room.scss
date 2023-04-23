@@ -364,14 +364,16 @@
 
     .swiper-slide {
       .img-wrap {
-        aspect-ratio: 16/9;
+        // aspect-ratio: 16/9;
+        height: 70vh;
         overflow: hidden;
         display: flex;
         align-items: center;
         
         img {
           width: 100%;
-          object-fit: cover;
+          height: 100%;
+          object-fit: contain;
         }
       }
     }

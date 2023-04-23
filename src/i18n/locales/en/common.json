@@ -13,27 +13,29 @@
       "name": "「Yeo Yu」",
       "titles": ["View All", "Living Room", "Bed Room", "Kitchen", "Bath Room", "Back Yard"],
       "descriptions": [
-        "80수 순면 침구류과 생활 한복",
-        "나만의 영화관에서 마무리하는 하루",
-        "발뮤다 토스트기와 네스프레소 커피머신",
-        "욕실에서 즐기는 아름다운 정원",
-        "경주 남산의 소나무 숲을 배경으로 하는 뒷마당"
+        "soft, pure cotton bedding and daily hanbok.",
+        "bedroom equipped with pure cotton bedding for sound sleep.",
+        "Home appliances for simple cooking, Balmuda toaster and nespresso coffee machine provided.",
+        "Bathroom equipped with MoltonBrown toiletries, overlooking front yard.",
+        "Private backyard to gaze upon the stars and rest under the eaves."
       ]
     },
     "roomB": {
       "name": "「Yeo Hang」",
-      "titles": ["View All", "Living Room", "Bed Room", "Kitchen", "Bath Room", "Back Yard"],
+      "titles": ["View All", "Living Room", "Bedroom", "Kitchen", "Bathroom", "Back Yard"],
       "descriptions": [
-        "80수 순면 침구류과 생활 한복",
-        "나만의 영화관에서 마무리하는 하루",
-        "발뮤다 토스트기와 네스프레소 커피머신",
-        "욕실에서 즐기는 아름다운 정원",
-        "경주 남산의 소나무 숲을 배경으로 하는 뒷마당"
+        "soft, pure cotton bedding and daily hanbok.",
+        "bedroom equipped with pure cotton bedding for sound sleep.",
+        "Home appliances for simple cooking, Balmuda toaster and nespresso coffee machine provided.",
+        "Bathroom equipped with MoltonBrown toiletries, overlooking front yard.",
+        "Private backyard to gaze upon the stars and rest under the eaves."
       ]
     },
     "serviceDescription": "Gift to those who need sound rest.. Traditional Korean stay YeoYeo"
   },
-  "owner": "Kim Myoungsug",
+  "yeoyeo": "「Hanok stay Yeoyeo」",
+  "registration-number": "Business registration number 689-31-01484",
+  "owner": "Owner Kim Myoungsug | Manager Park Jeongwoong",
   "address": "53, Gaenmaeul-gil, Gyeongju-si, Gyeongsangbuk-do, Republic of Korea",
   "service": {
     "name": "Services",
