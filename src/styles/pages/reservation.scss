@@ -433,6 +433,10 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   width: 400px;
 
+  @include md {
+    width: 100%;
+  }
+
   @include sm {
     width: 100%;
   }
@@ -536,6 +540,30 @@
   top: 50%;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 
+  @include sm {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 200px;
+    border: none;
+    transform: translateX(0);
+    box-sizing: border-box;
+    padding: 24px 12px;
+  }
+
+  strong {
+    @include sm {
+      font-size: 16px;
+      font-weight: 500;
+      display: block;
+      border-bottom: 1px solid #d2d2d2;
+      padding-bottom: 12px;
+      line-height: 1.2em;
+    }
+  }
+
   &::before {
     content: "";
     position: absolute;
@@ -544,6 +572,10 @@
     border-color: transparent black transparent transparent;
     left: -10px;
     top: 10px;
+
+    @include sm {
+      content: none;
+    }
   }
   &::after {
     content: "";
@@ -553,6 +585,9 @@
     border-color: transparent #fff transparent transparent;
     left: -8px;
     top: 11px;
+    @include sm {
+      content: none;
+    }
   }
 
   .room-select {
@@ -566,8 +601,16 @@
       border-radius: 4px;
       transition: all 0.3s;
 
+      @include sm {
+        height: 40px;
+      }
+
       & + .room-button {
         margin-top: 4px;
+
+        @include sm {
+          margin-top: 8px;
+        }
       }
 
       &:hover {
