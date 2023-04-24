@@ -126,6 +126,7 @@
             border-radius: 12px;
             box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease 0s;
+            border: 1px solid #3a3a3a;
           }
           button:hover {
             background-color: #acacac;
@@ -143,10 +144,9 @@
   }
 }
 
-// @include sm {
-//   .reservation-detail-wrap {
-//     .section-wrap {
-//       width: 100%;
-//     }
-//   }
-// }
+@include sm {
+  .reservation-detail-wrap {
+    margin: 0 12px;
+    margin-top: $header-height;
+  }
+}

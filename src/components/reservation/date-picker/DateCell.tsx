@@ -83,20 +83,18 @@ function DateCell({
 
   useEffect(() => {
     if (startDate && selectedRoom !== null) {
-      const a = data.findIndex((e) => e.date === startDate.format("YYYY-MM-DD"));
       const roomNum = selectedRoom === "A" ? 0 : 1;
-
-      for (let i = a; i < data.length; i += 1) {
-        if (data[i].rooms[roomNum].reservationState) {
-          setCheckoutDate(() => dayjs(data[i].date));
-          break;
-        }
+      const index = data.findIndex((e) => e.date === startDate.format("YYYY-MM-DD"));
+      const reserved = data.slice(index).find(({ rooms }) => rooms[roomNum].reservationState);
+      if (reserved) {
+        setCheckoutDate(dayjs(reserved.date));
+      } else {
+        setCheckoutDate(null);
       }
     } else {
-      setCheckoutDate(() => null);
+      setCheckoutDate(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate]);
+  }, [data, selectedRoom, startDate]);
 
   const isPassed = dayjs() > dayjs(currentDate).set("date", day);
 
