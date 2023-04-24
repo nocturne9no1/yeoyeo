@@ -83,21 +83,16 @@ function DateCell({
 
   useEffect(() => {
     if (startDate && selectedRoom !== null) {
-      const a = data.findIndex((e) => e.date === startDate.format("YYYY-MM-DD"));
       const roomNum = selectedRoom === "A" ? 0 : 1;
-
-      try {
-        for (let i = a; i < data.length; i += 1) {
-          if (data[i].rooms[roomNum].reservationState) {
-            setCheckoutDate(() => dayjs(data[i].date));
-            break;
-          }
-        }
-      } catch {
-        // console.log("err", err);
+      const index = data.findIndex((e) => e.date === startDate.format("YYYY-MM-DD"));
+      const reserved = data.slice(index).find(({ rooms }) => rooms[roomNum].reservationState);
+      if (reserved) {
+        setCheckoutDate(dayjs(reserved.date));
+      } else {
+        setCheckoutDate(null);
       }
     } else {
-      setCheckoutDate(() => null);
+      setCheckoutDate(null);
     }
   }, [data, selectedRoom, startDate]);
 
