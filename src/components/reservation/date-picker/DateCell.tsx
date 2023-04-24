@@ -86,17 +86,20 @@ function DateCell({
       const a = data.findIndex((e) => e.date === startDate.format("YYYY-MM-DD"));
       const roomNum = selectedRoom === "A" ? 0 : 1;
 
-      for (let i = a; i < data.length; i += 1) {
-        if (data[i].rooms[roomNum].reservationState) {
-          setCheckoutDate(() => dayjs(data[i].date));
-          break;
+      try {
+        for (let i = a; i < data.length; i += 1) {
+          if (data[i].rooms[roomNum].reservationState) {
+            setCheckoutDate(() => dayjs(data[i].date));
+            break;
+          }
         }
+      } catch {
+        // console.log("err", err);
       }
     } else {
       setCheckoutDate(() => null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startDate]);
+  }, [data, selectedRoom, startDate]);
 
   const isPassed = dayjs() > dayjs(currentDate).set("date", day);
 
