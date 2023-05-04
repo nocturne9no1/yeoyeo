@@ -461,6 +461,22 @@
         display: flex;
         justify-content: space-between;
         margin-top: 8px;
+
+        &.has-middle {
+          justify-content: flex-start;
+          span {
+            &:nth-child(1) {
+              width: 40%;
+            }
+            &:nth-child(2) {
+              width: 30%;
+              text-align: right;
+            }
+            &:nth-child(3) {
+              margin-left: auto;
+            }
+          }
+        }
         span {
           font-size: 14px;
         }
