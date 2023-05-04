@@ -5,6 +5,8 @@ import DateCell from "./DateCell";
 function Calendar({
   startDate,
   endDate,
+  checkoutDate,
+  setCheckoutDate,
   currentDate,
   handleDateClick,
   data,
@@ -64,9 +66,11 @@ function Calendar({
                         handleDateClick={handleDateClick}
                         startDate={startDate}
                         endDate={endDate}
+                        checkoutDate={checkoutDate}
                         currentDate={currentDate}
                         selectedRoom={selectedRoom}
                         setSelectedRoom={setSelectedRoom}
+                        setCheckoutDate={setCheckoutDate}
                       />
                     );
                   }

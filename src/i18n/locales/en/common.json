@@ -69,5 +69,8 @@
       "desc": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque recusandae veniam alias amet laboriosam namsint eos corporis sunt rerum voluptate, deserunt molestiae sequi magnam accusamus quibusdam consequuntur esse vitae.",
       "buttonTitle": "Make Reservation"
     }
+  },
+  "reservation": {
+    "checkoutOnly": "Checkout Only"
   }
 }
