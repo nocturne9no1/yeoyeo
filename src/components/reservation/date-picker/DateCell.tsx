@@ -31,8 +31,8 @@ function DateCell({
   // TODO: useContext datePicker에 생성. Provider로 내려주기.
   const handleCellClick = () => {
     console.log("현재startDate", startDate, "현재CheckoutDate", checkoutDate);
-    if (startDate === null && cellData && selectedRoom === "A" && cellData[0].reservationState === 1) return;
-    if (startDate === null && cellData && selectedRoom === "B" && cellData[1].reservationState === 1) return;
+    if (startDate === null && cellData && selectedRoom === "여유" && cellData[0].reservationState === 1) return;
+    if (startDate === null && cellData && selectedRoom === "여행" && cellData[1].reservationState === 1) return;
     if (startDate === null && cellData && cellData[0].reservationState === 1 && cellData[1].reservationState === 1)
       return;
     console.log("a", isPastAsSelectedDate);
@@ -59,14 +59,14 @@ function DateCell({
       // 두 방 모두 예약된 경우 => startDate로 선택불가, 체크아웃만 가능
       if (cellData[0].reservationState === 1 && cellData[1].reservationState === 0) {
         handleDateClick(day, currentDate);
-        if (selectedRoom !== "A") {
+        if (selectedRoom !== "여유") {
           // 체크아웃으로 선택되지않을경우 => B로 선택
-          setSelectedRoom("B");
+          setSelectedRoom("여행");
         }
       } else if (cellData[0].reservationState === 0 && cellData[1].reservationState === 1) {
         handleDateClick(day, currentDate);
-        if (selectedRoom !== "B") {
-          setSelectedRoom("A");
+        if (selectedRoom !== "여행") {
+          setSelectedRoom("여유");
         }
       } else if (startDate !== null && cellData[0].reservationState === 1 && cellData[1].reservationState === 1) {
         handleDateClick(day, currentDate);
@@ -84,7 +84,7 @@ function DateCell({
   useEffect(() => {
     if (startDate && selectedRoom !== null) {
       const a = data.findIndex((e) => e.date === startDate.format("YYYY-MM-DD"));
-      const roomNum = selectedRoom === "A" ? 0 : 1;
+      const roomNum = selectedRoom === "여유" ? 0 : 1;
 
       for (let i = a; i < data.length; i += 1) {
         if (data[i].rooms[roomNum].reservationState) {
@@ -118,8 +118,8 @@ function DateCell({
 
         cellData && cellData[0].reservationState === 1 && cellData[1].reservationState === 1 && "checkout-only",
 
-        ((cellData && selectedRoom === "A" && cellData[0].reservationState === 1) ||
-          (cellData && selectedRoom === "B" && cellData[1].reservationState === 1)) &&
+        ((cellData && selectedRoom === "여유" && cellData[0].reservationState === 1) ||
+          (cellData && selectedRoom === "여행" && cellData[1].reservationState === 1)) &&
           !isPassed &&
           !isPastAsSelectedDate &&
           !isAfterAsSelectedDate &&
@@ -127,8 +127,8 @@ function DateCell({
 
         startDate &&
           !cellDate.isSame(checkoutDate, "date") &&
-          ((cellData && selectedRoom === "A" && cellData[0].reservationState === 1) ||
-            (cellData && selectedRoom === "B" && cellData[1].reservationState === 1)) &&
+          ((cellData && selectedRoom === "여유" && cellData[0].reservationState === 1) ||
+            (cellData && selectedRoom === "여행" && cellData[1].reservationState === 1)) &&
           cellData &&
           cellData[0].reservationState === 1 &&
           cellData[1].reservationState === 1 &&
@@ -146,15 +146,15 @@ function DateCell({
           {/* <div>{!data[day - 1] && data[day - 1].rooms[0].price}</div> */}
           <ul className={cn("room-list")}>
             {/* {selectedRoom} */}
-            {!isPassed && (selectedRoom === "A" || selectedRoom === null) && (
+            {!isPassed && (selectedRoom === "여유" || selectedRoom === null) && (
               <li className={cn("room-item", cellData[0].reservationState === 0 && "available")}>
-                <strong className={cn("room-name")}>A</strong>
+                <strong className={cn("room-name")}>여유</strong>
                 <span className={cn("price")}>{cellData[0].price / 10000}</span>
               </li>
             )}
-            {cellData[1].reservationState === 0 && !isPassed && (selectedRoom === "B" || selectedRoom === null) && (
+            {cellData[1].reservationState === 0 && !isPassed && (selectedRoom === "여행" || selectedRoom === null) && (
               <li className={cn("room-item", cellData[1].reservationState === 0 && "available")}>
-                <strong className={cn("room-name")}>B</strong>
+                <strong className={cn("room-name")}>여행</strong>
                 <span className={cn("price")}>{cellData[1].price / 10000}</span>
               </li>
             )}

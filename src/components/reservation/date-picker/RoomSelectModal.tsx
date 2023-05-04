@@ -41,25 +41,25 @@ function RoomSelectModal({ setSelectedRoom, setIsModal, handleCellClick }: RoomS
             type="button"
             className={cn("room-button")}
             onClick={() => {
-              setSelectedRoom("A");
+              setSelectedRoom("여유");
               setModal(false);
               setIsModal(false);
               handleCellClick();
             }}
           >
-            A
+            여유
           </button>
           <button
             type="button"
             className={cn("room-button")}
             onClick={() => {
-              setSelectedRoom("B");
+              setSelectedRoom("여행");
               setModal(false);
               setIsModal(false);
               handleCellClick();
             }}
           >
-            B
+            여행
           </button>
         </div>
       </div>

@@ -6,12 +6,11 @@ import useMediaQuery from "@hooks/useMediaQuery";
 
 import Calendar from "./Calendar";
 
-function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodData }: DatePickerProps) {
+function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodData, selectedRoom, setSelectedRoom, translation }: DatePickerProps) {
   const [currentDate, setCurrentDate] = useState(dayjs().set("date", 1));
   const [nextMonth, setNextMonth] = useState(dayjs(currentDate).add(1, "month"));
   const [roomMonthData, setRoomMonthData] = useState<MonthRoomData>({} as MonthRoomData);
   const [twoMonthsData, setTwoMonthsData] = useState<any>();
-  const [selectedRoom, setSelectedRoom] = useState<"A" | "B" | null>(null);
 
   const isDesktop = useMediaQuery("desktop");
 
@@ -40,7 +39,7 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
     if (startDate && endDate) {
       axios({
         method: "get",
-        url: `/dateroom/price/${selectedRoom !== null && selectedRoom === "A" ? 1 : 2}/${startDate.format(
+        url: `/dateroom/price/${selectedRoom !== null && selectedRoom === "여유" ? 1 : 2}/${startDate.format(
           "YYYYMMDD",
         )}/${endDate.format("YYYYMMDD")}`,
       }).then((res) => setPeriodData(res.data));
@@ -83,14 +82,14 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
   return (
     <div className={cn("date-picker-wrap")}>
       <button type="button" onClick={() => resetSelect()} className={cn("init-button")}>
-        초기화
+        {translation("datePicker.reset")}
       </button>
       <div className={cn("calendar-header")}>
         <button type="button" onClick={() => handlePrevMonth()}>
-          Prev
+          {translation("datePicker.prev")}
         </button>
         <button type="button" onClick={() => handleNextMonth()}>
-          Next
+          {translation("datePicker.next")}
         </button>
       </div>
       <div className={cn("calender-wrap")}>

@@ -10,8 +10,11 @@ import axios from "axios";
 import { useAtom } from "jotai";
 import modalStatus from "src/state/modalStatus";
 import Agreement from "@components/reservation/Agreement";
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
 
 function Reservation() {
+  const [selectedRoom, setSelectedRoom] = useState<"여유" | "여행" | null>(null);
   const [username, setUsername] = useState<string>("");
   const [userMobileNumber, setUserMobileNumber] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -27,6 +30,7 @@ function Reservation() {
 
   const [isModalMask, setIsModalMask] = useAtom(modalStatus);
   const reservationFormRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation("reservation");
 
   useEffect(() => {
     const clientTop = reservationFormRef.current?.getBoundingClientRect().top;
@@ -92,18 +96,20 @@ function Reservation() {
 
       /* 2. 결제 데이터 정의하기 */
       const data = {
-        pg: "nice",
-        // pg: "kakaopay"
+        pg: "tosspayments",
         pay_method: "card",
         merchant_uid: merchantUid, // 고유 주문번호 (날짜+방)
-        name: "여여 결제 테스트",
+        name: `한옥스테이 여여 - ${selectedRoom}`,
         amount: peopleNumber > 2 ? periodData.totalPrice + 30000 * periodData.period : periodData.totalPrice, // 결제금액
         buyer_email: email,
         buyer_name: username,
         buyer_tel: userMobileNumber,
-        // buyer_addr: "서울특별시 강남구 신사동",
-        // buyer_postcode: "01181",
         confirm_url: "https://api.yeoyeo.co.kr/payment/confirm",
+        bypass: {
+          tosspayments: {
+            useInternationalCardOnly: i18next.language === "en" // 영어 결제창 활성화
+          }
+        },
       };
 
       IMP.request_pay(data, callBack);
@@ -139,6 +145,7 @@ function Reservation() {
   }
 
   function validCheck() {
+    // return // 제거 예정
     if (formCompleted && agreementCompleted) {
       getReservationId();
     } else {
@@ -156,6 +163,9 @@ function Reservation() {
           setStartDate={setStartDate}
           setEndDate={setEndDate}
           setPeriodData={setPeriodData}
+          selectedRoom={selectedRoom}
+          setSelectedRoom={setSelectedRoom}
+          translation={t}
         />
         {startDate && endDate && (
           <>
@@ -172,6 +182,7 @@ function Reservation() {
                 requestedTerm={requestedTerm}
                 setRequestedTerm={setRequestedTerm}
                 setCanReserve={setFormCompleted}
+                translation={t}
               />
               <ReservationSidebar
                 startDate={startDate}
@@ -179,6 +190,8 @@ function Reservation() {
                 periodData={periodData}
                 peopleNumber={peopleNumber}
                 onClickPayment={() => validCheck()}
+                selectedRoom={selectedRoom}
+                translation={t}
               />
             </div>
             <Agreement setAgreementCompleted={setAgreementCompleted} />

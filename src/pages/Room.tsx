@@ -150,66 +150,6 @@ function Room() {
     }
   }, [selectedRoom, selectedSpace])
 
-  // 스크롤
-  // const useScroll = ()=>{
-  //   const [scrollY, setScrollY] = useState<number>(0);
-  //   const delay = 100; // 메모리 누출을 막기 위한 debounce delay
-
-  //   const listener = ()=>{
-  //     setScrollY(window.scrollY);
-  //   };
-  //   const keyListener = (e: KeyboardEvent)=>{
-  //     e.preventDefault();
-  //     if (scrollStartY < 100 && e.key === "ArrowDown") {
-  //       roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
-  //     }
-  //   };
-
-  //   useEffect(()=>{
-  //     window.addEventListener("scroll", debounce(listener, delay));
-  //     window.addEventListener("keydown", debounce(keyListener, delay));
-  //     return ()=>{
-  //       window.removeEventListener("scroll", listener);
-  //       window.removeEventListener("keydown", keyListener);
-  //     };
-  //   });
-
-  //   return { scrollY };
-  // }
-
-  // const { scrollY } = useScroll();
-
-  // useEffect(()=>{
-  //   if (introRef) {
-  //     introRef.current?.addEventListener("wheel", (e: WheelEvent)=>{
-  //       e.preventDefault();
-  //       const scrollDirection = e.screenY;
-  //       if (scrollDirection > 0) {
-  //         roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
-  //       }
-  //     })
-  //     setScrollStartY(window.scrollY);
-  //   }
-  // }, [scrollY, scrollStartY])
-
-  // 터치
-  // const handleTouchStart = (e: React.TouchEvent) => {
-  //   setTouchStartY(e.touches[0].clientY);
-  // };
-
-  // useEffect(()=>{
-  //   if (touchStartY) {
-  //     if (introRef) {
-  //       introRef.current?.addEventListener("touchstart", (e: TouchEvent)=>{
-  //         if (window.scrollY === 0) {
-  //           e.preventDefault();
-  //           roomSelectionRef.current?.scrollIntoView({ behavior: "smooth" });
-  //         }
-  //       })
-  //     }
-  //   }
-  // }, [touchStartY])
-
   const selectRoom = (room: string) => {
     const roomA = document.querySelector(".roomA-info");
     const roomB = document.querySelector(".roomB-info");

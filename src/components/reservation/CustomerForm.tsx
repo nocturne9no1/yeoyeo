@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import cn from "classnames";
+import { TFunction } from "i18next";
 
 import Input from "@components/common/Input";
 import InputForm from "@components/common/InputForm";
@@ -20,6 +21,7 @@ interface CustomerFormProps {
   requestedTerm: string;
   setRequestedTerm: (requestedTerm: string) => void;
   setCanReserve: (canReserve: boolean) => void;
+  translation: TFunction;
 }
 
 function CustomerForm({
@@ -34,6 +36,7 @@ function CustomerForm({
   requestedTerm,
   setRequestedTerm,
   setCanReserve,
+  translation
 }: CustomerFormProps) {
   const [userAuthNumber, setUserAuthNumber] = useState<string>("");
   const [authResultMsg, setAuthResultMsg] = useState<string>("");
@@ -49,6 +52,11 @@ function CustomerForm({
     const { value } = e.target;
     setUserAuthNumber(value);
   };
+  const autoRegExPhoneNumber = (inputValue: string) : string => {
+    if (inputValue.length > 8) return inputValue.replace(/[^0-9]/g,'').replace(/^(\d{3})(\d{4})(\d{1,4})$/,`$1-$2-$3`);
+    if (inputValue.length > 3) return inputValue.replace(/[^0-9]/g,'').replace(/^(\d{3})(\d{1,4})$/,`$1-$2`);
+    return inputValue.replace(/[^0-9]/g,'').replace(/^(\d{3})(\d{1,4})(\d{4})$/,`$1-$2-$3`);
+  }
 
   useEffect(() => {
     if (!validUsername.test(username)) return;
@@ -61,7 +69,7 @@ function CustomerForm({
   return (
     <div className={cn("customer-form-wrap")}>
       <Input
-        title="이름"
+        title={translation("form.name")}
         regEx={validUsername}
         placeholder="이름을 입력해주세요"
         inputValue={username}
@@ -69,14 +77,14 @@ function CustomerForm({
         errorText="영문이나 한글로만 작성해주세요."
       />
       <Input
-        title="이메일"
+        title={translation("form.email")}
         regEx={validEmail}
         placeholder="이메일을 입력해주세요"
         inputValue={email}
         setInputValue={setEmail}
         errorText="올바른 이메일 양식으로 작성해주세요."
       />
-      <InputForm title="연락처">
+      <InputForm title={translation("form.contact")}>
         {isBtnFocused ? (
           <div className={cn("mobile-input-wrap")}>
             <Input
@@ -85,6 +93,7 @@ function CustomerForm({
               placeholder=""
               inputValue={userMobileNumber}
               setInputValue={setUserMobileNumber}
+              autoRegEx={autoRegExPhoneNumber}
               errorText=""
               classnames="user-mobile-input disabled"
               disabled
@@ -130,7 +139,7 @@ function CustomerForm({
                   });
               }}
             >
-              인증확인
+              {translation("form.validateCode")}
             </button>
             <div className={cn("certification-result-msg")}>
               <span>{authResultMsg}</span>
@@ -141,9 +150,10 @@ function CustomerForm({
             <Input
               title=""
               regEx={validUserMobileNumber}
-              placeholder="000-0000-0000 형식으로 작성해주세요."
+              placeholder="000-0000-0000"
               inputValue={userMobileNumber}
               setInputValue={setUserMobileNumber}
+              autoRegEx={autoRegExPhoneNumber}
               errorText="번호가 올바르지 않습니다. 000-0000-0000 형식으로 작성해주세요."
               classnames="user-mobile-input"
               maxLength={13}
@@ -160,15 +170,15 @@ function CustomerForm({
               }}
               disabled={!validUserMobileNumber.test(userMobileNumber)}
             >
-              인증번호요청
+              {translation("form.requestCode")}
             </button>
           </div>
         )}
       </InputForm>
-      <InputForm title="인원">
+      <InputForm title={translation("form.count")}>
         <InputPeopleNumber peopleNumber={peopleNumber} setPeopleNumber={setPeopleNumber} />
       </InputForm>
-      <InputForm title="요청사항">
+      <InputForm title={translation("form.request")}>
         <div className={cn("text-area-wrap")}>
           <textarea
             cols={5}

@@ -1,7 +1,7 @@
-import test from "./test.json";
+import reservation from "./reservation.json";
 import common from "./common.json";
 
 export default {
-  test,
+  reservation,
   common,
 };
