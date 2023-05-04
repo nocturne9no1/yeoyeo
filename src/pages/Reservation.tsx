@@ -23,6 +23,7 @@ function Reservation() {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState<Dayjs | null>(null);
   const [endDate, setEndDate] = useState<Dayjs | null>(null);
+  const [checkoutDate, setCheckoutDate] = useState<any | null>(null);
   const [periodData, setPeriodData] = useState<PeriodDataType>({} as PeriodDataType);
 
   const [isModalMask, setIsModalMask] = useAtom(modalStatus);
@@ -153,6 +154,8 @@ function Reservation() {
         <DatePicker
           startDate={startDate}
           endDate={endDate}
+          checkoutDate={checkoutDate}
+          setCheckoutDate={setCheckoutDate}
           setStartDate={setStartDate}
           setEndDate={setEndDate}
           setPeriodData={setPeriodData}

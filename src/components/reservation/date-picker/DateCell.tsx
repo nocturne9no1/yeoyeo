@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import cn from "classnames";
 import dayjs from "dayjs";
 import { useAtom } from "jotai";
+import { useTranslation } from "react-i18next";
 import modalStatus from "src/state/modalStatus";
 
 import RoomSelectModal from "./RoomSelectModal";
@@ -13,6 +14,8 @@ function DateCell({
   handleDateClick,
   startDate,
   endDate,
+  checkoutDate,
+  setCheckoutDate,
   currentDate,
   selectedRoom,
   setSelectedRoom,
@@ -22,12 +25,11 @@ function DateCell({
 
   // const [canReserve, setCanReserve] = useState<boolean>(true);
   const cellDate = dayjs(currentDate).set("date", day);
-  const [checkoutDate, setCheckoutDate] = useState<any | null>(null);
 
   const isPastAsSelectedDate = dayjs() < cellDate && startDate && cellDate < startDate;
   const isAfterAsSelectedDate = endDate && cellDate > endDate;
   const afterCheckoutDate = checkoutDate !== null && checkoutDate.isBefore(cellDate, "date");
-
+  const { t } = useTranslation("common");
   // TODO: useContext datePicker에 생성. Provider로 내려주기.
   const handleCellClick = () => {
     console.log("현재startDate", startDate, "현재CheckoutDate", checkoutDate);
@@ -81,20 +83,41 @@ function DateCell({
     }
   }, [modalOpen]);
 
+  // useEffect(() => {
+  //   if (startDate && selectedRoom !== null) {
+  //     const roomNum = selectedRoom === "A" ? 0 : 1;
+  //     const index = data.findIndex((e) => e.date === startDate.format("YYYY-MM-DD"));
+  //     const reserved = data.slice(index).find(({ rooms }) => rooms[roomNum].reservationState);
+  //     if (reserved) {
+  //       setCheckoutDate(dayjs(reserved.date));
+  //     } else {
+  //       setCheckoutDate(null);
+  //     }
+  //   } else {
+  //     setCheckoutDate(null);
+  //   }
+  // }, [data, selectedRoom, startDate]);
+
   useEffect(() => {
-    if (startDate && selectedRoom !== null) {
+    if (data && startDate && selectedRoom !== null) {
+      const a = data.findIndex((e) => e.date === startDate.format("YYYY-MM-DD"));
       const roomNum = selectedRoom === "A" ? 0 : 1;
-      const index = data.findIndex((e) => e.date === startDate.format("YYYY-MM-DD"));
-      const reserved = data.slice(index).find(({ rooms }) => rooms[roomNum].reservationState);
-      if (reserved) {
-        setCheckoutDate(dayjs(reserved.date));
-      } else {
-        setCheckoutDate(null);
+
+      if (a !== -1) {
+        if (!checkoutDate) {
+          for (let i = a; i < data.length; i += 1) {
+            if (data[i].rooms[roomNum].reservationState) {
+              setCheckoutDate(dayjs(data[i].date));
+              break;
+            }
+          }
+        }
       }
     } else {
       setCheckoutDate(null);
     }
-  }, [data, selectedRoom, startDate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startDate, checkoutDate]);
 
   const isPassed = dayjs() > dayjs(currentDate).set("date", day);
 
@@ -121,7 +144,7 @@ function DateCell({
           !isPassed &&
           !isPastAsSelectedDate &&
           !isAfterAsSelectedDate &&
-          "checkout-only",
+          "checkout-only one-day-selected",
 
         startDate &&
           !cellDate.isSame(checkoutDate, "date") &&
@@ -139,6 +162,7 @@ function DateCell({
       )}
     >
       <div className={cn("day")}>{day}</div>
+      <span className={cn("tooltip-text")}>{t("reservation.checkoutOnly")}</span>
       {cellData && (
         <>
           {/* <div>{!data[day - 1] && data[day - 1].rooms[0].price}</div> */}

@@ -25,15 +25,19 @@ declare global {
     handleDateClick: (day: number, date: Dayjs) => void;
     startDate: Dayjs | null;
     endDate: Dayjs | null;
+    checkoutDate: any | null;
     currentDate: Dayjs;
     selectedRoom: "A" | "B" | null;
     setSelectedRoom: (selectedRoom: "A" | "B") => void;
+    setCheckoutDate: (checkoutDate: any | null) => void;
   }
   interface CalendarProps {
     startDate: Dayjs | null;
     endDate: Dayjs | null;
+    checkoutDate: any | null;
     setStartDate: (startDate: Dayjs | null) => void;
     setEndDate: (endDate: Dayjs | null) => void;
+    setCheckoutDate: (checkoutDate: any | null) => void;
     data: MonthRoomDataItem[];
     twoMonthsData: MonthRoomDataItem[];
     currentDate: Dayjs;
@@ -63,9 +67,11 @@ declare global {
   interface DatePickerProps {
     startDate: Dayjs | null;
     endDate: Dayjs | null;
+    checkoutDate: any | null;
     setStartDate: (startDate: Dayjs | null) => void;
     setEndDate: (endDate: Dayjs | null) => void;
     setPeriodData: (periodData: PeriodDataType) => void;
+    setCheckoutDate: (checkoutDate: any | null) => void;
   }
 }
 

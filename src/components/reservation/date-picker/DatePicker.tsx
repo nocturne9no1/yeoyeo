@@ -6,7 +6,15 @@ import useMediaQuery from "@hooks/useMediaQuery";
 
 import Calendar from "./Calendar";
 
-function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodData }: DatePickerProps) {
+function DatePicker({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  setPeriodData,
+  checkoutDate,
+  setCheckoutDate,
+}: DatePickerProps) {
   const [currentDate, setCurrentDate] = useState(dayjs().set("date", 1));
   const [nextMonth, setNextMonth] = useState(dayjs(currentDate).add(1, "month"));
   const [roomMonthData, setRoomMonthData] = useState<MonthRoomData>({} as MonthRoomData);
@@ -97,8 +105,10 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
         <Calendar
           startDate={startDate}
           endDate={endDate}
+          checkoutDate={checkoutDate}
           setStartDate={setStartDate}
           setEndDate={setEndDate}
+          setCheckoutDate={setCheckoutDate}
           data={roomMonthData?.month}
           twoMonthsData={twoMonthsData}
           currentDate={currentDate}
@@ -110,8 +120,10 @@ function DatePicker({ startDate, setStartDate, endDate, setEndDate, setPeriodDat
           <Calendar
             startDate={startDate}
             endDate={endDate}
+            checkoutDate={checkoutDate}
             setStartDate={setStartDate}
             setEndDate={setEndDate}
+            setCheckoutDate={setCheckoutDate}
             data={roomMonthData?.nextMonth}
             twoMonthsData={twoMonthsData}
             currentDate={nextMonth}
