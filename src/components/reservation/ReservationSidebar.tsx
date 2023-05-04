@@ -1,6 +1,7 @@
 import InputForm from "@components/common/InputForm";
 // import axios from "axios";
 import cn from "classnames";
+import i18next, { TFunction } from "i18next";
 import dayjs, { Dayjs } from "dayjs";
 import "dayjs/locale/ko";
 import ReservationInfo from "./ReservationInfo";
@@ -11,26 +12,30 @@ interface ReservationSidebarProps {
   periodData: PeriodDataType;
   peopleNumber: number;
   onClickPayment: () => void;
+  selectedRoom: "여유" | "여행" | null;
+  translation: TFunction;
 }
 // const dayOftheWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
-function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onClickPayment }: ReservationSidebarProps) {
+function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onClickPayment, selectedRoom, translation }: ReservationSidebarProps) {
   dayjs.locale("ko");
   const tmpStartDate = dayjs(startDate).format(`YYYY년 MM월 DD일(ddd)`);
   const tmpEndDate = dayjs(endDate).format(`YYYY년 MM월 DD일(ddd)`);
 
   return (
     <div className={cn("reservation-sidebar-wrap")}>
-      <strong style={{ fontSize: 24, fontWeight: 600 }}>방A, 방A의 이름</strong>
+      <strong style={{ fontSize: 24, fontWeight: 600 }}>한옥스테이 여여 - 「{selectedRoom}」</strong>
 
-      <InputForm title="예약날짜">
+      <InputForm title={translation("sidebar.date")}>
         <div className={cn("reservation-info-box")}>
-          <ReservationInfo left="체크인" right={tmpStartDate} />
-          <ReservationInfo left="체크아웃" right={tmpEndDate} />
+          <ReservationInfo left={translation("sidebar.checkIn")} right={tmpStartDate} />
+          <ReservationInfo left={translation("sidebar.checkOut")} right={tmpEndDate} />
           <div className={cn("border-line")} />
-          <ReservationInfo left="숙박기간" right={`총 ${periodData.period}박 ${periodData.period + 1}일`} isLast />
+          <ReservationInfo left={translation("sidebar.period")}
+          right={i18next.language === "en"?`${periodData.period} night${periodData.period>1?'s':''} ${periodData.period + 1} days`
+          :`${periodData.period}박 ${periodData.period + 1}일`} isLast />
         </div>
       </InputForm>
-      <InputForm title="요금">
+      <InputForm title={translation("sidebar.price")}>
         <div className={cn("reservation-info-box")}>
           {/* <ReservationInfo
             left="주중"
@@ -43,15 +48,15 @@ function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onCl
             right={`+ ${(weekEndPrice * 1).toLocaleString()}원`}
           /> */}
           <ReservationInfo
-            left="정상가(부가세포함)"
-            middle={`${periodData.originalPrice?.toLocaleString()}원`}
-            right={`+ ${periodData.originalPrice?.toLocaleString()}원`}
+            left={translation("sidebar.regularPrice")}
+            middle={`${periodData.originalPrice?.toLocaleString()}${i18next.language === "en"?' Won':'원'}`}
+            right={`+ ${periodData.originalPrice?.toLocaleString()}${i18next.language === "en"?' Won':'원'}`}
           />
           {peopleNumber > 2 && (
             <ReservationInfo
-              left="추가금(인원추가)"
-              middle={`30,000원 * ${periodData.period?.toLocaleString()}`}
-              right={`+ ${(30000 * periodData.period)?.toLocaleString()}원`}
+              left={translation("sidebar.additionalCharge")}
+              middle={`30,000${i18next.language === "en"?' Won':'원'} * ${periodData.period?.toLocaleString()}`}
+              right={`+ ${(30000 * periodData.period)?.toLocaleString()}${i18next.language === "en"?' Won':'원'}`}
             />
           )}
           {/* <ReservationInfo
@@ -60,17 +65,17 @@ function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onCl
             right={`+ ${(periodData.totalPrice * 0.1)?.toLocaleString()}원`}
           /> */}
           <ReservationInfo
-            left="연박할인"
-            middle={`${periodData.period >= 2 ? `20,000원 * ${(periodData.period - 1)?.toLocaleString()}` : "-"}`}
-            right={`${periodData.period >= 2 ? `- ${periodData.discountedPrice?.toLocaleString()}원` : "-"}`}
+            left={translation("sidebar.discount")}
+            middle={`${periodData.period >= 2 ? `20,000${i18next.language === "en"?' Won':'원'} * ${(periodData.period - 1)?.toLocaleString()}` : "-"}`}
+            right={`${periodData.period >= 2 ? `- ${periodData.discountedPrice?.toLocaleString()}${i18next.language === "en"?' Won':'원'}` : "-"}`}
           />
           <div className={cn("border-line")} />
           <ReservationInfo
-            left="총액"
+            left={translation("sidebar.totalPrice")}
             right={
               peopleNumber > 2
-                ? `총 ${(periodData.totalPrice + 30000 * periodData.period)?.toLocaleString()}원`
-                : `총 ${periodData.totalPrice?.toLocaleString()}원`
+                ? `${(periodData.totalPrice + 30000 * periodData.period)?.toLocaleString()}${i18next.language === "en"?' Won':'원'}`
+                : `${periodData.totalPrice?.toLocaleString()}${i18next.language === "en"?' Won':'원'}`
             }
             isLast
           />
@@ -78,7 +83,7 @@ function ReservationSidebar({ startDate, endDate, periodData, peopleNumber, onCl
       </InputForm>
 
       <button type="button" className={cn("reservation-button")} onClick={() => onClickPayment()}>
-        예약하기
+        {translation("sidebar.reserve")}
       </button>
     </div>
   );

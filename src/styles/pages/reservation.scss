@@ -197,7 +197,9 @@
             .room-list {
               .room-name {
                 display: inline-block;
-                width: 20px;
+                // width: 40px;
+                margin-right: 5px;
+                margin-top: 3px;
               }
               .price {
                 font-size: 12px;
