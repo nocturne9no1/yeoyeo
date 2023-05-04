@@ -44,46 +44,19 @@ function Reservation() {
   }, [periodData]);
 
   function callBack(response: any) {
-    const {
-      success,
-      // merchant_uid,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      error_msg,
-    } = response;
-
-    if (success) {
-      alert("결제 성공");
-      // const postData = {
-      //   dateRoomId: "string",
-      //   email: response.buyer_email,
-      //   guestCount: peopleNumber,
-      //   imp_uid: response.imp_uid,
-      //   merchant_uid: response.merchant_uid,
-      //   name: response.buyer_name,
-      //   phoneNumber: response.buyer_tel,
-      //   request: "string",
-      // };
-      // // {
-      // //   "imp_uid": "string",
-      // //   "merchant_uid": 0
-      // // }
-      // console.log(postData);
-      navigate("/intro");
-
-      // TODO: 결제 성공 요청 이후 서버에 결제 정보 검증 요청
-      axios({
-        method: "post",
-        url: "/payment/pay",
-        data: {
-          imp_uid: response.imp_uid,
-          merchant_uid: response.merchant_uid,
-        },
+    axios({
+      method: "post",
+      url: "/payment/pay",
+      data: {
+        imp_uid: response.imp_uid,
+        merchant_uid: response.merchant_uid,
+      },
+    })
+      .then(() => {
+        console.log("예약이 완료되었습니다.")
+        navigate("/intro");
       })
-        .then(() => console.log("결제 ㄹㅇ 완료"))
-        .catch(() => console.log("아직 끝난게아님"));
-    } else {
-      alert(`결제 실패: ${error_msg}`);
-    }
+      .catch(() => console.log("서버 전송 결과에 문제가 있습니다."));
   }
 
   // TODO : 결제모듈 열기전
