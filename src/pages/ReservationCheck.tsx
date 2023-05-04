@@ -11,6 +11,12 @@ function ReservationCheck() {
   const [reservationNumber, setReservationNumber] = useState<string>("");
   const [isInputAllValid, setIsInputAllValid] = useState<boolean>(false);
 
+  const autoRegExPhoneNumber = (inputValue: string) : string => {
+    if (inputValue.length > 8) return inputValue.replace(/[^0-9]/g,'').replace(/^(\d{3})(\d{4})(\d{1,4})$/,`$1-$2-$3`);
+    if (inputValue.length > 3) return inputValue.replace(/[^0-9]/g,'').replace(/^(\d{3})(\d{1,4})$/,`$1-$2`);
+    return inputValue.replace(/[^0-9]/g,'').replace(/^(\d{3})(\d{1,4})(\d{4})$/,`$1-$2-$3`);
+  }
+
   useEffect(() => {
     if (validUserMobileNumber.test(userMobileNumber) && validReservationNumberPatter.test(reservationNumber)) {
       setIsInputAllValid(true);
@@ -54,9 +60,10 @@ function ReservationCheck() {
             <Input
               title="핸드폰번호"
               regEx={validUserMobileNumber}
-              placeholder="000-0000-0000 형식으로 작성해주세요."
+              placeholder="000-0000-0000"
               inputValue={userMobileNumber}
               setInputValue={setUserMobileNumber}
+              autoRegEx={autoRegExPhoneNumber}
               errorText="번호가 올바르지 않습니다. 000-0000-0000 형식으로 작성해주세요."
               //   classnames="user-mobile-input"
               maxLength={13}
