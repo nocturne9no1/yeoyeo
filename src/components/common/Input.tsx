@@ -3,7 +3,7 @@ import cn from "classnames";
 import debounce from "lodash/debounce";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
-  title?: string;
+  title: string;
   regEx?: RegExp;
   placeholder?: string;
   inputValue: string;
@@ -12,9 +12,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement>{
   errorText?: string;
   classnames?: string;
   maxLength?: number;
+  autoRegEx?: (inputValue: string) => string;
 }
 
-function Input({ title, regEx, placeholder, inputValue, setInputValue, disabled, errorText, classnames, maxLength, type }: InputProps) {
+function Input({ title, regEx, placeholder, inputValue, setInputValue, disabled, errorText, classnames, maxLength, autoRegEx, type }: InputProps) {
   const [isError, setIsError] = useState<boolean>(false);
 
   const validInput = (text: string) => {
@@ -25,7 +26,10 @@ function Input({ title, regEx, placeholder, inputValue, setInputValue, disabled,
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+    let { value } = e.target;
+    if (autoRegEx) {
+      value = autoRegEx(value);
+    }
     setInputValue(value);
     debounce(() => {
       validInput(value);

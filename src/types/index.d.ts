@@ -1,4 +1,5 @@
 import { Dayjs } from "dayjs";
+import { TFunction } from "i18next";
 
 declare global {
   interface MonthRoomData {
@@ -26,8 +27,8 @@ declare global {
     startDate: Dayjs | null;
     endDate: Dayjs | null;
     currentDate: Dayjs;
-    selectedRoom: "A" | "B" | null;
-    setSelectedRoom: (selectedRoom: "A" | "B") => void;
+    selectedRoom: "여유" | "여행" | null;
+    setSelectedRoom: (selectedRoom: "여유" | "여행") => void;
   }
   interface CalendarProps {
     startDate: Dayjs | null;
@@ -38,12 +39,12 @@ declare global {
     twoMonthsData: MonthRoomDataItem[];
     currentDate: Dayjs;
     handleDateClick: (day: number, date: Dayjs) => void;
-    selectedRoom: "A" | "B" | null;
-    setSelectedRoom: (selectedRoom: "A" | "B") => void;
+    selectedRoom: "여유" | "여행" | null;
+    setSelectedRoom: (selectedRoom: "여유" | "여행") => void;
   }
 
   interface RoomSelectModalProps {
-    setSelectedRoom: (selectedRoom: "A" | "B") => void;
+    setSelectedRoom: (selectedRoom: "여유" | "여행") => void;
     setIsModal: (isModal: boolean) => void;
     handleCellClick: () => void;
   }
@@ -66,6 +67,13 @@ declare global {
     setStartDate: (startDate: Dayjs | null) => void;
     setEndDate: (endDate: Dayjs | null) => void;
     setPeriodData: (periodData: PeriodDataType) => void;
+    selectedRoom: "여유" | "여행" | null;
+    setSelectedRoom: (selectedRoom: "여유" | "여행" | null) => void;
+    translation: TFunction;
+  }
+
+  interface LinkSelectModalProps {
+    setIsModal: (isModal: boolean) => void;
   }
 }
 
