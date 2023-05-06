@@ -72,6 +72,7 @@
     }
   },
   "reservation": {
-    "checkoutOnly": "Checkout Only"
+    "checkoutOnly": "Checkout Only",
+    "notAvailable": "Not Available"
   }
 }

@@ -137,7 +137,7 @@ function DateCell({
         isPastAsSelectedDate && "passed-date",
         isAfterAsSelectedDate && "passed-date",
 
-        cellData && cellData[0].reservationState === 1 && cellData[1].reservationState === 1 && "checkout-only",
+        cellData && cellData[0].reservationState === 1 && cellData[1].reservationState === 1 && "notAvailable",
 
         ((cellData && selectedRoom === "여유" && cellData[0].reservationState === 1) ||
           (cellData && selectedRoom === "여행" && cellData[1].reservationState === 1)) &&
@@ -162,7 +162,8 @@ function DateCell({
       )}
     >
       <div className={cn("day")}>{day}</div>
-      <span className={cn("tooltip-text")}>{t("reservation.checkoutOnly")}</span>
+      <span className={cn("tooltip-text-a")}>{t("reservation.checkoutOnly")}</span>
+      <span className={cn("tooltip-text-b")}>{t("reservation.notAvailable")}</span>
       {cellData && (
         <>
           {/* <div>{!data[day - 1] && data[day - 1].rooms[0].price}</div> */}

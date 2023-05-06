@@ -54,7 +54,7 @@ function Reservation() {
     })
     .then(() => {
       alert("예약이 완료되었습니다.")
-      navigate("/intro");
+      navigate(`/reservation/success/${response.merchant_uid}`);
     })
     .catch(() => console.log("서버 전송 결과에 문제가 있습니다."));
   }
@@ -81,6 +81,7 @@ function Reservation() {
         buyer_tel: userMobileNumber,
         currency: 'KRW',
         locale: i18next.language,
+        m_redirect_url: `https://yeoyeo.co.kr/reservation/success/${merchantUid}`,
         confirm_url: "https://api.yeoyeo.co.kr/payment/confirm",
         bypass: {
           tosspayments: {

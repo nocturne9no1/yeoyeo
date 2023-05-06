@@ -235,7 +235,7 @@ function Agreement({ setAgreementCompleted }: AgreementProps) {
             <div className={cn("agreement-content")}>
               <div className={cn("event-alarm")}>
                 <ul>
-                  <li>한옥 스테이 여여의 혜택 및 프로모션, 이벤트 소식 구독</li>
+                  <li>한옥스테이 여여의 혜택 및 프로모션, 이벤트 소식 구독</li>
                 </ul>
               </div>
             </div>

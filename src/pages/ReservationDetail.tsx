@@ -54,13 +54,13 @@ function ReservationDetail() {
               <div className={cn("content__schedule-content check-in")}>
                 <strong>체크인</strong>
                 <span className={cn("date")}>{state.state.startDate}</span>
-                <span className={cn("time")}>오후 2:00</span>
+                <span className={cn("time")}>오후 3:00</span>
               </div>
               <div className={cn("content-contour")} />
               <div className={cn("content__schedule-content check-out")}>
                 <strong>체크아웃</strong>
                 <span className={cn("date")}>{state.state.startDate}</span>
-                <span className={cn("time")}>오전 10:00</span>
+                <span className={cn("time")}>오전 11:00</span>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ function ReservationDetail() {
               <div className={cn("content")}>
                 <strong>환불정책</strong>
                 <span>
-                  {dayjs(state.state.startDate).subtract(10, "day").format("MM/DD")} 오후 2:00 전에 취소하면 환불을
+                  {dayjs(state.state.startDate).subtract(10, "day").format("MM/DD")} 전에 취소하면 전액 환불을
                   받으실 수 있습니다. 그 이후에는 취소 시점에 따라 환불액이 결정됩니다.{" "}
                 </span>
                 <div className={cn("button-wrap")}>
