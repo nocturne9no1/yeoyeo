@@ -52,11 +52,11 @@ function Reservation() {
         merchant_uid: response.merchant_uid,
       },
     })
-      .then(() => {
-        console.log("예약이 완료되었습니다.")
-        navigate("/intro");
-      })
-      .catch(() => console.log("서버 전송 결과에 문제가 있습니다."));
+    .then(() => {
+      alert("예약이 완료되었습니다.")
+      navigate("/intro");
+    })
+    .catch(() => console.log("서버 전송 결과에 문제가 있습니다."));
   }
 
   // TODO : 결제모듈 열기전
@@ -71,13 +71,16 @@ function Reservation() {
       /* 2. 결제 데이터 정의하기 */
       const data = {
         pg: "tosspayments",
-        pay_method: "card",
         merchant_uid: merchantUid, // 고유 주문번호 (날짜+방)
         name: `한옥스테이 여여 - ${selectedRoom}`,
+        pay_method: "card",
+        escrow: false,
         amount: peopleNumber > 2 ? periodData.totalPrice + 30000 * periodData.period : periodData.totalPrice, // 결제금액
-        buyer_email: email,
         buyer_name: username,
+        buyer_email: email,
         buyer_tel: userMobileNumber,
+        currency: 'KRW',
+        locale: i18next.language,
         confirm_url: "https://api.yeoyeo.co.kr/payment/confirm",
         bypass: {
           tosspayments: {
