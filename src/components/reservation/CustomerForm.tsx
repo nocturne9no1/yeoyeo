@@ -83,6 +83,7 @@ function CustomerForm({
         inputValue={email}
         setInputValue={setEmail}
         errorText="올바른 이메일 양식으로 작성해주세요."
+        type="email"
       />
       <InputForm title={translation("form.contact")}>
         {isBtnFocused ? (
@@ -106,6 +107,7 @@ function CustomerForm({
                 onChange={(e) => handleAuthNumber(e)}
                 placeholder="인증번호"
                 maxLength={6}
+                type="number"
               />
               {!isAuthorized && (
                 <Timer setAuthResultMsg={setAuthResultMsg} isAuthorized={isAuthorized} setIsTimeOut={setIsTimeOut} />
@@ -157,6 +159,7 @@ function CustomerForm({
               errorText="번호가 올바르지 않습니다. 000-0000-0000 형식으로 작성해주세요."
               classnames="user-mobile-input"
               maxLength={13}
+              type="tel"
             />
             <button
               type="button"
