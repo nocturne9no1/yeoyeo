@@ -267,6 +267,14 @@
       &.disabled {
         color: #d6d6d6;
         width: 133px;
+        
+        @include sm {
+          width: 100%;
+        }
+      }
+        
+      @include sm {
+        width: 100%;
       }
     }
     .user-auth-number-wrap {
@@ -280,6 +288,10 @@
       border-radius: 4px;
       padding: 8px 12px;
       box-sizing: border-box;
+
+      @include sm {
+        width: 100%;
+      }
       input {
         padding: 0;
         margin: 0;
@@ -301,6 +313,11 @@
       gap: 8px;
       align-items: flex-start;
       margin-top: 8px;
+
+      @include sm {
+        flex-direction: column;
+      }
+
       input {
         margin-top: 0;
         font-size: 16px;
@@ -342,6 +359,10 @@
       border-radius: 4px;
       // width: 120px;
       // margin-top: 8px;
+
+      @include sm {
+        float: right;
+      }
     }
     .certification-check-button {
       border: 1px solid #202020;
@@ -350,6 +371,10 @@
       width: 120px;
       height: 42px;
       transition: background-color 1s;
+
+      @include sm {
+        width: 100%;
+      }
     }
     .certification-result-msg {
       align-items: center;
@@ -408,6 +433,10 @@
         border-left: none;
         border-right: none;
         text-align: center;
+
+        @include sm {
+          width: 100%;
+        }
       }
     }
 

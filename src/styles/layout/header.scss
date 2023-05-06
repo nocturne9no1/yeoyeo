@@ -67,6 +67,10 @@
     will-change: transform;
     padding: 20px;
 
+    @include sm {
+      width: 90%;
+    }
+
     .btn-wrap {
       display: flex;
       justify-content: flex-end;
