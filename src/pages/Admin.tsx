@@ -1,5 +1,13 @@
+import AdminCalendar from "@components/admin/AdminCalendar";
+import Table from "@components/admin/Table";
+
 function Admin() {
-  return <div>Admin</div>;
+  return (
+    <>
+      <AdminCalendar />
+      <Table />
+    </>
+  );
 }
 
 export default Admin;

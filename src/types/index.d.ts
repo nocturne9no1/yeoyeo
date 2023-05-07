@@ -81,6 +81,15 @@ declare global {
   interface LinkSelectModalProps {
     setIsModal: (isModal: boolean) => void;
   }
+
+  interface CellRenderInfo {
+    originNode: React.ReactElement;
+    today: any;
+    range?: "start" | "end" | undefined;
+    type: any;
+    locale?: any;
+    subType?: "hour" | "minute" | "second" | "meridiem" | undefined;
+  }
 }
 
 declare global {

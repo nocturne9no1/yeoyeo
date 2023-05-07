@@ -1,7 +1,10 @@
 import { Button, Form, Input } from "antd";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 function App() {
+  const [, setCookie] = useCookies(["admin"]);
+
   const onFinish = (values: any) => {
     axios({
       method: "post",
@@ -15,7 +18,7 @@ function App() {
       },
     })
       .then((res) => {
-        console.log("header", res, res.headers);
+        setCookie("admin", res.data, { path: "/admin" });
       })
       .catch((error) => console.log("error", error));
   };
