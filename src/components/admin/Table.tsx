@@ -2,8 +2,8 @@ import { CellRenderInfo } from "rc-picker/lib/interface";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import type { BadgeProps } from "antd";
-import { Badge, Calendar } from "antd";
-import { getReservations } from "./AdminApi";
+import { Badge, Calendar, Button, InputNumber } from "antd";
+import { getReservations, updatePrice, updateReservation } from "./AdminApi";
 
 interface Reservation {
   checkInDate: string;
@@ -19,6 +19,9 @@ interface CalendarData {
 function Table() {
   const [datas, setDatas] = useState([{ data: [{} as Reservation] }]);
   const [month, setMonth] = useState(dayjs().month());
+  const [price, setPrice] = useState<number>(235000);
+  const [priceType, setPriceType] = useState<number>(0);
+  const [selectedDate, setSelectedDate] = useState(dayjs());
   useEffect(() => {
     getReservations().then((reservations) => setDatas(reservations));
   }, []);
@@ -105,6 +108,15 @@ function Table() {
     );
   };
 
+  const onSelect = (value: Dayjs) => {
+    setSelectedDate(value);
+  };
+
+  const updateReservationYeoYou = (value: Dayjs) => {
+    const date = { year: dayjs(value).year(), month: dayjs(value).month() + 1, day: dayjs(value).date() };
+    updateReservation(date, 1).then((res) => console.log("update", res));
+  };
+
   const onPanelChange = (current: Dayjs, mode: string) => {
     if (mode === "month") {
       const selectedMonth = current.month();
@@ -118,7 +130,74 @@ function Table() {
     return info.originNode;
   };
 
-  return <Calendar cellRender={cellRender} onPanelChange={onPanelChange} />;
+  const priceOnChange = (value: any) => {
+    setPrice(value);
+  };
+
+  const priceTypeOnChange = (value: any) => {
+    setPriceType(value);
+  };
+
+  const zero = "0";
+  const one = "1";
+  const two = "2";
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+      <Calendar cellRender={cellRender} onPanelChange={onPanelChange} onSelect={onSelect} />
+      <Button
+        type="default"
+        onClick={() => {
+          updateReservationYeoYou(selectedDate);
+        }}
+      >
+        여유 예약 update
+      </Button>
+      <InputNumber min={1} max={10000000} defaultValue={235000} onChange={priceOnChange} />
+      <InputNumber min={0} max={4} defaultValue={0} onChange={priceTypeOnChange} />
+
+      <Button
+        type="default"
+        onClick={() => {
+          // TODO: INPUT 박스 start, end 추가해 배열로 쉽게 받기
+          updatePrice(
+            [
+              dayjs(selectedDate).year().toString() +
+                (dayjs(selectedDate).month() + 1 < 10
+                  ? zero + (dayjs(selectedDate).month() + 1).toString()
+                  : (dayjs(selectedDate).month() + 1).toString()) +
+                dayjs(selectedDate).date().toString() +
+                one,
+            ],
+            price,
+            priceType,
+          );
+        }}
+      >
+        여유 가격 update
+      </Button>
+      <Button
+        type="default"
+        onClick={() => {
+          // TODO: INPUT 박스 start, end 추가해 배열로 쉽게 받기
+          updatePrice(
+            [
+              dayjs(selectedDate).year().toString() +
+                (dayjs(selectedDate).month() + 1 < 10
+                  ? zero + (dayjs(selectedDate).month() + 1).toString()
+                  : (dayjs(selectedDate).month() + 1).toString()) +
+                dayjs(selectedDate).date().toString() +
+                two,
+            ],
+            price,
+            priceType,
+          );
+        }}
+      >
+        여유 가격 update
+      </Button>
+    </div>
+  );
 }
 
 export default Table;

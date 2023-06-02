@@ -28,7 +28,7 @@ export const deletePayment = async (i: number) => {
   return res;
 };
 
-interface Date {
+export interface Date {
   year: number;
   month: number;
   day: number;
@@ -37,7 +37,13 @@ interface Date {
 export const updateReservation = async (date: Date, roomId: number) => {
   const res = axios({
     method: "post",
-    url: `/admin/dateroom/${date.year}/${date.month}/${date.day}/${roomId}`,
+    url: `/admin/dateroom`,
+    data: {
+      year: date.year,
+      month: date.month,
+      day: date.day,
+      roomId,
+    },
   });
   return res;
 };

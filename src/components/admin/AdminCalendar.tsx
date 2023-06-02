@@ -61,7 +61,6 @@ function AdminCalendar() {
         url: `/dateroom/price/1/${startDate.format("YYYYMMDD")}/${endDate.format("YYYYMMDD")}`,
       }).then((res) => {
         setPeriodData(res.data);
-        console.log("inside res", res.data);
       });
     }
   }, [startDate, endDate, setPeriodData]);

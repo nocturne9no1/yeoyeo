@@ -24,7 +24,9 @@
   },
   "rules": {
     "react/require-default-props": 0,
-    "import/no-extraneous-dependencies": 0
+    "import/no-extraneous-dependencies": 0,
+    "react/button-has-type": "off"
   },
+
   "plugins": ["react", "@typescript-eslint", "react-hooks", "jsx-a11y", "import"]
 }
