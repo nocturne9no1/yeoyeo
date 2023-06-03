@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import type { BadgeProps } from "antd";
 import { Badge, Calendar, Button, InputNumber } from "antd";
-import { getReservations, updatePrice, updateReservation } from "./AdminApi";
+import { getReservations, updatePrice } from "./AdminApi";
 
 interface Reservation {
   checkInDate: string;
@@ -112,10 +112,10 @@ function Table() {
     setSelectedDate(value);
   };
 
-  const updateReservationYeoYou = (value: Dayjs) => {
-    const date = { year: dayjs(value).year(), month: dayjs(value).month() + 1, day: dayjs(value).date() };
-    updateReservation(date, 1).then((res) => console.log("update", res));
-  };
+  // const updateReservationYeoYou = (value: Dayjs) => {
+  //   const date = { year: dayjs(value).year(), month: dayjs(value).month() + 1, day: dayjs(value).date() };
+  //   updateReservation(date, 1).then((res) => console.log("update", res));
+  // };
 
   const onPanelChange = (current: Dayjs, mode: string) => {
     if (mode === "month") {
@@ -145,17 +145,14 @@ function Table() {
   return (
     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
       <Calendar cellRender={cellRender} onPanelChange={onPanelChange} onSelect={onSelect} />
-      <Button
-        type="default"
-        onClick={() => {
-          updateReservationYeoYou(selectedDate);
-        }}
-      >
-        여유 예약 update
-      </Button>
-      <InputNumber min={1} max={10000000} defaultValue={235000} onChange={priceOnChange} />
-      <InputNumber min={0} max={4} defaultValue={0} onChange={priceTypeOnChange} />
-
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <span>가격을 입력해주세요</span>
+        <InputNumber min={1} max={10000000} defaultValue={235000} onChange={priceOnChange} />
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <span>price Type - 0 : 직접 설정, 1 : 주중, 2 : 주말, 3 : 성수기 주중, 4 : 성수기 주말</span>
+        <InputNumber min={0} max={4} defaultValue={0} onChange={priceTypeOnChange} />
+      </div>
       <Button
         type="default"
         onClick={() => {
@@ -194,7 +191,7 @@ function Table() {
           );
         }}
       >
-        여유 가격 update
+        여여 가격 update
       </Button>
     </div>
   );
