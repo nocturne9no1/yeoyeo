@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import type { BadgeProps } from "antd";
 import { Badge, Calendar, Button, InputNumber } from "antd";
-import { getReservations, updatePrice } from "./AdminApi";
+import { getReservations, updatePrice, updateStatus } from "./AdminApi";
 
 interface Reservation {
   checkInDate: string;
@@ -21,6 +21,7 @@ function Table() {
   const [month, setMonth] = useState(dayjs().month());
   const [price, setPrice] = useState<number>(235000);
   const [priceType, setPriceType] = useState<number>(0);
+  const [status, setStatus] = useState<number>(0);
   const [selectedDate, setSelectedDate] = useState(dayjs());
   useEffect(() => {
     getReservations().then((reservations) => setDatas(reservations));
@@ -126,7 +127,6 @@ function Table() {
 
   const cellRender = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
     if (info.type === "date") return dateCellRender(current);
-    // if (info.type === "month") return monthCellRender(current);
     return info.originNode;
   };
 
@@ -136,6 +136,10 @@ function Table() {
 
   const priceTypeOnChange = (value: any) => {
     setPriceType(value);
+  };
+
+  const statusOnChange = (value: any) => {
+    setStatus(value);
   };
 
   const zero = "0";
@@ -191,7 +195,50 @@ function Table() {
           );
         }}
       >
-        여여 가격 update
+        여행 가격 update
+      </Button>
+
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <span>status를 입력해주세요. 0 : 예약 가능, 1 : 예약 완료</span>
+        <InputNumber min={0} max={1} defaultValue={0} onChange={statusOnChange} />
+      </div>
+      <Button
+        type="default"
+        onClick={() => {
+          // TODO: INPUT 박스 start, end 추가해 배열로 쉽게 받기
+          updateStatus(
+            [
+              dayjs(selectedDate).year().toString() +
+                (dayjs(selectedDate).month() + 1 < 10
+                  ? zero + (dayjs(selectedDate).month() + 1).toString()
+                  : (dayjs(selectedDate).month() + 1).toString()) +
+                dayjs(selectedDate).date().toString() +
+                one,
+            ],
+            status,
+          );
+        }}
+      >
+        여유 status update
+      </Button>
+      <Button
+        type="default"
+        onClick={() => {
+          // TODO: INPUT 박스 start, end 추가해 배열로 쉽게 받기
+          updateStatus(
+            [
+              dayjs(selectedDate).year().toString() +
+                (dayjs(selectedDate).month() + 1 < 10
+                  ? zero + (dayjs(selectedDate).month() + 1).toString()
+                  : (dayjs(selectedDate).month() + 1).toString()) +
+                dayjs(selectedDate).date().toString() +
+                two,
+            ],
+            status,
+          );
+        }}
+      >
+        여행 status update
       </Button>
     </div>
   );
