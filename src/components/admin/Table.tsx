@@ -3,12 +3,13 @@ import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import type { BadgeProps } from "antd";
 import { Badge, Calendar, Button, InputNumber } from "antd";
-import { getReservations, updatePrice, updateStatus } from "./AdminApi";
+import { getReservations, updatePrice, updateStatus, deletePayment, deleteReservation } from "./AdminApi";
 
 interface Reservation {
   checkInDate: string;
   roomName: string;
   reservationState: number;
+  reservationId?: number;
 }
 
 interface CalendarData {
@@ -18,14 +19,22 @@ interface CalendarData {
 
 function Table() {
   const [datas, setDatas] = useState([{ data: [{} as Reservation] }]);
+  const [pickedDate, setPickedDate] = useState([{} as Reservation]);
+  const [pickedReservationId, setPickedReservationId] = useState<number>(0);
   const [month, setMonth] = useState(dayjs().month());
   const [price, setPrice] = useState<number>(235000);
   const [priceType, setPriceType] = useState<number>(0);
   const [status, setStatus] = useState<number>(0);
+  const [, setRoomName] = useState<string>("여행");
   const [selectedDate, setSelectedDate] = useState(dayjs());
   useEffect(() => {
     getReservations().then((reservations) => setDatas(reservations));
   }, []);
+
+  const dash = "-";
+  const zero = "0";
+  const one = "1";
+  const two = "2";
 
   const getCurrentMonthDates = (reservations: Reservation[]): Reservation[] =>
     reservations.filter((data) => dayjs(data.checkInDate).month() === month);
@@ -47,6 +56,7 @@ function Table() {
       return acc;
     }, []);
 
+  // 환불 처리 - 숙박 예정, 예약 취소 - 숙박 예정
   const getBadgeState = (data: Reservation) => {
     const states = ["미결제", "숙박 예정", "예약 취소", "환불 완료"];
     const space = "";
@@ -80,6 +90,8 @@ function Table() {
     return getReservationState(dayUniqueDates);
   };
 
+  // reservationId, roomName (여행 1, 여유 2), checkInDate
+
   // const getMonthData = (value: Dayjs) => {
   //   if (value.month() === 8) {
   //     return 1394;
@@ -110,13 +122,18 @@ function Table() {
   };
 
   const onSelect = (value: Dayjs) => {
+    const checkedDate =
+      dayjs(value).year().toString() +
+      dash +
+      (dayjs(value).month() + 1 < 10
+        ? zero + (dayjs(value).month() + 1).toString()
+        : (dayjs(value).month() + 1).toString()) +
+      dash +
+      (dayjs(value).month() + 1 < 10 ? zero + dayjs(value).date().toString() : dayjs(value).date().toString());
+    const ans = datas[1].data.filter((reservation) => reservation.checkInDate === checkedDate);
+    setPickedDate(ans);
     setSelectedDate(value);
   };
-
-  // const updateReservationYeoYou = (value: Dayjs) => {
-  //   const date = { year: dayjs(value).year(), month: dayjs(value).month() + 1, day: dayjs(value).date() };
-  //   updateReservation(date, 1).then((res) => console.log("update", res));
-  // };
 
   const onPanelChange = (current: Dayjs, mode: string) => {
     if (mode === "month") {
@@ -142,9 +159,27 @@ function Table() {
     setStatus(value);
   };
 
-  const zero = "0";
-  const one = "1";
-  const two = "2";
+  const roomNameOnChange = (value: any) => {
+    if (value === 1) setRoomName("여행");
+    if (value === 2) setRoomName("여유");
+    const pickedDateRoomName = pickedDate.map((date) => {
+      let roomValue;
+
+      if (date.roomName === "여행") {
+        roomValue = 1;
+      } else {
+        roomValue = 2;
+      }
+
+      return { ...date, roomValue };
+    });
+    console.log("new1", pickedDateRoomName);
+
+    // pickedDate.filter((i) => console.log("iiii", i));
+    const ans = pickedDateRoomName.filter((i) => i.roomValue === value);
+    console.log("ans", ans);
+    setPickedReservationId(ans[0].reservationId || 0);
+  };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
@@ -239,6 +274,28 @@ function Table() {
         }}
       >
         여행 status update
+      </Button>
+
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <span>환불 및 예약 취소 처리 1: 여행 2: 여유</span>
+        <InputNumber min={0} max={2} defaultValue={0} onChange={roomNameOnChange} />
+      </div>
+      <Button
+        type="default"
+        onClick={() => {
+          deletePayment(pickedReservationId);
+        }}
+      >
+        환불 처리
+      </Button>
+
+      <Button
+        type="default"
+        onClick={() => {
+          deleteReservation(pickedReservationId);
+        }}
+      >
+        예약 취소
       </Button>
     </div>
   );
