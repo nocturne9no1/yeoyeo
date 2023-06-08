@@ -2,7 +2,7 @@ import { CellRenderInfo } from "rc-picker/lib/interface";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import type { BadgeProps } from "antd";
-import { Badge, Calendar, Button, InputNumber } from "antd";
+import { Badge, Calendar, Button, InputNumber, Modal } from "antd";
 import { getReservations, updatePrice, updateStatus, deletePayment, deleteReservation } from "./AdminApi";
 
 interface Reservation {
@@ -27,6 +27,7 @@ function Table() {
   const [status, setStatus] = useState<number>(0);
   const [, setRoomName] = useState<string>("여행");
   const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     getReservations().then((reservations) => setDatas(reservations));
   }, []);
@@ -121,20 +122,6 @@ function Table() {
     );
   };
 
-  const onSelect = (value: Dayjs) => {
-    const checkedDate =
-      dayjs(value).year().toString() +
-      dash +
-      (dayjs(value).month() + 1 < 10
-        ? zero + (dayjs(value).month() + 1).toString()
-        : (dayjs(value).month() + 1).toString()) +
-      dash +
-      (dayjs(value).month() + 1 < 10 ? zero + dayjs(value).date().toString() : dayjs(value).date().toString());
-    const ans = datas[1].data.filter((reservation) => reservation.checkInDate === checkedDate);
-    setPickedDate(ans);
-    setSelectedDate(value);
-  };
-
   const onPanelChange = (current: Dayjs, mode: string) => {
     if (mode === "month") {
       const selectedMonth = current.month();
@@ -181,9 +168,43 @@ function Table() {
     setPickedReservationId(ans[0].reservationId || 0);
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const cancelModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const okModal = () => {
+    console.log(selectedDate);
+    setIsModalOpen(false);
+  };
+
+  const onSelect = (value: Dayjs) => {
+    const checkedDate =
+      dayjs(value).year().toString() +
+      dash +
+      (dayjs(value).month() + 1 < 10
+        ? zero + (dayjs(value).month() + 1).toString()
+        : (dayjs(value).month() + 1).toString()) +
+      dash +
+      (dayjs(value).month() + 1 < 10 ? zero + dayjs(value).date().toString() : dayjs(value).date().toString());
+    const ans = datas[1].data.filter((reservation) => reservation.checkInDate === checkedDate);
+    setPickedDate(ans);
+    setSelectedDate(value);
+    openModal();
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-      <div style={{ width: "80%", height: "80%", marginTop: "120px" }}>
+      <div
+        style={{
+          width: "80%",
+          height: "80%",
+          marginTop: "120px",
+        }}
+      >
         <Calendar cellRender={cellRender} onPanelChange={onPanelChange} onSelect={onSelect} />
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <span>가격을 입력해주세요</span>
@@ -298,6 +319,12 @@ function Table() {
         >
           예약 취소
         </Button>
+
+        <Modal title="방 가격/상태 수정" open={isModalOpen} onOk={okModal} onCancel={cancelModal}>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal>
       </div>
     </div>
   );
