@@ -2,7 +2,7 @@ import { CellRenderInfo } from "rc-picker/lib/interface";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import type { BadgeProps } from "antd";
-import { Badge, Calendar, Button, InputNumber, Modal } from "antd";
+import { Badge, Calendar, Button, InputNumber, Modal, Radio, Space } from "antd";
 import { getReservations, updatePrice, updateStatus, deletePayment, deleteReservation } from "./AdminApi";
 
 interface Reservation {
@@ -19,13 +19,14 @@ interface CalendarData {
 
 function Table() {
   const [datas, setDatas] = useState([{ data: [{} as Reservation] }]);
-  const [pickedDate, setPickedDate] = useState([{} as Reservation]);
-  const [pickedReservationId, setPickedReservationId] = useState<number>(0);
+  const [, setPickedDate] = useState([{} as Reservation]);
+  const [pickedReservationId] = useState<number>(0);
   const [month, setMonth] = useState(dayjs().month());
   const [price, setPrice] = useState<number>(235000);
-  const [priceType, setPriceType] = useState<number>(0);
+  const [priceType, setPriceType] = useState<number>(1);
   const [status, setStatus] = useState<number>(0);
-  const [, setRoomName] = useState<string>("여행");
+  // 여유: 1, 여행: 2
+  const [roomName, setRoomName] = useState<number>(1);
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
@@ -34,8 +35,6 @@ function Table() {
 
   const dash = "-";
   const zero = "0";
-  const one = "1";
-  const two = "2";
 
   const getCurrentMonthDates = (reservations: Reservation[]): Reservation[] =>
     reservations.filter((data) => dayjs(data.checkInDate).month() === month);
@@ -139,34 +138,35 @@ function Table() {
   };
 
   const priceTypeOnChange = (value: any) => {
-    setPriceType(value);
+    setPriceType(value.target.value);
   };
 
   const statusOnChange = (value: any) => {
-    setStatus(value);
+    setStatus(value.target.value);
   };
 
-  const roomNameOnChange = (value: any) => {
-    if (value === 1) setRoomName("여행");
-    if (value === 2) setRoomName("여유");
-    const pickedDateRoomName = pickedDate.map((date) => {
-      let roomValue;
-
-      if (date.roomName === "여행") {
-        roomValue = 1;
-      } else {
-        roomValue = 2;
-      }
-
-      return { ...date, roomValue };
-    });
-    console.log("new1", pickedDateRoomName);
-
-    // pickedDate.filter((i) => console.log("iiii", i));
-    const ans = pickedDateRoomName.filter((i) => i.roomValue === value);
-    console.log("ans", ans);
-    setPickedReservationId(ans[0].reservationId || 0);
+  const roomTypeOnChange = (value: any) => {
+    console.log(value.target.value);
+    setRoomName(value.target.value);
   };
+
+  // const roomNameOnChange = (value: any) => {
+  //   const pickedDateRoomName = pickedDate.map((date) => {
+  //     let roomValue;
+
+  //     if (date.roomName === "여행") {
+  //       roomValue = 1;
+  //     } else {
+  //       roomValue = 2;
+  //     }
+
+  //     return { ...date, roomValue };
+  //   });
+
+  //   const ans = pickedDateRoomName.filter((i) => i.roomValue === value);
+  //   console.log("ans", ans);
+  //   setPickedReservationId(ans[0].reservationId || 0);
+  // };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -179,7 +179,43 @@ function Table() {
   const okModal = () => {
     console.log(selectedDate);
     setIsModalOpen(false);
+    // update price
+    updatePrice(
+      [
+        dayjs(selectedDate).year().toString() +
+          (dayjs(selectedDate).month() + 1 < 10
+            ? zero + (dayjs(selectedDate).month() + 1).toString()
+            : (dayjs(selectedDate).month() + 1).toString()) +
+          dayjs(selectedDate).date().toString() +
+          roomName.toString(),
+      ],
+      price,
+      priceType,
+    );
+    updateStatus(
+      [
+        dayjs(selectedDate).year().toString() +
+          (dayjs(selectedDate).month() + 1 < 10
+            ? zero + (dayjs(selectedDate).month() + 1).toString()
+            : (dayjs(selectedDate).month() + 1).toString()) +
+          dayjs(selectedDate).date().toString() +
+          roomName.toString(),
+      ],
+      status,
+    );
   };
+
+  // const onChangeStatusRadio = (e: RadioChangeEvent) => {
+  //   console.log("radio checked", e.target.value);
+  //   console.log("status", status);
+  //   // setStatus(e.target.value)
+  // };
+
+  // const onChangePriceRadio = (e: RadioChangeEvent) => {
+  //   console.log("radio checked", e.target.value);
+  //   console.log("price", price);
+  //   // setPrice(e.target.value);
+  // };
 
   const onSelect = (value: Dayjs) => {
     const checkedDate =
@@ -197,16 +233,18 @@ function Table() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
       <div
         style={{
           width: "80%",
           height: "80%",
-          marginTop: "120px",
+          marginTop: "200px",
+          display: "flex",
+          position: "relative",
         }}
       >
         <Calendar cellRender={cellRender} onPanelChange={onPanelChange} onSelect={onSelect} />
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        {/* <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <span>가격을 입력해주세요</span>
           <InputNumber min={1} max={10000000} defaultValue={235000} onChange={priceOnChange} />
         </div>
@@ -296,34 +334,60 @@ function Table() {
           }}
         >
           여행 status update
-        </Button>
+        </Button> */}
 
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        {/* <div style={{ display: "flex" }}>
           <span>환불 및 예약 취소 처리 1: 여행 2: 여유</span>
           <InputNumber min={0} max={2} defaultValue={0} onChange={roomNameOnChange} />
-        </div>
-        <Button
-          type="default"
-          onClick={() => {
-            deletePayment(pickedReservationId);
-          }}
-        >
-          환불 처리
-        </Button>
+        </div> */}
+        <div style={{ display: "flex", position: "absolute", left: "490px", top: "-30px" }}>
+          <Button
+            type="default"
+            style={{ marginRight: "5px" }}
+            onClick={() => {
+              deletePayment(pickedReservationId);
+            }}
+          >
+            환불 처리
+          </Button>
 
-        <Button
-          type="default"
-          onClick={() => {
-            deleteReservation(pickedReservationId);
-          }}
-        >
-          예약 취소
-        </Button>
+          <Button
+            type="default"
+            onClick={() => {
+              deleteReservation(pickedReservationId);
+            }}
+          >
+            예약 취소
+          </Button>
+        </div>
 
         <Modal title="방 가격/상태 수정" open={isModalOpen} onOk={okModal} onCancel={cancelModal}>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
+          <div>
+            <Radio.Group onChange={priceTypeOnChange} value={priceType}>
+              <Space direction="vertical">
+                <Radio value={1}>비수기 주중</Radio>
+                <Radio value={2}>비수기 주말</Radio>
+                <Radio value={3}>성수기 주중</Radio>
+                <Radio value={4}>성수기 주말</Radio>
+                <Radio value={5}>
+                  가격 직접 수정{"  "}
+                  <InputNumber min={0} max={1000000} defaultValue={250000} onChange={priceOnChange} />
+                </Radio>
+              </Space>
+            </Radio.Group>
+            <Radio.Group onChange={statusOnChange} value={status}>
+              <Space direction="vertical">
+                <Radio value={0}>예약 가능</Radio>
+                <Radio value={1}>예약 완료</Radio>
+              </Space>
+            </Radio.Group>
+            <Radio.Group onChange={roomTypeOnChange} value={roomName}>
+              <Space direction="vertical">
+                <Radio value={1}>여유</Radio>
+                <Radio value={2}>여행</Radio>
+              </Space>
+            </Radio.Group>
+          </div>
         </Modal>
       </div>
     </div>
