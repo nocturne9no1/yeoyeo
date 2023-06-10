@@ -19,8 +19,8 @@ interface CalendarData {
 
 function Table() {
   const [datas, setDatas] = useState([{ data: [{} as Reservation] }]);
-  const [, setPickedDate] = useState([{} as Reservation]);
-  const [pickedReservationId] = useState<number>(0);
+  const [pickedDate, setPickedDate] = useState([{} as Reservation]);
+  const [pickedReservationId, setPickedReservationId] = useState<number>(0);
   const [month, setMonth] = useState(dayjs().month());
   const [price, setPrice] = useState<number>(235000);
   const [priceType, setPriceType] = useState<number>(1);
@@ -31,8 +31,9 @@ function Table() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     getReservations().then((reservations) => setDatas(reservations));
-  }, []);
+  }, [selectedDate, roomName]);
 
+  const roomNameStr = roomName === 1 ? "여유" : "여행";
   const dash = "-";
   const zero = "0";
 
@@ -146,27 +147,10 @@ function Table() {
   };
 
   const roomTypeOnChange = (value: any) => {
-    console.log(value.target.value);
     setRoomName(value.target.value);
+    const ans = pickedDate.filter((i) => i.roomName === roomNameStr);
+    if (ans.length) setPickedReservationId(ans[0].reservationId || 0);
   };
-
-  // const roomNameOnChange = (value: any) => {
-  //   const pickedDateRoomName = pickedDate.map((date) => {
-  //     let roomValue;
-
-  //     if (date.roomName === "여행") {
-  //       roomValue = 1;
-  //     } else {
-  //       roomValue = 2;
-  //     }
-
-  //     return { ...date, roomValue };
-  //   });
-
-  //   const ans = pickedDateRoomName.filter((i) => i.roomValue === value);
-  //   console.log("ans", ans);
-  //   setPickedReservationId(ans[0].reservationId || 0);
-  // };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -179,7 +163,6 @@ function Table() {
   const okModal = () => {
     console.log(selectedDate);
     setIsModalOpen(false);
-    // update price
     updatePrice(
       [
         dayjs(selectedDate).year().toString() +
@@ -205,18 +188,6 @@ function Table() {
     );
   };
 
-  // const onChangeStatusRadio = (e: RadioChangeEvent) => {
-  //   console.log("radio checked", e.target.value);
-  //   console.log("status", status);
-  //   // setStatus(e.target.value)
-  // };
-
-  // const onChangePriceRadio = (e: RadioChangeEvent) => {
-  //   console.log("radio checked", e.target.value);
-  //   console.log("price", price);
-  //   // setPrice(e.target.value);
-  // };
-
   const onSelect = (value: Dayjs) => {
     const checkedDate =
       dayjs(value).year().toString() +
@@ -225,7 +196,7 @@ function Table() {
         ? zero + (dayjs(value).month() + 1).toString()
         : (dayjs(value).month() + 1).toString()) +
       dash +
-      (dayjs(value).month() + 1 < 10 ? zero + dayjs(value).date().toString() : dayjs(value).date().toString());
+      (dayjs(value).date() + 1 < 10 ? zero + dayjs(value).date().toString() : dayjs(value).date().toString());
     const ans = datas[1].data.filter((reservation) => reservation.checkInDate === checkedDate);
     setPickedDate(ans);
     setSelectedDate(value);
@@ -244,35 +215,41 @@ function Table() {
           position: "relative",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button
-            type="default"
-            style={{ marginRight: "5px" }}
-            onClick={() => {
-              deletePayment(pickedReservationId);
-            }}
-          >
-            환불 처리
-          </Button>
-
-          <Button
-            type="default"
-            onClick={() => {
-              deleteReservation(pickedReservationId);
-            }}
-          >
-            예약 취소
-          </Button>
-        </div>
         <Calendar cellRender={cellRender} onPanelChange={onPanelChange} onSelect={onSelect} />
-
-        {/* <div style={{ display: "flex" }}>
-          <span>환불 및 예약 취소 처리 1: 여행 2: 여유</span>
-          <InputNumber min={0} max={2} defaultValue={0} onChange={roomNameOnChange} />
-        </div> */}
-        {/* <div style={{ display: "flex", position: "absolute", right: "5%", top: "-30px" }}> */}
-
-        <Modal title="방 가격/상태 수정" open={isModalOpen} onOk={okModal} onCancel={cancelModal}>
+        <Modal
+          title="방 가격/상태 수정"
+          open={isModalOpen}
+          onOk={okModal}
+          onCancel={cancelModal}
+          footer={[
+            <Button key="back" onClick={cancelModal}>
+              취소
+            </Button>,
+            <Button key="submit" type="primary" onClick={okModal}>
+              <span style={{ color: "white" }}>가격/상태 수정</span>
+            </Button>,
+            <Button
+              danger
+              key="refund"
+              onClick={() => {
+                deletePayment(pickedReservationId);
+              }}
+              disabled={!pickedDate.some((date) => date.roomName === roomNameStr)}
+            >
+              <span style={{ color: "red" }}>환불</span>
+            </Button>,
+            <Button
+              danger
+              key="cancel"
+              onClick={() => {
+                deleteReservation(pickedReservationId);
+              }}
+              disabled={!pickedDate.some((date) => date.roomName === roomNameStr)}
+            >
+              <span style={{ color: "red" }}>예약 취소</span>
+            </Button>,
+          ]}
+        >
           <div>
             <Radio.Group onChange={priceTypeOnChange} value={priceType}>
               <Space direction="vertical">
