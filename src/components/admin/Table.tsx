@@ -240,107 +240,11 @@ function Table() {
           height: "80%",
           marginTop: "200px",
           display: "flex",
+          flexDirection: "column",
           position: "relative",
         }}
       >
-        <Calendar cellRender={cellRender} onPanelChange={onPanelChange} onSelect={onSelect} />
-        {/* <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <span>가격을 입력해주세요</span>
-          <InputNumber min={1} max={10000000} defaultValue={235000} onChange={priceOnChange} />
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <span>price Type - 0 : 직접 설정, 1 : 주중, 2 : 주말, 3 : 성수기 주중, 4 : 성수기 주말</span>
-          <InputNumber min={0} max={4} defaultValue={0} onChange={priceTypeOnChange} />
-        </div>
-        <Button
-          type="default"
-          onClick={() => {
-            // TODO: INPUT 박스 start, end 추가해 배열로 쉽게 받기
-            updatePrice(
-              [
-                dayjs(selectedDate).year().toString() +
-                  (dayjs(selectedDate).month() + 1 < 10
-                    ? zero + (dayjs(selectedDate).month() + 1).toString()
-                    : (dayjs(selectedDate).month() + 1).toString()) +
-                  dayjs(selectedDate).date().toString() +
-                  one,
-              ],
-              price,
-              priceType,
-            );
-          }}
-        >
-          여유 가격 update
-        </Button>
-        <Button
-          type="default"
-          onClick={() => {
-            // TODO: INPUT 박스 start, end 추가해 배열로 쉽게 받기
-            updatePrice(
-              [
-                dayjs(selectedDate).year().toString() +
-                  (dayjs(selectedDate).month() + 1 < 10
-                    ? zero + (dayjs(selectedDate).month() + 1).toString()
-                    : (dayjs(selectedDate).month() + 1).toString()) +
-                  dayjs(selectedDate).date().toString() +
-                  two,
-              ],
-              price,
-              priceType,
-            );
-          }}
-        >
-          여행 가격 update
-        </Button>
-
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <span>status를 입력해주세요. 0 : 예약 가능, 1 : 예약 완료</span>
-          <InputNumber min={0} max={1} defaultValue={0} onChange={statusOnChange} />
-        </div>
-        <Button
-          type="default"
-          onClick={() => {
-            // TODO: INPUT 박스 start, end 추가해 배열로 쉽게 받기
-            updateStatus(
-              [
-                dayjs(selectedDate).year().toString() +
-                  (dayjs(selectedDate).month() + 1 < 10
-                    ? zero + (dayjs(selectedDate).month() + 1).toString()
-                    : (dayjs(selectedDate).month() + 1).toString()) +
-                  dayjs(selectedDate).date().toString() +
-                  one,
-              ],
-              status,
-            );
-          }}
-        >
-          여유 status update
-        </Button>
-        <Button
-          type="default"
-          onClick={() => {
-            // TODO: INPUT 박스 start, end 추가해 배열로 쉽게 받기
-            updateStatus(
-              [
-                dayjs(selectedDate).year().toString() +
-                  (dayjs(selectedDate).month() + 1 < 10
-                    ? zero + (dayjs(selectedDate).month() + 1).toString()
-                    : (dayjs(selectedDate).month() + 1).toString()) +
-                  dayjs(selectedDate).date().toString() +
-                  two,
-              ],
-              status,
-            );
-          }}
-        >
-          여행 status update
-        </Button> */}
-
-        {/* <div style={{ display: "flex" }}>
-          <span>환불 및 예약 취소 처리 1: 여행 2: 여유</span>
-          <InputNumber min={0} max={2} defaultValue={0} onChange={roomNameOnChange} />
-        </div> */}
-        <div style={{ display: "flex", position: "absolute", left: "490px", top: "-30px" }}>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             type="default"
             style={{ marginRight: "5px" }}
@@ -360,6 +264,13 @@ function Table() {
             예약 취소
           </Button>
         </div>
+        <Calendar cellRender={cellRender} onPanelChange={onPanelChange} onSelect={onSelect} />
+
+        {/* <div style={{ display: "flex" }}>
+          <span>환불 및 예약 취소 처리 1: 여행 2: 여유</span>
+          <InputNumber min={0} max={2} defaultValue={0} onChange={roomNameOnChange} />
+        </div> */}
+        {/* <div style={{ display: "flex", position: "absolute", right: "5%", top: "-30px" }}> */}
 
         <Modal title="방 가격/상태 수정" open={isModalOpen} onOk={okModal} onCancel={cancelModal}>
           <div>
