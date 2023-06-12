@@ -159,10 +159,12 @@ function Table() {
 
   const cancelModal = () => {
     setIsModalOpen(false);
+    setPriceType(1);
+    setStatus(0);
+    setRoomName(1);
   };
 
   const okModal = () => {
-    console.log(selectedDate);
     setIsModalOpen(false);
     updatePrice(
       [
@@ -187,6 +189,9 @@ function Table() {
       ],
       status,
     );
+    setPriceType(1);
+    setStatus(0);
+    setRoomName(1);
   };
 
   const onSelect = (value: Dayjs) => {
@@ -234,6 +239,9 @@ function Table() {
               key="refund"
               onClick={() => {
                 deletePayment(pickedReservationId);
+                setPriceType(1);
+                setStatus(0);
+                setRoomName(1);
               }}
               disabled={!pickedDate.some((date) => date.roomName === roomNameStr)}
             >
@@ -244,6 +252,9 @@ function Table() {
               key="cancel"
               onClick={() => {
                 deleteReservation(pickedReservationId);
+                setPriceType(1);
+                setStatus(0);
+                setRoomName(1);
               }}
               disabled={!pickedDate.some((date) => date.roomName === roomNameStr)}
             >
