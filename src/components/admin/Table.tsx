@@ -130,6 +130,7 @@ function Table() {
   };
 
   const cellRender = (current: Dayjs, info: CellRenderInfo<Dayjs>) => {
+    if (month !== dayjs(current).month()) return "";
     if (info.type === "date") return dateCellRender(current);
     return info.originNode;
   };
